@@ -1,12 +1,15 @@
 from random import randint
+
+from lxml import etree
 from xml2rfc.uniscripts import which_scripts
 from xml2rfc.util.fonts import get_noto_serif_family_for_script
+
 
 DRAFT_HEAD = """<?xml version="1.0" encoding="utf-8"?>
 
 <rfc ipr="trust200902" docName="draft-rathnayake-xml2rfc-unicode-00" category="exp" submissionType="independent" tocInclude="true" sortRefs="true" symRefs="true">
   <front>
-    <title abbrev="xml2rfc-unicode">Unicode characters supported by xml2rfc for publication</title>
+    <title abbrev="xml2rfc-unicode">Experiment with Unicode characters in xml2rfc</title>
     <author initials="K." surname="Nanayakkara Rathnayake" asciiFullname="Kesara Nanayakkara Rathnayake" fullname="&#3482;&#3545;&#3523;&#3515; &#3505;&#3535;&#3505;&#3535;&#3514;&#3482;&#3530;&#3482;&#3535;&#3515; &#3515;&#3501;&#3530;&#3505;&#3535;&#3514;&#3482;">
       <organization>IETF Administration LLC</organization>
       <address>
@@ -18,20 +21,83 @@ DRAFT_HEAD = """<?xml version="1.0" encoding="utf-8"?>
     </author>
     <date year="2023" month="March" day="07"/>
     <abstract>
-      <t>This draft lists all Unicode characters that is ready to published without
-xml2rfc too.</t>
+      <t>This draft is an experiment to explore what happens when various Unicode characters are on an Internet-Draft and how xml2rfc handles that.</t>
     </abstract>
   </front>
   <middle>
     <section anchor="introduction">
       <name>Introduction</name>
-      <t>The xml2rfc supports Unicode but there are publishing limitation due to the
-fonts. The xml2rfc has support for the all Unicode that belongs to the scripts
-range and limited support for symbols and punctuation.</t>
-    </section>"""
+      <t>Non-ASCII characters are allowed in RFCs under several restrictions. See <xref target="RFC7997" />.</t>
+      <t>Some XML2RFC elements allow the use of bare Unicode and other elements can make use of <tt>&gt;u&lt;</tt> element. See <xref target="RFC7991" />.</t>
+      <t>Various non-Latin Unicode characters can be an issue in RFC publications. Especially generating PDF format of the document. This is because the correct font has to be identified and included in the PDF file. This is done by the xml2rfc too. See <xref target="xml2rfc" />.</t>
+      <t>xml2rfc maintains its own list of Unicode script blocks. Depending on which script is used, xml2rfc matches the correct Noto font.</t>
+      <t>This document is an experiment on when Unicode characters from different blocks are included in an Internet-Draft.</t>
+    </section>
+    <section>
+      <name>Methodology</name>
+      <t>The Unicode characters blocks are identified using <xref target="unicode-blocks" />.</t>
+      <t>This random printable character from each block is chosen. The xml2rfc is used as an API to identify which script blocks are assigned to that character and predicted font names. xml2rfc might predict a non-existing font. These are the instances where xml2rfc might leak non-standard fonts to generated PDF files.</t>
+    </section>
+    <section>
+      <name>Unicode code blocks</name>
+    """
 
-DRAFT_TAIL = """  </middle>
+
+DRAFT_TAIL = """    </section>
+  </middle>
   <back>
+    <references>
+      <name>Informative References</name>
+      <reference anchor="RFC7997" target="https://www.rfc-editor.org/info/rfc7997">
+        <front>
+          <title>The Use of Non-ASCII Characters in RFCs</title>
+          <author fullname="H. Flanagan" initials="H." role="editor" surname="Flanagan"/>
+          <date month="December" year="2016"/>
+          <abstract>
+            <t>
+              In order to support the internationalization of protocols and a more diverse Internet community, the RFC Series must evolve to allow for the use of non-ASCII characters in RFCs. While English remains the required language of the Series, the encoding of future RFCs will be in UTF-8, allowing for a broader range of characters than typically used in the English language. This document describes the RFC Editor requirements and gives guidance regarding the use of non-ASCII characters in RFCs.
+            </t>
+            <t>
+              This document updates RFC 7322. Please view this document in PDF form to see the full text.
+            </t>
+          </abstract>
+        </front>
+        <seriesInfo name="RFC" value="7997"/>
+        <seriesInfo name="DOI" value="10.17487/RFC7997"/>
+      </reference>
+      <reference anchor="RFC7991" target="https://www.rfc-editor.org/info/rfc7991">
+        <front>
+          <title>The "xml2rfc" Version 3 Vocabulary</title>
+          <author fullname="P. Hoffman" initials="P." surname="Hoffman"/>
+          <date month="December" year="2016"/>
+          <abstract>
+            <t>
+              This document defines the "xml2rfc" version 3 vocabulary: an XML-based language used for writing RFCs and Internet-Drafts. It is heavily derived from the version 2 vocabulary that is also under discussion. This document obsoletes the v2 grammar described in RFC 7749.
+            </t>
+          </abstract>
+        </front>
+        <seriesInfo name="RFC" value="7991"/>
+        <seriesInfo name="DOI" value="10.17487/RFC7991"/>
+      </reference>
+      <reference anchor="xml2rfc" target="https://github.com/ietf-tools/xml2rfc/">
+        <front>
+          <title>xml2rfc</title>
+          <author>
+            <organization>IETF</organization>
+          </author>
+          <date month="March" day="8" year="2023"/>
+        </front>
+      </reference>
+      <reference anchor="unicode-blocks" target="https://www.unicode.org/Public/14.0.0/ucd/Blocks.txt">
+        <front>
+          <title>Blocks-14.0.0</title>
+          <author>
+            <organization>Unicode, Inc.</organization>
+          </author>
+          <date month="January" day="1" year="2021"/>
+        </front>
+      </reference>
+    </references>
   </back>
 </rfc>"""
 
@@ -329,28 +395,47 @@ BLOCKS = {
     'Supplementary Private Use Area-B': (0x100000, 0x10FFFF),
 }
 
+
+def get_random_char_int(start, stop, tries_remaining=5):
+    try:
+        random_int = randint(char_range[0]+1, char_range[1])
+        xml = f"<u>&#x{hex(random_int)[2:].upper().zfill(4)};</u>"
+        etree.fromstring(xml)
+        return random_int
+    except etree.XMLSyntaxError:
+        if tries_remaining == 0:
+            return random_int
+        else:
+            return get_random_char_int(start, stop, tries_remaining=tries_remaining-1)
+
+
+
 print(DRAFT_HEAD)
+
+
 for block_name, char_range in BLOCKS.items():
-    print("    <section>")
-    print(f"      <name>{block_name}</name>")
-    random_int = randint(char_range[0]+1, char_range[1])
+    print("      <section>")
+    print(f"        <name>{block_name}</name>")
+    random_int = get_random_char_int(char_range[0], char_range[1])
     random_char = chr(random_int)
     scripts = which_scripts(random_char)
     scripts_list = ", ".join(scripts)
-    print(f"      <t>Unicode character range: {hex(char_range[0])[2:].upper().zfill(4)}..{hex(char_range[1])[2:].upper().zfill(4)}</t>")
-    print(f'      <t><eref target="https://www.unicode.org/charts/PDF/U{hex(char_range[0])[2:].upper().zfill(4)}.pdf">Unicode {block_name} character list</eref></t>')
-    print(f"      <t>Scripts list as identified by xml2rfc: {scripts_list}</t>")
+    print(f"        <t>Unicode character range: {hex(char_range[0])[2:].upper().zfill(4)}..{hex(char_range[1])[2:].upper().zfill(4)}</t>")
+    print(f'        <t><eref target="https://www.unicode.org/charts/PDF/U{hex(char_range[0])[2:].upper().zfill(4)}.pdf">Unicode {block_name} character list</eref></t>')
+    print(f"        <t>Scripts list as identified by xml2rfc: {scripts_list}</t>")
 
     valid_fonts = [i for i in scripts if i != 'Unknown']
     if len(valid_fonts) > 0:
-        print("      <t>Following fonts are available:</t>")
-        print("      <ul>")
-        for script in valid_fonts: 
+        print("        <t>Following fonts are available:</t>")
+        print("        <ul>")
+        for script in valid_fonts:
             font_family = get_noto_serif_family_for_script(script)
-            print(f"        <li>{font_family}</li>")
-        print("      </ul>")
-        print(f"      <t>Example: <u>&#x{hex(random_int)[2:].upper().zfill(4)};</u></t>")
+            print(f"          <li>{font_family}</li>")
+        print("        </ul>")
+        print(f"        <t>Example: <u>&#x{hex(random_int)[2:].upper().zfill(4)};</u></t>")
     else:
-        print("      <t>There are no supported fonts.</t>")
-    print("    </section>")
+        print("        <t>There are no supported fonts.</t>")
+    print("      </section>")
+
+
 print(DRAFT_TAIL)

@@ -8,13 +8,14 @@ Intended status: Experimental                               7 March 2023
 Expires: 8 September 2023
 
 
-        Unicode characters supported by xml2rfc for publication
+             Experiment with Unicode characters in xml2rfc
                   draft-rathnayake-xml2rfc-unicode-00
 
 Abstract
 
-   This draft lists all Unicode characters that is ready to published
-   without xml2rfc too.
+   This draft is an experiment to explore what happens when various
+   Unicode characters are on an Internet-Draft and how xml2rfc handles
+   that.
 
 Status of This Memo
 
@@ -47,9 +48,8 @@ Copyright Notice
 Table of Contents
 
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   8
-   2.  Basic Latin . . . . . . . . . . . . . . . . . . . . . . . . .   8
-   3.  Latin-1 Supplement  . . . . . . . . . . . . . . . . . . . . .   8
-   4.  Latin Extended-A  . . . . . . . . . . . . . . . . . . . . . .   8
+   2.  Methodology . . . . . . . . . . . . . . . . . . . . . . . . .   8
+   3.  Unicode code blocks . . . . . . . . . . . . . . . . . . . . .   8
 
 
 
@@ -58,54 +58,54 @@ Rathnayake              Expires 8 September 2023                [Page 1]
 Internet-Draft               xml2rfc-unicode                  March 2023
 
 
-   5.  Latin Extended-B  . . . . . . . . . . . . . . . . . . . . . .   9
-   6.  IPA Extensions  . . . . . . . . . . . . . . . . . . . . . . .   9
-   7.  Spacing Modifier Letters  . . . . . . . . . . . . . . . . . .   9
-   8.  Combining Diacritical Marks . . . . . . . . . . . . . . . . .  10
-   9.  Greek and Coptic  . . . . . . . . . . . . . . . . . . . . . .  10
-   10. Cyrillic  . . . . . . . . . . . . . . . . . . . . . . . . . .  10
-   11. Cyrillic Supplement . . . . . . . . . . . . . . . . . . . . .  11
-   12. Armenian  . . . . . . . . . . . . . . . . . . . . . . . . . .  11
-   13. Hebrew  . . . . . . . . . . . . . . . . . . . . . . . . . . .  11
-   14. Arabic  . . . . . . . . . . . . . . . . . . . . . . . . . . .  12
-   15. Syriac  . . . . . . . . . . . . . . . . . . . . . . . . . . .  12
-   16. Arabic Supplement . . . . . . . . . . . . . . . . . . . . . .  12
-   17. Thaana  . . . . . . . . . . . . . . . . . . . . . . . . . . .  13
-   18. NKo . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  13
-   19. Samaritan . . . . . . . . . . . . . . . . . . . . . . . . . .  13
-   20. Mandaic . . . . . . . . . . . . . . . . . . . . . . . . . . .  14
-   21. Syriac Supplement . . . . . . . . . . . . . . . . . . . . . .  14
-   22. Arabic Extended-A . . . . . . . . . . . . . . . . . . . . . .  14
-   23. Devanagari  . . . . . . . . . . . . . . . . . . . . . . . . .  14
-   24. Bengali . . . . . . . . . . . . . . . . . . . . . . . . . . .  15
-   25. Gurmukhi  . . . . . . . . . . . . . . . . . . . . . . . . . .  15
-   26. Gujarati  . . . . . . . . . . . . . . . . . . . . . . . . . .  15
-   27. Oriya . . . . . . . . . . . . . . . . . . . . . . . . . . . .  15
-   28. Tamil . . . . . . . . . . . . . . . . . . . . . . . . . . . .  16
-   29. Telugu  . . . . . . . . . . . . . . . . . . . . . . . . . . .  16
-   30. Kannada . . . . . . . . . . . . . . . . . . . . . . . . . . .  16
-   31. Malayalam . . . . . . . . . . . . . . . . . . . . . . . . . .  17
-   32. Sinhala . . . . . . . . . . . . . . . . . . . . . . . . . . .  17
-   33. Thai  . . . . . . . . . . . . . . . . . . . . . . . . . . . .  17
-   34. Lao . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  17
-   35. Tibetan . . . . . . . . . . . . . . . . . . . . . . . . . . .  18
-   36. Myanmar . . . . . . . . . . . . . . . . . . . . . . . . . . .  18
-   37. Georgian  . . . . . . . . . . . . . . . . . . . . . . . . . .  18
-   38. Hangul Jamo . . . . . . . . . . . . . . . . . . . . . . . . .  19
-   39. Ethiopic  . . . . . . . . . . . . . . . . . . . . . . . . . .  19
-   40. Ethiopic Supplement . . . . . . . . . . . . . . . . . . . . .  19
-   41. Cherokee  . . . . . . . . . . . . . . . . . . . . . . . . . .  20
-   42. Unified Canadian Aboriginal Syllabics . . . . . . . . . . . .  20
-   43. Ogham . . . . . . . . . . . . . . . . . . . . . . . . . . . .  20
-   44. Runic . . . . . . . . . . . . . . . . . . . . . . . . . . . .  21
-   45. Tagalog . . . . . . . . . . . . . . . . . . . . . . . . . . .  21
-   46. Hanunoo . . . . . . . . . . . . . . . . . . . . . . . . . . .  21
-   47. Buhid . . . . . . . . . . . . . . . . . . . . . . . . . . . .  21
-   48. Tagbanwa  . . . . . . . . . . . . . . . . . . . . . . . . . .  22
-   49. Khmer . . . . . . . . . . . . . . . . . . . . . . . . . . . .  22
-   50. Mongolian . . . . . . . . . . . . . . . . . . . . . . . . . .  22
-   51. Unified Canadian Aboriginal Syllabics Extended  . . . . . . .  23
-   52. Limbu . . . . . . . . . . . . . . . . . . . . . . . . . . . .  23
+     3.1.  Basic Latin . . . . . . . . . . . . . . . . . . . . . . .   8
+     3.2.  Latin-1 Supplement  . . . . . . . . . . . . . . . . . . .   9
+     3.3.  Latin Extended-A  . . . . . . . . . . . . . . . . . . . .   9
+     3.4.  Latin Extended-B  . . . . . . . . . . . . . . . . . . . .   9
+     3.5.  IPA Extensions  . . . . . . . . . . . . . . . . . . . . .  10
+     3.6.  Spacing Modifier Letters  . . . . . . . . . . . . . . . .  10
+     3.7.  Combining Diacritical Marks . . . . . . . . . . . . . . .  10
+     3.8.  Greek and Coptic  . . . . . . . . . . . . . . . . . . . .  11
+     3.9.  Cyrillic  . . . . . . . . . . . . . . . . . . . . . . . .  11
+     3.10. Cyrillic Supplement . . . . . . . . . . . . . . . . . . .  11
+     3.11. Armenian  . . . . . . . . . . . . . . . . . . . . . . . .  12
+     3.12. Hebrew  . . . . . . . . . . . . . . . . . . . . . . . . .  12
+     3.13. Arabic  . . . . . . . . . . . . . . . . . . . . . . . . .  12
+     3.14. Syriac  . . . . . . . . . . . . . . . . . . . . . . . . .  13
+     3.15. Arabic Supplement . . . . . . . . . . . . . . . . . . . .  13
+     3.16. Thaana  . . . . . . . . . . . . . . . . . . . . . . . . .  13
+     3.17. NKo . . . . . . . . . . . . . . . . . . . . . . . . . . .  13
+     3.18. Samaritan . . . . . . . . . . . . . . . . . . . . . . . .  14
+     3.19. Mandaic . . . . . . . . . . . . . . . . . . . . . . . . .  14
+     3.20. Syriac Supplement . . . . . . . . . . . . . . . . . . . .  14
+     3.21. Arabic Extended-A . . . . . . . . . . . . . . . . . . . .  15
+     3.22. Devanagari  . . . . . . . . . . . . . . . . . . . . . . .  15
+     3.23. Bengali . . . . . . . . . . . . . . . . . . . . . . . . .  15
+     3.24. Gurmukhi  . . . . . . . . . . . . . . . . . . . . . . . .  16
+     3.25. Gujarati  . . . . . . . . . . . . . . . . . . . . . . . .  16
+     3.26. Oriya . . . . . . . . . . . . . . . . . . . . . . . . . .  16
+     3.27. Tamil . . . . . . . . . . . . . . . . . . . . . . . . . .  16
+     3.28. Telugu  . . . . . . . . . . . . . . . . . . . . . . . . .  17
+     3.29. Kannada . . . . . . . . . . . . . . . . . . . . . . . . .  17
+     3.30. Malayalam . . . . . . . . . . . . . . . . . . . . . . . .  17
+     3.31. Sinhala . . . . . . . . . . . . . . . . . . . . . . . . .  18
+     3.32. Thai  . . . . . . . . . . . . . . . . . . . . . . . . . .  18
+     3.33. Lao . . . . . . . . . . . . . . . . . . . . . . . . . . .  18
+     3.34. Tibetan . . . . . . . . . . . . . . . . . . . . . . . . .  18
+     3.35. Myanmar . . . . . . . . . . . . . . . . . . . . . . . . .  19
+     3.36. Georgian  . . . . . . . . . . . . . . . . . . . . . . . .  19
+     3.37. Hangul Jamo . . . . . . . . . . . . . . . . . . . . . . .  19
+     3.38. Ethiopic  . . . . . . . . . . . . . . . . . . . . . . . .  20
+     3.39. Ethiopic Supplement . . . . . . . . . . . . . . . . . . .  20
+     3.40. Cherokee  . . . . . . . . . . . . . . . . . . . . . . . .  20
+     3.41. Unified Canadian Aboriginal Syllabics . . . . . . . . . .  20
+     3.42. Ogham . . . . . . . . . . . . . . . . . . . . . . . . . .  21
+     3.43. Runic . . . . . . . . . . . . . . . . . . . . . . . . . .  21
+     3.44. Tagalog . . . . . . . . . . . . . . . . . . . . . . . . .  21
+     3.45. Hanunoo . . . . . . . . . . . . . . . . . . . . . . . . .  22
+     3.46. Buhid . . . . . . . . . . . . . . . . . . . . . . . . . .  22
+     3.47. Tagbanwa  . . . . . . . . . . . . . . . . . . . . . . . .  22
+     3.48. Khmer . . . . . . . . . . . . . . . . . . . . . . . . . .  22
 
 
 
@@ -114,54 +114,54 @@ Rathnayake              Expires 8 September 2023                [Page 2]
 Internet-Draft               xml2rfc-unicode                  March 2023
 
 
-   53. Tai Le  . . . . . . . . . . . . . . . . . . . . . . . . . . .  23
-   54. New Tai Lue . . . . . . . . . . . . . . . . . . . . . . . . .  24
-   55. Khmer Symbols . . . . . . . . . . . . . . . . . . . . . . . .  24
-   56. Buginese  . . . . . . . . . . . . . . . . . . . . . . . . . .  24
-   57. Tai Tham  . . . . . . . . . . . . . . . . . . . . . . . . . .  25
-   58. Combining Diacritical Marks Extended  . . . . . . . . . . . .  25
-   59. Balinese  . . . . . . . . . . . . . . . . . . . . . . . . . .  25
-   60. Sundanese . . . . . . . . . . . . . . . . . . . . . . . . . .  25
-   61. Batak . . . . . . . . . . . . . . . . . . . . . . . . . . . .  26
-   62. Lepcha  . . . . . . . . . . . . . . . . . . . . . . . . . . .  26
-   63. Ol Chiki  . . . . . . . . . . . . . . . . . . . . . . . . . .  26
-   64. Cyrillic Extended-C . . . . . . . . . . . . . . . . . . . . .  27
-   65. Georgian Extended . . . . . . . . . . . . . . . . . . . . . .  27
-   66. Sundanese Supplement  . . . . . . . . . . . . . . . . . . . .  27
-   67. Vedic Extensions  . . . . . . . . . . . . . . . . . . . . . .  28
-   68. Phonetic Extensions . . . . . . . . . . . . . . . . . . . . .  28
-   69. Phonetic Extensions Supplement  . . . . . . . . . . . . . . .  28
-   70. Combining Diacritical Marks Supplement  . . . . . . . . . . .  29
-   71. Latin Extended Additional . . . . . . . . . . . . . . . . . .  29
-   72. Greek Extended  . . . . . . . . . . . . . . . . . . . . . . .  29
-   73. General Punctuation . . . . . . . . . . . . . . . . . . . . .  30
-   74. Superscripts and Subscripts . . . . . . . . . . . . . . . . .  30
-   75. Currency Symbols  . . . . . . . . . . . . . . . . . . . . . .  30
-   76. Combining Diacritical Marks for Symbols . . . . . . . . . . .  31
-   77. Letterlike Symbols  . . . . . . . . . . . . . . . . . . . . .  31
-   78. Number Forms  . . . . . . . . . . . . . . . . . . . . . . . .  31
-   79. Arrows  . . . . . . . . . . . . . . . . . . . . . . . . . . .  32
-   80. Mathematical Operators  . . . . . . . . . . . . . . . . . . .  32
-   81. Miscellaneous Technical . . . . . . . . . . . . . . . . . . .  32
-   82. Control Pictures  . . . . . . . . . . . . . . . . . . . . . .  33
-   83. Optical Character Recognition . . . . . . . . . . . . . . . .  33
-   84. Enclosed Alphanumerics  . . . . . . . . . . . . . . . . . . .  33
-   85. Box Drawing . . . . . . . . . . . . . . . . . . . . . . . . .  33
-   86. Block Elements  . . . . . . . . . . . . . . . . . . . . . . .  34
-   87. Geometric Shapes  . . . . . . . . . . . . . . . . . . . . . .  34
-   88. Miscellaneous Symbols . . . . . . . . . . . . . . . . . . . .  34
-   89. Dingbats  . . . . . . . . . . . . . . . . . . . . . . . . . .  35
-   90. Miscellaneous Mathematical Symbols-A  . . . . . . . . . . . .  35
-   91. Supplemental Arrows-A . . . . . . . . . . . . . . . . . . . .  35
-   92. Braille Patterns  . . . . . . . . . . . . . . . . . . . . . .  36
-   93. Supplemental Arrows-B . . . . . . . . . . . . . . . . . . . .  36
-   94. Miscellaneous Mathematical Symbols-B  . . . . . . . . . . . .  36
-   95. Supplemental Mathematical Operators . . . . . . . . . . . . .  37
-   96. Miscellaneous Symbols and Arrows  . . . . . . . . . . . . . .  37
-   97. Glagolitic  . . . . . . . . . . . . . . . . . . . . . . . . .  37
-   98. Latin Extended-C  . . . . . . . . . . . . . . . . . . . . . .  38
-   99. Coptic  . . . . . . . . . . . . . . . . . . . . . . . . . . .  38
-   100. Georgian Supplement  . . . . . . . . . . . . . . . . . . . .  38
+     3.49. Mongolian . . . . . . . . . . . . . . . . . . . . . . . .  23
+     3.50. Unified Canadian Aboriginal Syllabics Extended  . . . . .  23
+     3.51. Limbu . . . . . . . . . . . . . . . . . . . . . . . . . .  23
+     3.52. Tai Le  . . . . . . . . . . . . . . . . . . . . . . . . .  24
+     3.53. New Tai Lue . . . . . . . . . . . . . . . . . . . . . . .  24
+     3.54. Khmer Symbols . . . . . . . . . . . . . . . . . . . . . .  24
+     3.55. Buginese  . . . . . . . . . . . . . . . . . . . . . . . .  25
+     3.56. Tai Tham  . . . . . . . . . . . . . . . . . . . . . . . .  25
+     3.57. Combining Diacritical Marks Extended  . . . . . . . . . .  25
+     3.58. Balinese  . . . . . . . . . . . . . . . . . . . . . . . .  25
+     3.59. Sundanese . . . . . . . . . . . . . . . . . . . . . . . .  26
+     3.60. Batak . . . . . . . . . . . . . . . . . . . . . . . . . .  26
+     3.61. Lepcha  . . . . . . . . . . . . . . . . . . . . . . . . .  26
+     3.62. Ol Chiki  . . . . . . . . . . . . . . . . . . . . . . . .  27
+     3.63. Cyrillic Extended-C . . . . . . . . . . . . . . . . . . .  27
+     3.64. Georgian Extended . . . . . . . . . . . . . . . . . . . .  27
+     3.65. Sundanese Supplement  . . . . . . . . . . . . . . . . . .  28
+     3.66. Vedic Extensions  . . . . . . . . . . . . . . . . . . . .  28
+     3.67. Phonetic Extensions . . . . . . . . . . . . . . . . . . .  28
+     3.68. Phonetic Extensions Supplement  . . . . . . . . . . . . .  28
+     3.69. Combining Diacritical Marks Supplement  . . . . . . . . .  29
+     3.70. Latin Extended Additional . . . . . . . . . . . . . . . .  29
+     3.71. Greek Extended  . . . . . . . . . . . . . . . . . . . . .  29
+     3.72. General Punctuation . . . . . . . . . . . . . . . . . . .  30
+     3.73. Superscripts and Subscripts . . . . . . . . . . . . . . .  30
+     3.74. Currency Symbols  . . . . . . . . . . . . . . . . . . . .  30
+     3.75. Combining Diacritical Marks for Symbols . . . . . . . . .  31
+     3.76. Letterlike Symbols  . . . . . . . . . . . . . . . . . . .  31
+     3.77. Number Forms  . . . . . . . . . . . . . . . . . . . . . .  31
+     3.78. Arrows  . . . . . . . . . . . . . . . . . . . . . . . . .  32
+     3.79. Mathematical Operators  . . . . . . . . . . . . . . . . .  32
+     3.80. Miscellaneous Technical . . . . . . . . . . . . . . . . .  32
+     3.81. Control Pictures  . . . . . . . . . . . . . . . . . . . .  33
+     3.82. Optical Character Recognition . . . . . . . . . . . . . .  33
+     3.83. Enclosed Alphanumerics  . . . . . . . . . . . . . . . . .  33
+     3.84. Box Drawing . . . . . . . . . . . . . . . . . . . . . . .  33
+     3.85. Block Elements  . . . . . . . . . . . . . . . . . . . . .  34
+     3.86. Geometric Shapes  . . . . . . . . . . . . . . . . . . . .  34
+     3.87. Miscellaneous Symbols . . . . . . . . . . . . . . . . . .  34
+     3.88. Dingbats  . . . . . . . . . . . . . . . . . . . . . . . .  35
+     3.89. Miscellaneous Mathematical Symbols-A  . . . . . . . . . .  35
+     3.90. Supplemental Arrows-A . . . . . . . . . . . . . . . . . .  35
+     3.91. Braille Patterns  . . . . . . . . . . . . . . . . . . . .  36
+     3.92. Supplemental Arrows-B . . . . . . . . . . . . . . . . . .  36
+     3.93. Miscellaneous Mathematical Symbols-B  . . . . . . . . . .  36
+     3.94. Supplemental Mathematical Operators . . . . . . . . . . .  37
+     3.95. Miscellaneous Symbols and Arrows  . . . . . . . . . . . .  37
+     3.96. Glagolitic  . . . . . . . . . . . . . . . . . . . . . . .  37
 
 
 
@@ -170,54 +170,54 @@ Rathnayake              Expires 8 September 2023                [Page 3]
 Internet-Draft               xml2rfc-unicode                  March 2023
 
 
-   101. Tifinagh . . . . . . . . . . . . . . . . . . . . . . . . . .  39
-   102. Ethiopic Extended  . . . . . . . . . . . . . . . . . . . . .  39
-   103. Cyrillic Extended-A  . . . . . . . . . . . . . . . . . . . .  39
-   104. Supplemental Punctuation . . . . . . . . . . . . . . . . . .  40
-   105. CJK Radicals Supplement  . . . . . . . . . . . . . . . . . .  40
-   106. Kangxi Radicals  . . . . . . . . . . . . . . . . . . . . . .  40
-   107. Ideographic Description Characters . . . . . . . . . . . . .  40
-   108. CJK Symbols and Punctuation  . . . . . . . . . . . . . . . .  41
-   109. Hiragana . . . . . . . . . . . . . . . . . . . . . . . . . .  41
-   110. Katakana . . . . . . . . . . . . . . . . . . . . . . . . . .  42
-   111. Bopomofo . . . . . . . . . . . . . . . . . . . . . . . . . .  42
-   112. Hangul Compatibility Jamo  . . . . . . . . . . . . . . . . .  42
-   113. Kanbun . . . . . . . . . . . . . . . . . . . . . . . . . . .  43
-   114. Bopomofo Extended  . . . . . . . . . . . . . . . . . . . . .  43
-   115. CJK Strokes  . . . . . . . . . . . . . . . . . . . . . . . .  43
-   116. Katakana Phonetic Extensions . . . . . . . . . . . . . . . .  44
-   117. Enclosed CJK Letters and Months  . . . . . . . . . . . . . .  44
-   118. CJK Compatibility  . . . . . . . . . . . . . . . . . . . . .  44
-   119. CJK Unified Ideographs Extension A . . . . . . . . . . . . .  45
-   120. Yijing Hexagram Symbols  . . . . . . . . . . . . . . . . . .  45
-   121. CJK Unified Ideographs . . . . . . . . . . . . . . . . . . .  45
-   122. Yi Syllables . . . . . . . . . . . . . . . . . . . . . . . .  46
-   123. Yi Radicals  . . . . . . . . . . . . . . . . . . . . . . . .  46
-   124. Lisu . . . . . . . . . . . . . . . . . . . . . . . . . . . .  46
-   125. Vai  . . . . . . . . . . . . . . . . . . . . . . . . . . . .  47
-   126. Cyrillic Extended-B  . . . . . . . . . . . . . . . . . . . .  47
-   127. Bamum  . . . . . . . . . . . . . . . . . . . . . . . . . . .  47
-   128. Modifier Tone Letters  . . . . . . . . . . . . . . . . . . .  47
-   129. Latin Extended-D . . . . . . . . . . . . . . . . . . . . . .  48
-   130. Syloti Nagri . . . . . . . . . . . . . . . . . . . . . . . .  48
-   131. Common Indic Number Forms  . . . . . . . . . . . . . . . . .  48
-   132. Phags-pa . . . . . . . . . . . . . . . . . . . . . . . . . .  49
-   133. Saurashtra . . . . . . . . . . . . . . . . . . . . . . . . .  50
-   134. Devanagari Extended  . . . . . . . . . . . . . . . . . . . .  50
-   135. Kayah Li . . . . . . . . . . . . . . . . . . . . . . . . . .  50
-   136. Rejang . . . . . . . . . . . . . . . . . . . . . . . . . . .  51
-   137. Hangul Jamo Extended-A . . . . . . . . . . . . . . . . . . .  51
-   138. Javanese . . . . . . . . . . . . . . . . . . . . . . . . . .  51
-   139. Myanmar Extended-B . . . . . . . . . . . . . . . . . . . . .  52
-   140. Cham . . . . . . . . . . . . . . . . . . . . . . . . . . . .  52
-   141. Myanmar Extended-A . . . . . . . . . . . . . . . . . . . . .  52
-   142. Tai Viet . . . . . . . . . . . . . . . . . . . . . . . . . .  53
-   143. Meetei Mayek Extensions  . . . . . . . . . . . . . . . . . .  53
-   144. Ethiopic Extended-A  . . . . . . . . . . . . . . . . . . . .  53
-   145. Latin Extended-E . . . . . . . . . . . . . . . . . . . . . .  54
-   146. Cherokee Supplement  . . . . . . . . . . . . . . . . . . . .  54
-   147. Meetei Mayek . . . . . . . . . . . . . . . . . . . . . . . .  54
-   148. Hangul Syllables . . . . . . . . . . . . . . . . . . . . . .  55
+     3.97. Latin Extended-C  . . . . . . . . . . . . . . . . . . . .  38
+     3.98. Coptic  . . . . . . . . . . . . . . . . . . . . . . . . .  38
+     3.99. Georgian Supplement . . . . . . . . . . . . . . . . . . .  38
+     3.100. Tifinagh . . . . . . . . . . . . . . . . . . . . . . . .  39
+     3.101. Ethiopic Extended  . . . . . . . . . . . . . . . . . . .  39
+     3.102. Cyrillic Extended-A  . . . . . . . . . . . . . . . . . .  39
+     3.103. Supplemental Punctuation . . . . . . . . . . . . . . . .  40
+     3.104. CJK Radicals Supplement  . . . . . . . . . . . . . . . .  40
+     3.105. Kangxi Radicals  . . . . . . . . . . . . . . . . . . . .  40
+     3.106. Ideographic Description Characters . . . . . . . . . . .  40
+     3.107. CJK Symbols and Punctuation  . . . . . . . . . . . . . .  41
+     3.108. Hiragana . . . . . . . . . . . . . . . . . . . . . . . .  41
+     3.109. Katakana . . . . . . . . . . . . . . . . . . . . . . . .  41
+     3.110. Bopomofo . . . . . . . . . . . . . . . . . . . . . . . .  42
+     3.111. Hangul Compatibility Jamo  . . . . . . . . . . . . . . .  42
+     3.112. Kanbun . . . . . . . . . . . . . . . . . . . . . . . . .  42
+     3.113. Bopomofo Extended  . . . . . . . . . . . . . . . . . . .  43
+     3.114. CJK Strokes  . . . . . . . . . . . . . . . . . . . . . .  43
+     3.115. Katakana Phonetic Extensions . . . . . . . . . . . . . .  43
+     3.116. Enclosed CJK Letters and Months  . . . . . . . . . . . .  43
+     3.117. CJK Compatibility  . . . . . . . . . . . . . . . . . . .  44
+     3.118. CJK Unified Ideographs Extension A . . . . . . . . . . .  44
+     3.119. Yijing Hexagram Symbols  . . . . . . . . . . . . . . . .  44
+     3.120. CJK Unified Ideographs . . . . . . . . . . . . . . . . .  45
+     3.121. Yi Syllables . . . . . . . . . . . . . . . . . . . . . .  45
+     3.122. Yi Radicals  . . . . . . . . . . . . . . . . . . . . . .  45
+     3.123. Lisu . . . . . . . . . . . . . . . . . . . . . . . . . .  46
+     3.124. Vai  . . . . . . . . . . . . . . . . . . . . . . . . . .  46
+     3.125. Cyrillic Extended-B  . . . . . . . . . . . . . . . . . .  46
+     3.126. Bamum  . . . . . . . . . . . . . . . . . . . . . . . . .  47
+     3.127. Modifier Tone Letters  . . . . . . . . . . . . . . . . .  47
+     3.128. Latin Extended-D . . . . . . . . . . . . . . . . . . . .  47
+     3.129. Syloti Nagri . . . . . . . . . . . . . . . . . . . . . .  48
+     3.130. Common Indic Number Forms  . . . . . . . . . . . . . . .  48
+     3.131. Phags-pa . . . . . . . . . . . . . . . . . . . . . . . .  49
+     3.132. Saurashtra . . . . . . . . . . . . . . . . . . . . . . .  49
+     3.133. Devanagari Extended  . . . . . . . . . . . . . . . . . .  49
+     3.134. Kayah Li . . . . . . . . . . . . . . . . . . . . . . . .  50
+     3.135. Rejang . . . . . . . . . . . . . . . . . . . . . . . . .  50
+     3.136. Hangul Jamo Extended-A . . . . . . . . . . . . . . . . .  50
+     3.137. Javanese . . . . . . . . . . . . . . . . . . . . . . . .  51
+     3.138. Myanmar Extended-B . . . . . . . . . . . . . . . . . . .  51
+     3.139. Cham . . . . . . . . . . . . . . . . . . . . . . . . . .  51
+     3.140. Myanmar Extended-A . . . . . . . . . . . . . . . . . . .  52
+     3.141. Tai Viet . . . . . . . . . . . . . . . . . . . . . . . .  52
+     3.142. Meetei Mayek Extensions  . . . . . . . . . . . . . . . .  52
+     3.143. Ethiopic Extended-A  . . . . . . . . . . . . . . . . . .  53
+     3.144. Latin Extended-E . . . . . . . . . . . . . . . . . . . .  53
 
 
 
@@ -226,54 +226,54 @@ Rathnayake              Expires 8 September 2023                [Page 4]
 Internet-Draft               xml2rfc-unicode                  March 2023
 
 
-   149. Hangul Jamo Extended-B . . . . . . . . . . . . . . . . . . .  55
-   150. High Surrogates  . . . . . . . . . . . . . . . . . . . . . .  55
-   151. High Private Use Surrogates  . . . . . . . . . . . . . . . .  55
-   152. Low Surrogates . . . . . . . . . . . . . . . . . . . . . . .  56
-   153. Private Use Area . . . . . . . . . . . . . . . . . . . . . .  56
-   154. CJK Compatibility Ideographs . . . . . . . . . . . . . . . .  56
-   155. Alphabetic Presentation Forms  . . . . . . . . . . . . . . .  56
-   156. Arabic Presentation Forms-A  . . . . . . . . . . . . . . . .  57
-   157. Variation Selectors  . . . . . . . . . . . . . . . . . . . .  57
-   158. Vertical Forms . . . . . . . . . . . . . . . . . . . . . . .  57
-   159. Combining Half Marks . . . . . . . . . . . . . . . . . . . .  58
-   160. CJK Compatibility Forms  . . . . . . . . . . . . . . . . . .  58
-   161. Small Form Variants  . . . . . . . . . . . . . . . . . . . .  58
-   162. Arabic Presentation Forms-B  . . . . . . . . . . . . . . . .  59
-   163. Halfwidth and Fullwidth Forms  . . . . . . . . . . . . . . .  59
-   164. Specials . . . . . . . . . . . . . . . . . . . . . . . . . .  59
-   165. Linear B Syllabary . . . . . . . . . . . . . . . . . . . . .  59
-   166. Linear B Ideograms . . . . . . . . . . . . . . . . . . . . .  60
-   167. Aegean Numbers . . . . . . . . . . . . . . . . . . . . . . .  60
-   168. Ancient Greek Numbers  . . . . . . . . . . . . . . . . . . .  60
-   169. Ancient Symbols  . . . . . . . . . . . . . . . . . . . . . .  61
-   170. Phaistos Disc  . . . . . . . . . . . . . . . . . . . . . . .  61
-   171. Lycian . . . . . . . . . . . . . . . . . . . . . . . . . . .  61
-   172. Carian . . . . . . . . . . . . . . . . . . . . . . . . . . .  62
-   173. Coptic Epact Numbers . . . . . . . . . . . . . . . . . . . .  62
-   174. Old Italic . . . . . . . . . . . . . . . . . . . . . . . . .  62
-   175. Gothic . . . . . . . . . . . . . . . . . . . . . . . . . . .  62
-   176. Old Permic . . . . . . . . . . . . . . . . . . . . . . . . .  63
-   177. Ugaritic . . . . . . . . . . . . . . . . . . . . . . . . . .  63
-   178. Old Persian  . . . . . . . . . . . . . . . . . . . . . . . .  63
-   179. Deseret  . . . . . . . . . . . . . . . . . . . . . . . . . .  64
-   180. Shavian  . . . . . . . . . . . . . . . . . . . . . . . . . .  64
-   181. Osmanya  . . . . . . . . . . . . . . . . . . . . . . . . . .  64
-   182. Osage  . . . . . . . . . . . . . . . . . . . . . . . . . . .  65
-   183. Elbasan  . . . . . . . . . . . . . . . . . . . . . . . . . .  65
-   184. Caucasian Albanian . . . . . . . . . . . . . . . . . . . . .  65
-   185. Linear A . . . . . . . . . . . . . . . . . . . . . . . . . .  66
-   186. Cypriot Syllabary  . . . . . . . . . . . . . . . . . . . . .  66
-   187. Imperial Aramaic . . . . . . . . . . . . . . . . . . . . . .  66
-   188. Palmyrene  . . . . . . . . . . . . . . . . . . . . . . . . .  67
-   189. Nabataean  . . . . . . . . . . . . . . . . . . . . . . . . .  67
-   190. Hatran . . . . . . . . . . . . . . . . . . . . . . . . . . .  67
-   191. Phoenician . . . . . . . . . . . . . . . . . . . . . . . . .  68
-   192. Lydian . . . . . . . . . . . . . . . . . . . . . . . . . . .  68
-   193. Meroitic Hieroglyphs . . . . . . . . . . . . . . . . . . . .  68
-   194. Meroitic Cursive . . . . . . . . . . . . . . . . . . . . . .  69
-   195. Kharoshthi . . . . . . . . . . . . . . . . . . . . . . . . .  69
-   196. Old South Arabian  . . . . . . . . . . . . . . . . . . . . .  69
+     3.145. Cherokee Supplement  . . . . . . . . . . . . . . . . . .  53
+     3.146. Meetei Mayek . . . . . . . . . . . . . . . . . . . . . .  53
+     3.147. Hangul Syllables . . . . . . . . . . . . . . . . . . . .  54
+     3.148. Hangul Jamo Extended-B . . . . . . . . . . . . . . . . .  54
+     3.149. High Surrogates  . . . . . . . . . . . . . . . . . . . .  54
+     3.150. High Private Use Surrogates  . . . . . . . . . . . . . .  55
+     3.151. Low Surrogates . . . . . . . . . . . . . . . . . . . . .  55
+     3.152. Private Use Area . . . . . . . . . . . . . . . . . . . .  55
+     3.153. CJK Compatibility Ideographs . . . . . . . . . . . . . .  55
+     3.154. Alphabetic Presentation Forms  . . . . . . . . . . . . .  56
+     3.155. Arabic Presentation Forms-A  . . . . . . . . . . . . . .  56
+     3.156. Variation Selectors  . . . . . . . . . . . . . . . . . .  56
+     3.157. Vertical Forms . . . . . . . . . . . . . . . . . . . . .  57
+     3.158. Combining Half Marks . . . . . . . . . . . . . . . . . .  57
+     3.159. CJK Compatibility Forms  . . . . . . . . . . . . . . . .  57
+     3.160. Small Form Variants  . . . . . . . . . . . . . . . . . .  58
+     3.161. Arabic Presentation Forms-B  . . . . . . . . . . . . . .  58
+     3.162. Halfwidth and Fullwidth Forms  . . . . . . . . . . . . .  58
+     3.163. Specials . . . . . . . . . . . . . . . . . . . . . . . .  58
+     3.164. Linear B Syllabary . . . . . . . . . . . . . . . . . . .  59
+     3.165. Linear B Ideograms . . . . . . . . . . . . . . . . . . .  59
+     3.166. Aegean Numbers . . . . . . . . . . . . . . . . . . . . .  59
+     3.167. Ancient Greek Numbers  . . . . . . . . . . . . . . . . .  60
+     3.168. Ancient Symbols  . . . . . . . . . . . . . . . . . . . .  60
+     3.169. Phaistos Disc  . . . . . . . . . . . . . . . . . . . . .  60
+     3.170. Lycian . . . . . . . . . . . . . . . . . . . . . . . . .  61
+     3.171. Carian . . . . . . . . . . . . . . . . . . . . . . . . .  61
+     3.172. Coptic Epact Numbers . . . . . . . . . . . . . . . . . .  61
+     3.173. Old Italic . . . . . . . . . . . . . . . . . . . . . . .  62
+     3.174. Gothic . . . . . . . . . . . . . . . . . . . . . . . . .  62
+     3.175. Old Permic . . . . . . . . . . . . . . . . . . . . . . .  62
+     3.176. Ugaritic . . . . . . . . . . . . . . . . . . . . . . . .  62
+     3.177. Old Persian  . . . . . . . . . . . . . . . . . . . . . .  63
+     3.178. Deseret  . . . . . . . . . . . . . . . . . . . . . . . .  63
+     3.179. Shavian  . . . . . . . . . . . . . . . . . . . . . . . .  63
+     3.180. Osmanya  . . . . . . . . . . . . . . . . . . . . . . . .  64
+     3.181. Osage  . . . . . . . . . . . . . . . . . . . . . . . . .  64
+     3.182. Elbasan  . . . . . . . . . . . . . . . . . . . . . . . .  64
+     3.183. Caucasian Albanian . . . . . . . . . . . . . . . . . . .  65
+     3.184. Linear A . . . . . . . . . . . . . . . . . . . . . . . .  65
+     3.185. Cypriot Syllabary  . . . . . . . . . . . . . . . . . . .  65
+     3.186. Imperial Aramaic . . . . . . . . . . . . . . . . . . . .  65
+     3.187. Palmyrene  . . . . . . . . . . . . . . . . . . . . . . .  66
+     3.188. Nabataean  . . . . . . . . . . . . . . . . . . . . . . .  66
+     3.189. Hatran . . . . . . . . . . . . . . . . . . . . . . . . .  66
+     3.190. Phoenician . . . . . . . . . . . . . . . . . . . . . . .  67
+     3.191. Lydian . . . . . . . . . . . . . . . . . . . . . . . . .  67
+     3.192. Meroitic Hieroglyphs . . . . . . . . . . . . . . . . . .  67
 
 
 
@@ -282,54 +282,54 @@ Rathnayake              Expires 8 September 2023                [Page 5]
 Internet-Draft               xml2rfc-unicode                  March 2023
 
 
-   197. Old North Arabian  . . . . . . . . . . . . . . . . . . . . .  70
-   198. Manichaean . . . . . . . . . . . . . . . . . . . . . . . . .  70
-   199. Avestan  . . . . . . . . . . . . . . . . . . . . . . . . . .  70
-   200. Inscriptional Parthian . . . . . . . . . . . . . . . . . . .  70
-   201. Inscriptional Pahlavi  . . . . . . . . . . . . . . . . . . .  71
-   202. Psalter Pahlavi  . . . . . . . . . . . . . . . . . . . . . .  71
-   203. Old Turkic . . . . . . . . . . . . . . . . . . . . . . . . .  71
-   204. Old Hungarian  . . . . . . . . . . . . . . . . . . . . . . .  72
-   205. Hanifi Rohingya  . . . . . . . . . . . . . . . . . . . . . .  72
-   206. Rumi Numeral Symbols . . . . . . . . . . . . . . . . . . . .  72
-   207. Old Sogdian  . . . . . . . . . . . . . . . . . . . . . . . .  73
-   208. Sogdian  . . . . . . . . . . . . . . . . . . . . . . . . . .  73
-   209. Brahmi . . . . . . . . . . . . . . . . . . . . . . . . . . .  73
-   210. Kaithi . . . . . . . . . . . . . . . . . . . . . . . . . . .  74
-   211. Sora Sompeng . . . . . . . . . . . . . . . . . . . . . . . .  74
-   212. Chakma . . . . . . . . . . . . . . . . . . . . . . . . . . .  74
-   213. Mahajani . . . . . . . . . . . . . . . . . . . . . . . . . .  75
-   214. Sharada  . . . . . . . . . . . . . . . . . . . . . . . . . .  75
-   215. Sinhala Archaic Numbers  . . . . . . . . . . . . . . . . . .  75
-   216. Khojki . . . . . . . . . . . . . . . . . . . . . . . . . . .  76
-   217. Multani  . . . . . . . . . . . . . . . . . . . . . . . . . .  76
-   218. Khudawadi  . . . . . . . . . . . . . . . . . . . . . . . . .  76
-   219. Grantha  . . . . . . . . . . . . . . . . . . . . . . . . . .  76
-   220. Newa . . . . . . . . . . . . . . . . . . . . . . . . . . . .  77
-   221. Tirhuta  . . . . . . . . . . . . . . . . . . . . . . . . . .  77
-   222. Siddham  . . . . . . . . . . . . . . . . . . . . . . . . . .  77
-   223. Modi . . . . . . . . . . . . . . . . . . . . . . . . . . . .  78
-   224. Mongolian Supplement . . . . . . . . . . . . . . . . . . . .  78
-   225. Takri  . . . . . . . . . . . . . . . . . . . . . . . . . . .  78
-   226. Ahom . . . . . . . . . . . . . . . . . . . . . . . . . . . .  79
-   227. Dogra  . . . . . . . . . . . . . . . . . . . . . . . . . . .  79
-   228. Warang Citi  . . . . . . . . . . . . . . . . . . . . . . . .  79
-   229. Zanabazar Square . . . . . . . . . . . . . . . . . . . . . .  80
-   230. Soyombo  . . . . . . . . . . . . . . . . . . . . . . . . . .  80
-   231. Pau Cin Hau  . . . . . . . . . . . . . . . . . . . . . . . .  80
-   232. Bhaiksuki  . . . . . . . . . . . . . . . . . . . . . . . . .  80
-   233. Marchen  . . . . . . . . . . . . . . . . . . . . . . . . . .  81
-   234. Masaram Gondi  . . . . . . . . . . . . . . . . . . . . . . .  81
-   235. Gunjala Gondi  . . . . . . . . . . . . . . . . . . . . . . .  81
-   236. Makasar  . . . . . . . . . . . . . . . . . . . . . . . . . .  82
-   237. Cuneiform  . . . . . . . . . . . . . . . . . . . . . . . . .  82
-   238. Cuneiform Numbers and Punctuation  . . . . . . . . . . . . .  82
-   239. Early Dynastic Cuneiform . . . . . . . . . . . . . . . . . .  83
-   240. Egyptian Hieroglyphs . . . . . . . . . . . . . . . . . . . .  83
-   241. Anatolian Hieroglyphs  . . . . . . . . . . . . . . . . . . .  83
-   242. Bamum Supplement . . . . . . . . . . . . . . . . . . . . . .  84
-   243. Mro  . . . . . . . . . . . . . . . . . . . . . . . . . . . .  84
-   244. Bassa Vah  . . . . . . . . . . . . . . . . . . . . . . . . .  84
+     3.193. Meroitic Cursive . . . . . . . . . . . . . . . . . . . .  68
+     3.194. Kharoshthi . . . . . . . . . . . . . . . . . . . . . . .  68
+     3.195. Old South Arabian  . . . . . . . . . . . . . . . . . . .  68
+     3.196. Old North Arabian  . . . . . . . . . . . . . . . . . . .  69
+     3.197. Manichaean . . . . . . . . . . . . . . . . . . . . . . .  69
+     3.198. Avestan  . . . . . . . . . . . . . . . . . . . . . . . .  69
+     3.199. Inscriptional Parthian . . . . . . . . . . . . . . . . .  70
+     3.200. Inscriptional Pahlavi  . . . . . . . . . . . . . . . . .  70
+     3.201. Psalter Pahlavi  . . . . . . . . . . . . . . . . . . . .  70
+     3.202. Old Turkic . . . . . . . . . . . . . . . . . . . . . . .  70
+     3.203. Old Hungarian  . . . . . . . . . . . . . . . . . . . . .  71
+     3.204. Hanifi Rohingya  . . . . . . . . . . . . . . . . . . . .  71
+     3.205. Rumi Numeral Symbols . . . . . . . . . . . . . . . . . .  71
+     3.206. Old Sogdian  . . . . . . . . . . . . . . . . . . . . . .  71
+     3.207. Sogdian  . . . . . . . . . . . . . . . . . . . . . . . .  72
+     3.208. Brahmi . . . . . . . . . . . . . . . . . . . . . . . . .  72
+     3.209. Kaithi . . . . . . . . . . . . . . . . . . . . . . . . .  72
+     3.210. Sora Sompeng . . . . . . . . . . . . . . . . . . . . . .  73
+     3.211. Chakma . . . . . . . . . . . . . . . . . . . . . . . . .  73
+     3.212. Mahajani . . . . . . . . . . . . . . . . . . . . . . . .  73
+     3.213. Sharada  . . . . . . . . . . . . . . . . . . . . . . . .  74
+     3.214. Sinhala Archaic Numbers  . . . . . . . . . . . . . . . .  74
+     3.215. Khojki . . . . . . . . . . . . . . . . . . . . . . . . .  74
+     3.216. Multani  . . . . . . . . . . . . . . . . . . . . . . . .  75
+     3.217. Khudawadi  . . . . . . . . . . . . . . . . . . . . . . .  75
+     3.218. Grantha  . . . . . . . . . . . . . . . . . . . . . . . .  75
+     3.219. Newa . . . . . . . . . . . . . . . . . . . . . . . . . .  76
+     3.220. Tirhuta  . . . . . . . . . . . . . . . . . . . . . . . .  76
+     3.221. Siddham  . . . . . . . . . . . . . . . . . . . . . . . .  76
+     3.222. Modi . . . . . . . . . . . . . . . . . . . . . . . . . .  77
+     3.223. Mongolian Supplement . . . . . . . . . . . . . . . . . .  77
+     3.224. Takri  . . . . . . . . . . . . . . . . . . . . . . . . .  77
+     3.225. Ahom . . . . . . . . . . . . . . . . . . . . . . . . . .  77
+     3.226. Dogra  . . . . . . . . . . . . . . . . . . . . . . . . .  78
+     3.227. Warang Citi  . . . . . . . . . . . . . . . . . . . . . .  78
+     3.228. Zanabazar Square . . . . . . . . . . . . . . . . . . . .  78
+     3.229. Soyombo  . . . . . . . . . . . . . . . . . . . . . . . .  79
+     3.230. Pau Cin Hau  . . . . . . . . . . . . . . . . . . . . . .  79
+     3.231. Bhaiksuki  . . . . . . . . . . . . . . . . . . . . . . .  79
+     3.232. Marchen  . . . . . . . . . . . . . . . . . . . . . . . .  80
+     3.233. Masaram Gondi  . . . . . . . . . . . . . . . . . . . . .  80
+     3.234. Gunjala Gondi  . . . . . . . . . . . . . . . . . . . . .  80
+     3.235. Makasar  . . . . . . . . . . . . . . . . . . . . . . . .  81
+     3.236. Cuneiform  . . . . . . . . . . . . . . . . . . . . . . .  81
+     3.237. Cuneiform Numbers and Punctuation  . . . . . . . . . . .  81
+     3.238. Early Dynastic Cuneiform . . . . . . . . . . . . . . . .  82
+     3.239. Egyptian Hieroglyphs . . . . . . . . . . . . . . . . . .  82
+     3.240. Anatolian Hieroglyphs  . . . . . . . . . . . . . . . . .  82
 
 
 
@@ -338,54 +338,54 @@ Rathnayake              Expires 8 September 2023                [Page 6]
 Internet-Draft               xml2rfc-unicode                  March 2023
 
 
-   245. Pahawh Hmong . . . . . . . . . . . . . . . . . . . . . . . .  84
-   246. Medefaidrin  . . . . . . . . . . . . . . . . . . . . . . . .  85
-   247. Miao . . . . . . . . . . . . . . . . . . . . . . . . . . . .  85
-   248. Ideographic Symbols and Punctuation  . . . . . . . . . . . .  85
-   249. Tangut . . . . . . . . . . . . . . . . . . . . . . . . . . .  86
-   250. Tangut Components  . . . . . . . . . . . . . . . . . . . . .  86
-   251. Kana Supplement  . . . . . . . . . . . . . . . . . . . . . .  86
-   252. Kana Extended-A  . . . . . . . . . . . . . . . . . . . . . .  87
-   253. Nushu  . . . . . . . . . . . . . . . . . . . . . . . . . . .  87
-   254. Duployan . . . . . . . . . . . . . . . . . . . . . . . . . .  87
-   255. Shorthand Format Controls  . . . . . . . . . . . . . . . . .  88
-   256. Byzantine Musical Symbols  . . . . . . . . . . . . . . . . .  88
-   257. Musical Symbols  . . . . . . . . . . . . . . . . . . . . . .  88
-   258. Ancient Greek Musical Notation . . . . . . . . . . . . . . .  88
-   259. Mayan Numerals . . . . . . . . . . . . . . . . . . . . . . .  89
-   260. Tai Xuan Jing Symbols  . . . . . . . . . . . . . . . . . . .  89
-   261. Counting Rod Numerals  . . . . . . . . . . . . . . . . . . .  89
-   262. Mathematical Alphanumeric Symbols  . . . . . . . . . . . . .  90
-   263. Sutton SignWriting . . . . . . . . . . . . . . . . . . . . .  90
-   264. Glagolitic Supplement  . . . . . . . . . . . . . . . . . . .  90
-   265. Mende Kikakui  . . . . . . . . . . . . . . . . . . . . . . .  91
-   266. Adlam  . . . . . . . . . . . . . . . . . . . . . . . . . . .  91
-   267. Indic Siyaq Numbers  . . . . . . . . . . . . . . . . . . . .  91
-   268. Arabic Mathematical Alphabetic Symbols . . . . . . . . . . .  92
-   269. Mahjong Tiles  . . . . . . . . . . . . . . . . . . . . . . .  92
-   270. Domino Tiles . . . . . . . . . . . . . . . . . . . . . . . .  92
-   271. Playing Cards  . . . . . . . . . . . . . . . . . . . . . . .  93
-   272. Enclosed Alphanumeric Supplement . . . . . . . . . . . . . .  93
-   273. Enclosed Ideographic Supplement  . . . . . . . . . . . . . .  93
-   274. Miscellaneous Symbols and Pictographs  . . . . . . . . . . .  93
-   275. Emoticons  . . . . . . . . . . . . . . . . . . . . . . . . .  94
-   276. Ornamental Dingbats  . . . . . . . . . . . . . . . . . . . .  94
-   277. Transport and Map Symbols  . . . . . . . . . . . . . . . . .  94
-   278. Alchemical Symbols . . . . . . . . . . . . . . . . . . . . .  95
-   279. Geometric Shapes Extended  . . . . . . . . . . . . . . . . .  95
-   280. Supplemental Arrows-C  . . . . . . . . . . . . . . . . . . .  95
-   281. Supplemental Symbols and Pictographs . . . . . . . . . . . .  96
-   282. Chess Symbols  . . . . . . . . . . . . . . . . . . . . . . .  96
-   283. CJK Unified Ideographs Extension B . . . . . . . . . . . . .  96
-   284. CJK Unified Ideographs Extension C . . . . . . . . . . . . .  96
-   285. CJK Unified Ideographs Extension D . . . . . . . . . . . . .  97
-   286. CJK Unified Ideographs Extension E . . . . . . . . . . . . .  97
-   287. CJK Unified Ideographs Extension F . . . . . . . . . . . . .  97
-   288. CJK Compatibility Ideographs Supplement  . . . . . . . . . .  98
-   289. Tags . . . . . . . . . . . . . . . . . . . . . . . . . . . .  98
-   290. Variation Selectors Supplement . . . . . . . . . . . . . . .  98
-   291. Supplementary Private Use Area-A . . . . . . . . . . . . . .  99
-   292. Supplementary Private Use Area-B . . . . . . . . . . . . . .  99
+     3.241. Bamum Supplement . . . . . . . . . . . . . . . . . . . .  83
+     3.242. Mro  . . . . . . . . . . . . . . . . . . . . . . . . . .  83
+     3.243. Bassa Vah  . . . . . . . . . . . . . . . . . . . . . . .  83
+     3.244. Pahawh Hmong . . . . . . . . . . . . . . . . . . . . . .  84
+     3.245. Medefaidrin  . . . . . . . . . . . . . . . . . . . . . .  84
+     3.246. Miao . . . . . . . . . . . . . . . . . . . . . . . . . .  84
+     3.247. Ideographic Symbols and Punctuation  . . . . . . . . . .  85
+     3.248. Tangut . . . . . . . . . . . . . . . . . . . . . . . . .  85
+     3.249. Tangut Components  . . . . . . . . . . . . . . . . . . .  85
+     3.250. Kana Supplement  . . . . . . . . . . . . . . . . . . . .  85
+     3.251. Kana Extended-A  . . . . . . . . . . . . . . . . . . . .  86
+     3.252. Nushu  . . . . . . . . . . . . . . . . . . . . . . . . .  86
+     3.253. Duployan . . . . . . . . . . . . . . . . . . . . . . . .  86
+     3.254. Shorthand Format Controls  . . . . . . . . . . . . . . .  87
+     3.255. Byzantine Musical Symbols  . . . . . . . . . . . . . . .  87
+     3.256. Musical Symbols  . . . . . . . . . . . . . . . . . . . .  87
+     3.257. Ancient Greek Musical Notation . . . . . . . . . . . . .  88
+     3.258. Mayan Numerals . . . . . . . . . . . . . . . . . . . . .  88
+     3.259. Tai Xuan Jing Symbols  . . . . . . . . . . . . . . . . .  88
+     3.260. Counting Rod Numerals  . . . . . . . . . . . . . . . . .  89
+     3.261. Mathematical Alphanumeric Symbols  . . . . . . . . . . .  89
+     3.262. Sutton SignWriting . . . . . . . . . . . . . . . . . . .  89
+     3.263. Glagolitic Supplement  . . . . . . . . . . . . . . . . .  90
+     3.264. Mende Kikakui  . . . . . . . . . . . . . . . . . . . . .  90
+     3.265. Adlam  . . . . . . . . . . . . . . . . . . . . . . . . .  90
+     3.266. Indic Siyaq Numbers  . . . . . . . . . . . . . . . . . .  91
+     3.267. Arabic Mathematical Alphabetic Symbols . . . . . . . . .  91
+     3.268. Mahjong Tiles  . . . . . . . . . . . . . . . . . . . . .  91
+     3.269. Domino Tiles . . . . . . . . . . . . . . . . . . . . . .  92
+     3.270. Playing Cards  . . . . . . . . . . . . . . . . . . . . .  92
+     3.271. Enclosed Alphanumeric Supplement . . . . . . . . . . . .  92
+     3.272. Enclosed Ideographic Supplement  . . . . . . . . . . . .  93
+     3.273. Miscellaneous Symbols and Pictographs  . . . . . . . . .  93
+     3.274. Emoticons  . . . . . . . . . . . . . . . . . . . . . . .  93
+     3.275. Ornamental Dingbats  . . . . . . . . . . . . . . . . . .  94
+     3.276. Transport and Map Symbols  . . . . . . . . . . . . . . .  94
+     3.277. Alchemical Symbols . . . . . . . . . . . . . . . . . . .  94
+     3.278. Geometric Shapes Extended  . . . . . . . . . . . . . . .  95
+     3.279. Supplemental Arrows-C  . . . . . . . . . . . . . . . . .  95
+     3.280. Supplemental Symbols and Pictographs . . . . . . . . . .  95
+     3.281. Chess Symbols  . . . . . . . . . . . . . . . . . . . . .  95
+     3.282. CJK Unified Ideographs Extension B . . . . . . . . . . .  96
+     3.283. CJK Unified Ideographs Extension C . . . . . . . . . . .  96
+     3.284. CJK Unified Ideographs Extension D . . . . . . . . . . .  96
+     3.285. CJK Unified Ideographs Extension E . . . . . . . . . . .  97
+     3.286. CJK Unified Ideographs Extension F . . . . . . . . . . .  97
+     3.287. CJK Compatibility Ideographs Supplement  . . . . . . . .  97
+     3.288. Tags . . . . . . . . . . . . . . . . . . . . . . . . . .  98
 
 
 
@@ -394,53 +394,53 @@ Rathnayake              Expires 8 September 2023                [Page 7]
 Internet-Draft               xml2rfc-unicode                  March 2023
 
 
+     3.289. Variation Selectors Supplement . . . . . . . . . . . . .  98
+     3.290. Supplementary Private Use Area-A . . . . . . . . . . . .  98
+     3.291. Supplementary Private Use Area-B . . . . . . . . . . . .  98
+   4.  Informative References  . . . . . . . . . . . . . . . . . . .  99
    Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  99
 
 1.  Introduction
 
-   The xml2rfc supports Unicode but there are publishing limitation due
-   to the fonts.  The xml2rfc has support for the all Unicode that
-   belongs to the scripts range and limited support for symbols and
-   punctuation.
+   Non-ASCII characters are allowed in RFCs under several restrictions.
+   See [RFC7997].
 
-2.  Basic Latin
+   Some XML2RFC elements allow the use of bare Unicode and other
+   elements can make use of >u< element.  See [RFC7991].
+
+   Various non-Latin Unicode characters can be an issue in RFC
+   publications.  Especially generating PDF format of the document.
+   This is because the correct font has to be identified and included in
+   the PDF file.  This is done by the xml2rfc too.  See [xml2rfc].
+
+   xml2rfc maintains its own list of Unicode script blocks.  Depending
+   on which script is used, xml2rfc matches the correct Noto font.
+
+   This document is an experiment on when Unicode characters from
+   different blocks are included in an Internet-Draft.
+
+2.  Methodology
+
+   The Unicode characters blocks are identified using [unicode-blocks].
+
+   This random printable character from each block is chosen.  The
+   xml2rfc is used as an API to identify which script blocks are
+   assigned to that character and predicted font names. xml2rfc might
+   predict a non-existing font.  These are the instances where xml2rfc
+   might leak non-standard fonts to generated PDF files.
+
+3.  Unicode code blocks
+
+3.1.  Basic Latin
 
    Unicode character range: 0000..007F
 
    Unicode Basic Latin character list
    (https://www.unicode.org/charts/PDF/U0000.pdf)
 
-   Scripts list as identified by xml2rfc: Latin
+   Scripts list as identified by xml2rfc: Common
 
    Following fonts are available:
-
-   *  Noto Serif
-
-   Example: "g" (LATIN SMALL LETTER G, U+0067)
-
-3.  Latin-1 Supplement
-
-   Unicode character range: 0080..00FF
-
-   Unicode Latin-1 Supplement character list
-   (https://www.unicode.org/charts/PDF/U0080.pdf)
-
-   Scripts list as identified by xml2rfc: Latin
-
-   Following fonts are available:
-
-   *  Noto Serif
-
-   Example: "ü" (LATIN SMALL LETTER U WITH DIAERESIS, U+00FC)
-
-4.  Latin Extended-A
-
-   Unicode character range: 0100..017F
-
-   Unicode Latin Extended-A character list
-   (https://www.unicode.org/charts/PDF/U0100.pdf)
-
-   Scripts list as identified by xml2rfc: Latin
 
 
 
@@ -450,13 +450,41 @@ Rathnayake              Expires 8 September 2023                [Page 8]
 Internet-Draft               xml2rfc-unicode                  March 2023
 
 
+   *  Noto Serif
+
+   Example: "2" (DIGIT TWO, U+0032)
+
+3.2.  Latin-1 Supplement
+
+   Unicode character range: 0080..00FF
+
+   Unicode Latin-1 Supplement character list
+   (https://www.unicode.org/charts/PDF/U0080.pdf)
+
+   Scripts list as identified by xml2rfc: Common
+
    Following fonts are available:
 
    *  Noto Serif
 
-   Example: "ş" (LATIN SMALL LETTER S WITH CEDILLA, U+015F)
+   Example: " " (NO-BREAK SPACE, U+00A0)
 
-5.  Latin Extended-B
+3.3.  Latin Extended-A
+
+   Unicode character range: 0100..017F
+
+   Unicode Latin Extended-A character list
+   (https://www.unicode.org/charts/PDF/U0100.pdf)
+
+   Scripts list as identified by xml2rfc: Latin
+
+   Following fonts are available:
+
+   *  Noto Serif
+
+   Example: "ű" (LATIN SMALL LETTER U WITH DOUBLE ACUTE, U+0171)
+
+3.4.  Latin Extended-B
 
    Unicode character range: 0180..024F
 
@@ -469,9 +497,16 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif
 
-   Example: "ɉ" (LATIN SMALL LETTER J WITH STROKE, U+0249)
+   Example: "Ȕ" (LATIN CAPITAL LETTER U WITH DOUBLE GRAVE, U+0214)
 
-6.  IPA Extensions
+
+
+Rathnayake              Expires 8 September 2023                [Page 9]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
+
+3.5.  IPA Extensions
 
    Unicode character range: 0250..02AF
 
@@ -484,31 +519,24 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif
 
-   Example: "ɠ" (LATIN SMALL LETTER G WITH HOOK, U+0260)
+   Example: "ɢ" (LATIN LETTER SMALL CAPITAL G, U+0262)
 
-7.  Spacing Modifier Letters
+3.6.  Spacing Modifier Letters
 
    Unicode character range: 02B0..02FF
 
    Unicode Spacing Modifier Letters character list
    (https://www.unicode.org/charts/PDF/U02B0.pdf)
 
-   Scripts list as identified by xml2rfc: Bopomofo
+   Scripts list as identified by xml2rfc: Latin
 
    Following fonts are available:
 
-   *  Noto Sans Bopomofo
+   *  Noto Serif
 
+   Example: "ʱ" (MODIFIER LETTER SMALL H WITH HOOK, U+02B1)
 
-
-Rathnayake              Expires 8 September 2023                [Page 9]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
-
-   Example: "˫" (MODIFIER LETTER YANG DEPARTING TONE MARK, U+02EB)
-
-8.  Combining Diacritical Marks
+3.7.  Combining Diacritical Marks
 
    Unicode character range: 0300..036F
 
@@ -521,9 +549,20 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Inherited
 
-   Example: "̀" (COMBINING GRAVE TONE MARK, U+0340)
+   Example: "͌" (COMBINING ALMOST EQUAL TO ABOVE, U+034C)
 
-9.  Greek and Coptic
+
+
+
+
+
+
+Rathnayake              Expires 8 September 2023               [Page 10]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
+
+3.8.  Greek and Coptic
 
    Unicode character range: 0370..03FF
 
@@ -536,9 +575,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif
 
-   Example: "ϐ" (GREEK BETA SYMBOL, U+03D0)
+   Example: "ͼ" (GREEK SMALL DOTTED LUNATE SIGMA SYMBOL, U+037C)
 
-10.  Cyrillic
+3.9.  Cyrillic
 
    Unicode character range: 0400..04FF
 
@@ -551,18 +590,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif
 
-   Example: "ҭ" (CYRILLIC SMALL LETTER TE WITH DESCENDER, U+04AD)
+   Example: "ҹ" (CYRILLIC SMALL LETTER CHE WITH VERTICAL STROKE, U+04B9)
 
-
-
-
-
-Rathnayake              Expires 8 September 2023               [Page 10]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
-
-11.  Cyrillic Supplement
+3.10.  Cyrillic Supplement
 
    Unicode character range: 0500..052F
 
@@ -575,37 +605,7 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif
 
-   Example: "ԇ" (CYRILLIC SMALL LETTER KOMI DZJE, U+0507)
-
-12.  Armenian
-
-   Unicode character range: 0530..058F
-
-   Unicode Armenian character list (https://www.unicode.org/charts/PDF/
-   U0530.pdf)
-
-   Scripts list as identified by xml2rfc: Armenian
-
-   Following fonts are available:
-
-   *  Noto Serif Armenian
-
-   Example: "կ" (ARMENIAN SMALL LETTER KEN, U+056F)
-
-13.  Hebrew
-
-   Unicode character range: 0590..05FF
-
-   Unicode Hebrew character list (https://www.unicode.org/charts/PDF/
-   U0590.pdf)
-
-   Scripts list as identified by xml2rfc: Hebrew
-
-   Following fonts are available:
-
-   *  Noto Serif Hebrew
-
-   Example: "י" (HEBREW LETTER YOD, U+05D9)
+   Example: "ԧ" (CYRILLIC SMALL LETTER SHHA WITH DESCENDER, U+0527)
 
 
 
@@ -618,24 +618,63 @@ Rathnayake              Expires 8 September 2023               [Page 11]
 Internet-Draft               xml2rfc-unicode                  March 2023
 
 
-14.  Arabic
+3.11.  Armenian
+
+   Unicode character range: 0530..058F
+
+   Unicode Armenian character list (https://www.unicode.org/charts/PDF/
+   U0530.pdf)
+
+   Scripts list as identified by xml2rfc: Armenian
+
+   Following fonts are available:
+
+   *  Noto Serif Armenian
+
+   Example: "Ֆ" (ARMENIAN CAPITAL LETTER FEH, U+0556)
+
+3.12.  Hebrew
+
+   Unicode character range: 0590..05FF
+
+   Unicode Hebrew character list (https://www.unicode.org/charts/PDF/
+   U0590.pdf)
+
+   Scripts list as identified by xml2rfc: Hebrew
+
+   Following fonts are available:
+
+   *  Noto Serif Hebrew
+
+   Example: "פ" (HEBREW LETTER PE, U+05E4)
+
+3.13.  Arabic
 
    Unicode character range: 0600..06FF
 
    Unicode Arabic character list (https://www.unicode.org/charts/PDF/
    U0600.pdf)
 
-   Scripts list as identified by xml2rfc: Arabic, Common
+   Scripts list as identified by xml2rfc: Arabic
 
    Following fonts are available:
 
    *  Noto Sans Arabic
 
-   *  Noto Serif
+   Example: "ؘ" (ARABIC SMALL FATHA, U+0618)
 
-   Example: "۞" (ARABIC START OF RUB EL HIZB, U+06DE)
 
-15.  Syriac
+
+
+
+
+
+Rathnayake              Expires 8 September 2023               [Page 12]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
+
+3.14.  Syriac
 
    Unicode character range: 0700..074F
 
@@ -648,9 +687,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Syriac
 
-   Example: "݁" (SYRIAC QUSHSHAYA, U+0741)
+   Example: "݄" (SYRIAC TWO VERTICAL DOTS BELOW, U+0744)
 
-16.  Arabic Supplement
+3.15.  Arabic Supplement
 
    Unicode character range: 0750..077F
 
@@ -663,38 +702,33 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Arabic
 
-   Example: "ݣ" (ARABIC LETTER KEHEH WITH THREE DOTS ABOVE, U+0763)
+   Example: "ݜ" (ARABIC LETTER SEEN WITH FOUR DOTS ABOVE, U+075C)
 
-
-
-
-
-Rathnayake              Expires 8 September 2023               [Page 12]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
-
-17.  Thaana
+3.16.  Thaana
 
    Unicode character range: 0780..07BF
 
    Unicode Thaana character list (https://www.unicode.org/charts/PDF/
    U0780.pdf)
 
-   Scripts list as identified by xml2rfc: Thaana
+   Scripts list as identified by xml2rfc: Unknown
 
-   Following fonts are available:
+   There are no supported fonts.
 
-   *  Noto Sans Thaana
-
-   Example: "ޓ" (THAANA LETTER TAVIYANI, U+0793)
-
-18.  NKo
+3.17.  NKo
 
    Unicode character range: 07C0..07FF
 
    Unicode NKo character list (https://www.unicode.org/charts/PDF/
    U07C0.pdf)
+
+
+
+
+Rathnayake              Expires 8 September 2023               [Page 13]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
 
    Scripts list as identified by xml2rfc: Nko
 
@@ -702,9 +736,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Nko
 
-   Example: "߇" (NKO DIGIT SEVEN, U+07C7)
+   Example: "ߌ" (NKO LETTER I, U+07CC)
 
-19.  Samaritan
+3.18.  Samaritan
 
    Unicode character range: 0800..083F
 
@@ -717,20 +751,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Samaritan
 
-   Example: "࠽" (SAMARITAN PUNCTUATION SOF MASHFAAT, U+083D)
+   Example: "ࠑ" (SAMARITAN LETTER TSAADIY, U+0811)
 
-
-
-
-
-
-
-Rathnayake              Expires 8 September 2023               [Page 13]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
-
-20.  Mandaic
+3.19.  Mandaic
 
    Unicode character range: 0840..085F
 
@@ -743,20 +766,31 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Mandaic
 
-   Example: "ࡆ" (MANDAIC LETTER AZ, U+0846)
+   Example: "࡞" (MANDAIC PUNCTUATION, U+085E)
 
-21.  Syriac Supplement
+3.20.  Syriac Supplement
 
    Unicode character range: 0860..086F
 
    Unicode Syriac Supplement character list
    (https://www.unicode.org/charts/PDF/U0860.pdf)
 
-   Scripts list as identified by xml2rfc: Unknown
+   Scripts list as identified by xml2rfc: Syriac
 
-   There are no supported fonts.
+   Following fonts are available:
 
-22.  Arabic Extended-A
+
+
+Rathnayake              Expires 8 September 2023               [Page 14]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
+
+   *  Noto Sans Syriac
+
+   Example: "ࡪ" (SYRIAC LETTER MALAYALAM SSA, U+086A)
+
+3.21.  Arabic Extended-A
 
    Unicode character range: 08A0..08FF
 
@@ -767,7 +801,7 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    There are no supported fonts.
 
-23.  Devanagari
+3.22.  Devanagari
 
    Unicode character range: 0900..097F
 
@@ -778,41 +812,54 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    Following fonts are available:
 
-
-
-
-Rathnayake              Expires 8 September 2023               [Page 14]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
-
    *  Noto Serif Devanagari
 
-   Example: "य़" (DEVANAGARI LETTER YYA, U+095F)
+   Example: "ल" (DEVANAGARI LETTER LA, U+0932)
 
-24.  Bengali
+3.23.  Bengali
 
    Unicode character range: 0980..09FF
 
    Unicode Bengali character list (https://www.unicode.org/charts/PDF/
    U0980.pdf)
 
-   Scripts list as identified by xml2rfc: Unknown
+   Scripts list as identified by xml2rfc: Bengali
 
-   There are no supported fonts.
+   Following fonts are available:
 
-25.  Gurmukhi
+   *  Noto Serif Bengali
+
+   Example: "ঠ" (BENGALI LETTER TTHA, U+09A0)
+
+
+
+
+
+
+
+Rathnayake              Expires 8 September 2023               [Page 15]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
+
+3.24.  Gurmukhi
 
    Unicode character range: 0A00..0A7F
 
    Unicode Gurmukhi character list (https://www.unicode.org/charts/PDF/
    U0A00.pdf)
 
-   Scripts list as identified by xml2rfc: Unknown
+   Scripts list as identified by xml2rfc: Gurmukhi, Multani
 
-   There are no supported fonts.
+   Following fonts are available:
 
-26.  Gujarati
+   *  Noto Sans Gurmukhi
+
+   *  Noto Sans Multani
+
+   Example: "੩" (GURMUKHI DIGIT THREE, U+0A69)
+
+3.25.  Gujarati
 
    Unicode character range: 0A80..0AFF
 
@@ -823,30 +870,18 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    There are no supported fonts.
 
-27.  Oriya
+3.26.  Oriya
 
    Unicode character range: 0B00..0B7F
 
    Unicode Oriya character list (https://www.unicode.org/charts/PDF/
    U0B00.pdf)
 
-   Scripts list as identified by xml2rfc: Oriya
+   Scripts list as identified by xml2rfc: Unknown
 
-   Following fonts are available:
+   There are no supported fonts.
 
-
-
-
-Rathnayake              Expires 8 September 2023               [Page 15]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
-
-   *  Noto Sans Oriya
-
-   Example: "ୣ" (ORIYA VOWEL SIGN VOCALIC LL, U+0B63)
-
-28.  Tamil
+3.27.  Tamil
 
    Unicode character range: 0B80..0BFF
 
@@ -855,13 +890,21 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    Scripts list as identified by xml2rfc: Tamil
 
+
+
+
+Rathnayake              Expires 8 September 2023               [Page 16]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
+
    Following fonts are available:
 
    *  Noto Serif Tamil
 
-   Example: "ஜ" (TAMIL LETTER JA, U+0B9C)
+   Example: "ௐ" (TAMIL OM, U+0BD0)
 
-29.  Telugu
+3.28.  Telugu
 
    Unicode character range: 0C00..0C7F
 
@@ -874,42 +917,44 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif Telugu
 
-   Example: "ౡ" (TELUGU LETTER VOCALIC LL, U+0C61)
+   Example: "ఒ" (TELUGU LETTER O, U+0C12)
 
-30.  Kannada
+3.29.  Kannada
 
    Unicode character range: 0C80..0CFF
 
    Unicode Kannada character list (https://www.unicode.org/charts/PDF/
    U0C80.pdf)
 
-   Scripts list as identified by xml2rfc: Kannada
+   Scripts list as identified by xml2rfc: Unknown
 
-   Following fonts are available:
+   There are no supported fonts.
 
-   *  Noto Serif Kannada
-
-   Example: "ಙ" (KANNADA LETTER NGA, U+0C99)
-
-
-
-Rathnayake              Expires 8 September 2023               [Page 16]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
-
-31.  Malayalam
+3.30.  Malayalam
 
    Unicode character range: 0D00..0D7F
 
    Unicode Malayalam character list (https://www.unicode.org/charts/PDF/
    U0D00.pdf)
 
-   Scripts list as identified by xml2rfc: Unknown
+   Scripts list as identified by xml2rfc: Malayalam
 
-   There are no supported fonts.
+   Following fonts are available:
 
-32.  Sinhala
+   *  Noto Serif Malayalam
+
+   Example: "ൺ" (MALAYALAM LETTER CHILLU NN, U+0D7A)
+
+
+
+
+
+Rathnayake              Expires 8 September 2023               [Page 17]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
+
+3.31.  Sinhala
 
    Unicode character range: 0D80..0DFF
 
@@ -920,22 +965,18 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    There are no supported fonts.
 
-33.  Thai
+3.32.  Thai
 
    Unicode character range: 0E00..0E7F
 
    Unicode Thai character list (https://www.unicode.org/charts/PDF/
    U0E00.pdf)
 
-   Scripts list as identified by xml2rfc: Thai
+   Scripts list as identified by xml2rfc: Unknown
 
-   Following fonts are available:
+   There are no supported fonts.
 
-   *  Noto Serif Thai
-
-   Example: "ฮ" (THAI CHARACTER HO NOKHUK, U+0E2E)
-
-34.  Lao
+3.33.  Lao
 
    Unicode character range: 0E80..0EFF
 
@@ -946,19 +987,11 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    Following fonts are available:
 
-
-
-
-Rathnayake              Expires 8 September 2023               [Page 17]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
-
    *  Noto Serif Lao
 
-   Example: "ຊ" (LAO LETTER SO TAM, U+0E8A)
+   Example: "ຣ" (LAO LETTER LO LING, U+0EA3)
 
-35.  Tibetan
+3.34.  Tibetan
 
    Unicode character range: 0F00..0FFF
 
@@ -969,11 +1002,19 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    Following fonts are available:
 
+
+
+
+Rathnayake              Expires 8 September 2023               [Page 18]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
+
    *  Noto Sans Tibetan
 
-   Example: "༑" (TIBETAN MARK RIN CHEN SPUNGS SHAD, U+0F11)
+   Example: "ཾ" (TIBETAN SIGN RJES SU NGA RO, U+0F7E)
 
-36.  Myanmar
+3.35.  Myanmar
 
    Unicode character range: 1000..109F
 
@@ -986,31 +1027,24 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif Myanmar
 
-   Example: "႘" (MYANMAR SHAN DIGIT EIGHT, U+1098)
+   Example: "ၓ" (MYANMAR LETTER VOCALIC RR, U+1053)
 
-37.  Georgian
+3.36.  Georgian
 
    Unicode character range: 10A0..10FF
 
    Unicode Georgian character list (https://www.unicode.org/charts/PDF/
    U10A0.pdf)
 
-   Scripts list as identified by xml2rfc: Unknown
+   Scripts list as identified by xml2rfc: Georgian
 
-   There are no supported fonts.
+   Following fonts are available:
 
+   *  Noto Serif Georgian
 
+   Example: "Ⴗ" (GEORGIAN CAPITAL LETTER QAR, U+10B7)
 
-
-
-
-
-Rathnayake              Expires 8 September 2023               [Page 18]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
-
-38.  Hangul Jamo
+3.37.  Hangul Jamo
 
    Unicode character range: 1100..11FF
 
@@ -1023,9 +1057,16 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif CJK KR
 
-   Example: "ᅧ" (HANGUL JUNGSEONG YEO, U+1167)
+   Example: "ᅯ" (HANGUL JUNGSEONG WEO, U+116F)
 
-39.  Ethiopic
+
+
+Rathnayake              Expires 8 September 2023               [Page 19]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
+
+3.38.  Ethiopic
 
    Unicode character range: 1200..137F
 
@@ -1038,35 +1079,20 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif Ethiopic
 
-   Example: "ኋ" (ETHIOPIC SYLLABLE XWAA, U+128B)
+   Example: "ደ" (ETHIOPIC SYLLABLE DA, U+12F0)
 
-40.  Ethiopic Supplement
+3.39.  Ethiopic Supplement
 
    Unicode character range: 1380..139F
 
    Unicode Ethiopic Supplement character list
    (https://www.unicode.org/charts/PDF/U1380.pdf)
 
-   Scripts list as identified by xml2rfc: Ethiopic
+   Scripts list as identified by xml2rfc: Unknown
 
-   Following fonts are available:
+   There are no supported fonts.
 
-   *  Noto Serif Ethiopic
-
-   Example: "ᎅ" (ETHIOPIC SYLLABLE BWI, U+1385)
-
-
-
-
-
-
-
-Rathnayake              Expires 8 September 2023               [Page 19]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
-
-41.  Cherokee
+3.40.  Cherokee
 
    Unicode character range: 13A0..13FF
 
@@ -1079,14 +1105,22 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Cherokee
 
-   Example: "Ꮻ" (CHEROKEE LETTER WI, U+13EB)
+   Example: "Ꮘ" (CHEROKEE LETTER QUI, U+13C8)
 
-42.  Unified Canadian Aboriginal Syllabics
+3.41.  Unified Canadian Aboriginal Syllabics
 
    Unicode character range: 1400..167F
 
    Unicode Unified Canadian Aboriginal Syllabics character list
    (https://www.unicode.org/charts/PDF/U1400.pdf)
+
+
+
+
+Rathnayake              Expires 8 September 2023               [Page 20]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
 
    Scripts list as identified by xml2rfc: Canadian_Aboriginal
 
@@ -1094,9 +1128,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Canadian Aboriginal
 
-   Example: "ᒽ" (CANADIAN SYLLABICS MH, U+14BD)
+   Example: "ᒗ" (CANADIAN SYLLABICS WEST-CREE CWII, U+1497)
 
-43.  Ogham
+3.42.  Ogham
 
    Unicode character range: 1680..169F
 
@@ -1109,20 +1143,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Ogham
 
-   Example: "᚜" (OGHAM REVERSED FEATHER MARK, U+169C)
+   Example: "ᚁ" (OGHAM LETTER BEITH, U+1681)
 
-
-
-
-
-
-
-Rathnayake              Expires 8 September 2023               [Page 20]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
-
-44.  Runic
+3.43.  Runic
 
    Unicode character range: 16A0..16FF
 
@@ -1135,41 +1158,18 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Runic
 
-   Example: "ᛚ" (RUNIC LETTER LAUKAZ LAGU LOGR L, U+16DA)
+   Example: "ᛸ" (RUNIC LETTER FRANKS CASKET AESC, U+16F8)
 
-45.  Tagalog
+3.44.  Tagalog
 
    Unicode character range: 1700..171F
 
    Unicode Tagalog character list (https://www.unicode.org/charts/PDF/
    U1700.pdf)
 
-   Scripts list as identified by xml2rfc: Unknown
-
-   There are no supported fonts.
-
-46.  Hanunoo
-
-   Unicode character range: 1720..173F
-
-   Unicode Hanunoo character list (https://www.unicode.org/charts/PDF/
-   U1720.pdf)
-
-   Scripts list as identified by xml2rfc: Hanunoo
+   Scripts list as identified by xml2rfc: Tagalog
 
    Following fonts are available:
-
-   *  Noto Sans Hanunoo
-
-   Example: "᜴" (HANUNOO SIGN PAMUDPOD, U+1734)
-
-47.  Buhid
-
-   Unicode character range: 1740..175F
-
-   Unicode Buhid character list (https://www.unicode.org/charts/PDF/
-   U1740.pdf)
-
 
 
 
@@ -1178,35 +1178,61 @@ Rathnayake              Expires 8 September 2023               [Page 21]
 Internet-Draft               xml2rfc-unicode                  March 2023
 
 
+   *  Noto Sans Tagalog
+
+   Example: "᜔" (TAGALOG SIGN VIRAMA, U+1714)
+
+3.45.  Hanunoo
+
+   Unicode character range: 1720..173F
+
+   Unicode Hanunoo character list (https://www.unicode.org/charts/PDF/
+   U1720.pdf)
+
+   Scripts list as identified by xml2rfc: Unknown
+
+   There are no supported fonts.
+
+3.46.  Buhid
+
+   Unicode character range: 1740..175F
+
+   Unicode Buhid character list (https://www.unicode.org/charts/PDF/
+   U1740.pdf)
+
    Scripts list as identified by xml2rfc: Buhid
 
    Following fonts are available:
 
    *  Noto Sans Buhid
 
-   Example: "ᝐ" (BUHID LETTER SA, U+1750)
+   Example: "ᝏ" (BUHID LETTER WA, U+174F)
 
-48.  Tagbanwa
+3.47.  Tagbanwa
 
    Unicode character range: 1760..177F
 
    Unicode Tagbanwa character list (https://www.unicode.org/charts/PDF/
    U1760.pdf)
 
-   Scripts list as identified by xml2rfc: Tagbanwa
+   Scripts list as identified by xml2rfc: Unknown
 
-   Following fonts are available:
+   There are no supported fonts.
 
-   *  Noto Sans Tagbanwa
-
-   Example: "ᝨ" (TAGBANWA LETTER NA, U+1768)
-
-49.  Khmer
+3.48.  Khmer
 
    Unicode character range: 1780..17FF
 
    Unicode Khmer character list (https://www.unicode.org/charts/PDF/
    U1780.pdf)
+
+
+
+
+Rathnayake              Expires 8 September 2023               [Page 22]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
 
    Scripts list as identified by xml2rfc: Khmer
 
@@ -1214,9 +1240,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif Khmer
 
-   Example: "ឋ" (KHMER LETTER TTHA, U+178B)
+   Example: "ោ" (KHMER VOWEL SIGN OO, U+17C4)
 
-50.  Mongolian
+3.49.  Mongolian
 
    Unicode character range: 1800..18AF
 
@@ -1227,29 +1253,26 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    Following fonts are available:
 
-
-
-Rathnayake              Expires 8 September 2023               [Page 22]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
-
    *  Noto Sans Mongolian
 
-   Example: "ᢈ" (MONGOLIAN LETTER ALI GALI I, U+1888)
+   Example: "ᡖ" (MONGOLIAN LETTER TODO WA, U+1856)
 
-51.  Unified Canadian Aboriginal Syllabics Extended
+3.50.  Unified Canadian Aboriginal Syllabics Extended
 
    Unicode character range: 18B0..18FF
 
    Unicode Unified Canadian Aboriginal Syllabics Extended character list
    (https://www.unicode.org/charts/PDF/U18B0.pdf)
 
-   Scripts list as identified by xml2rfc: Unknown
+   Scripts list as identified by xml2rfc: Canadian_Aboriginal
 
-   There are no supported fonts.
+   Following fonts are available:
 
-52.  Limbu
+   *  Noto Sans Canadian Aboriginal
+
+   Example: "ᣧ" (CANADIAN SYLLABICS TTHAA, U+18E7)
+
+3.51.  Limbu
 
    Unicode character range: 1900..194F
 
@@ -1260,11 +1283,18 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    Following fonts are available:
 
+
+
+Rathnayake              Expires 8 September 2023               [Page 23]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
+
    *  Noto Sans Limbu
 
-   Example: "ᤱ" (LIMBU SMALL LETTER NGA, U+1931)
+   Example: "ᤂ" (LIMBU LETTER KHA, U+1902)
 
-53.  Tai Le
+3.52.  Tai Le
 
    Unicode character range: 1950..197F
 
@@ -1277,20 +1307,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Tai Le
 
-   Example: "ᥪ" (TAI LE LETTER UE, U+196A)
+   Example: "ᥖ" (TAI LE LETTER TA, U+1956)
 
-
-
-
-
-
-
-Rathnayake              Expires 8 September 2023               [Page 23]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
-
-54.  New Tai Lue
+3.53.  New Tai Lue
 
    Unicode character range: 1980..19DF
 
@@ -1303,9 +1322,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans New Tai Lue
 
-   Example: "ᦋ" (NEW TAI LUE LETTER LOW TSA, U+198B)
+   Example: "ᦠ" (NEW TAI LUE LETTER HIGH HA, U+19A0)
 
-55.  Khmer Symbols
+3.54.  Khmer Symbols
 
    Unicode character range: 19E0..19FF
 
@@ -1320,7 +1339,14 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    Example: "᧼" (KHMER SYMBOL DAP-PII ROC, U+19FC)
 
-56.  Buginese
+
+
+Rathnayake              Expires 8 September 2023               [Page 24]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
+
+3.55.  Buginese
 
    Unicode character range: 1A00..1A1F
 
@@ -1333,20 +1359,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Buginese
 
-   Example: "ᨂ" (BUGINESE LETTER NGA, U+1A02)
+   Example: "ᨇ" (BUGINESE LETTER MPA, U+1A07)
 
-
-
-
-
-
-
-Rathnayake              Expires 8 September 2023               [Page 24]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
-
-57.  Tai Tham
+3.56.  Tai Tham
 
    Unicode character range: 1A20..1AAF
 
@@ -1359,9 +1374,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Tai Tham
 
-   Example: "ᩕ" (TAI THAM CONSONANT SIGN MEDIAL RA, U+1A55)
+   Example: "ᩁ" (TAI THAM LETTER RA, U+1A41)
 
-58.  Combining Diacritical Marks Extended
+3.57.  Combining Diacritical Marks Extended
 
    Unicode character range: 1AB0..1AFF
 
@@ -1372,27 +1387,12 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    There are no supported fonts.
 
-59.  Balinese
+3.58.  Balinese
 
    Unicode character range: 1B00..1B7F
 
    Unicode Balinese character list (https://www.unicode.org/charts/PDF/
    U1B00.pdf)
-
-   Scripts list as identified by xml2rfc: Balinese
-
-   Following fonts are available:
-
-   *  Noto Sans Balinese
-
-   Example: "ᬷ" (BALINESE VOWEL SIGN ULU SARI, U+1B37)
-
-60.  Sundanese
-
-   Unicode character range: 1B80..1BBF
-
-   Unicode Sundanese character list (https://www.unicode.org/charts/PDF/
-   U1B80.pdf)
 
 
 
@@ -1402,15 +1402,30 @@ Rathnayake              Expires 8 September 2023               [Page 25]
 Internet-Draft               xml2rfc-unicode                  March 2023
 
 
+   Scripts list as identified by xml2rfc: Balinese
+
+   Following fonts are available:
+
+   *  Noto Sans Balinese
+
+   Example: "᭩" (BALINESE MUSICAL SYMBOL DAING, U+1B69)
+
+3.59.  Sundanese
+
+   Unicode character range: 1B80..1BBF
+
+   Unicode Sundanese character list (https://www.unicode.org/charts/PDF/
+   U1B80.pdf)
+
    Scripts list as identified by xml2rfc: Sundanese
 
    Following fonts are available:
 
    *  Noto Sans Sundanese
 
-   Example: "ᮺ" (SUNDANESE AVAGRAHA, U+1BBA)
+   Example: "ᮾ" (SUNDANESE LETTER FINAL K, U+1BBE)
 
-61.  Batak
+3.60.  Batak
 
    Unicode character range: 1BC0..1BFF
 
@@ -1423,24 +1438,27 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Batak
 
-   Example: "ᯣ" (BATAK LETTER MBA, U+1BE3)
+   Example: "ᯗ" (BATAK LETTER NORTHERN TA, U+1BD7)
 
-62.  Lepcha
+3.61.  Lepcha
 
    Unicode character range: 1C00..1C4F
 
    Unicode Lepcha character list (https://www.unicode.org/charts/PDF/
    U1C00.pdf)
 
-   Scripts list as identified by xml2rfc: Lepcha
+   Scripts list as identified by xml2rfc: Unknown
 
-   Following fonts are available:
+   There are no supported fonts.
 
-   *  Noto Sans Lepcha
 
-   Example: "᰽" (LEPCHA PUNCTUATION CER-WA, U+1C3D)
 
-63.  Ol Chiki
+Rathnayake              Expires 8 September 2023               [Page 26]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
+
+3.62.  Ol Chiki
 
    Unicode character range: 1C50..1C7F
 
@@ -1451,18 +1469,11 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    Following fonts are available:
 
-
-
-Rathnayake              Expires 8 September 2023               [Page 26]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
-
    *  Noto Sans Ol Chiki
 
-   Example: "ᱦ" (OL CHIKI LETTER IH, U+1C66)
+   Example: "ᱫ" (OL CHIKI LETTER UD, U+1C6B)
 
-64.  Cyrillic Extended-C
+3.63.  Cyrillic Extended-C
 
    Unicode character range: 1C80..1C8F
 
@@ -1477,7 +1488,7 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    Example: "ᲂ" (CYRILLIC SMALL LETTER NARROW O, U+1C82)
 
-65.  Georgian Extended
+3.64.  Georgian Extended
 
    Unicode character range: 1C90..1CBF
 
@@ -1490,22 +1501,11 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif Georgian
 
-   Example: "Ლ" (GEORGIAN MTAVRULI CAPITAL LETTER LAS, U+1C9A)
+   Example: "Ტ" (GEORGIAN MTAVRULI CAPITAL LETTER TAR, U+1CA2)
 
-66.  Sundanese Supplement
 
-   Unicode character range: 1CC0..1CCF
 
-   Unicode Sundanese Supplement character list
-   (https://www.unicode.org/charts/PDF/U1CC0.pdf)
 
-   Scripts list as identified by xml2rfc: Sundanese
-
-   Following fonts are available:
-
-   *  Noto Sans Sundanese
-
-   Example: "᳃" (SUNDANESE PUNCTUATION BINDU CAKRA, U+1CC3)
 
 
 
@@ -1514,52 +1514,52 @@ Rathnayake              Expires 8 September 2023               [Page 27]
 Internet-Draft               xml2rfc-unicode                  March 2023
 
 
-67.  Vedic Extensions
+3.65.  Sundanese Supplement
+
+   Unicode character range: 1CC0..1CCF
+
+   Unicode Sundanese Supplement character list
+   (https://www.unicode.org/charts/PDF/U1CC0.pdf)
+
+   Scripts list as identified by xml2rfc: Unknown
+
+   There are no supported fonts.
+
+3.66.  Vedic Extensions
 
    Unicode character range: 1CD0..1CFF
 
    Unicode Vedic Extensions character list
    (https://www.unicode.org/charts/PDF/U1CD0.pdf)
 
-   Scripts list as identified by xml2rfc: Common, Devanagari
+   Scripts list as identified by xml2rfc: Bengali, Common
 
    Following fonts are available:
 
+   *  Noto Serif Bengali
+
    *  Noto Serif
 
-   *  Noto Serif Devanagari
+   Example: "᳷" (VEDIC SIGN ATIKRAMA, U+1CF7)
 
-   Example: "ᳩ" (VEDIC SIGN ANUSVARA ANTARGOMUKHA, U+1CE9)
-
-68.  Phonetic Extensions
+3.67.  Phonetic Extensions
 
    Unicode character range: 1D00..1D7F
 
    Unicode Phonetic Extensions character list
    (https://www.unicode.org/charts/PDF/U1D00.pdf)
 
-   Scripts list as identified by xml2rfc: Latin
+   Scripts list as identified by xml2rfc: Greek
 
    Following fonts are available:
 
    *  Noto Serif
 
-   Example: "ᵴ" (LATIN SMALL LETTER S WITH MIDDLE TILDE, U+1D74)
+   Example: "ᵨ" (GREEK SUBSCRIPT SMALL LETTER RHO, U+1D68)
 
-69.  Phonetic Extensions Supplement
+3.68.  Phonetic Extensions Supplement
 
    Unicode character range: 1D80..1DBF
-
-   Unicode Phonetic Extensions Supplement character list
-   (https://www.unicode.org/charts/PDF/U1D80.pdf)
-
-   Scripts list as identified by xml2rfc: Latin
-
-   Following fonts are available:
-
-   *  Noto Serif
-
-   Example: "ᶵ" (MODIFIER LETTER SMALL T WITH PALATAL HOOK, U+1DB5)
 
 
 
@@ -1570,7 +1570,18 @@ Rathnayake              Expires 8 September 2023               [Page 28]
 Internet-Draft               xml2rfc-unicode                  March 2023
 
 
-70.  Combining Diacritical Marks Supplement
+   Unicode Phonetic Extensions Supplement character list
+   (https://www.unicode.org/charts/PDF/U1D80.pdf)
+
+   Scripts list as identified by xml2rfc: Latin
+
+   Following fonts are available:
+
+   *  Noto Serif
+
+   Example: "ᶱ" (MODIFIER LETTER SMALL BARRED O, U+1DB1)
+
+3.69.  Combining Diacritical Marks Supplement
 
    Unicode character range: 1DC0..1DFF
 
@@ -1583,9 +1594,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Inherited
 
-   Example: "ᷕ" (COMBINING LATIN SMALL LETTER AO, U+1DD5)
+   Example: "᷶" (COMBINING KAVYKA ABOVE RIGHT, U+1DF6)
 
-71.  Latin Extended Additional
+3.70.  Latin Extended Additional
 
    Unicode character range: 1E00..1EFF
 
@@ -1598,25 +1609,14 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif
 
-   Example: "Ṥ" (LATIN CAPITAL LETTER S WITH ACUTE AND DOT ABOVE,
-   U+1E64)
+   Example: "Ḏ" (LATIN CAPITAL LETTER D WITH LINE BELOW, U+1E0E)
 
-72.  Greek Extended
+3.71.  Greek Extended
 
    Unicode character range: 1F00..1FFF
 
    Unicode Greek Extended character list
    (https://www.unicode.org/charts/PDF/U1F00.pdf)
-
-   Scripts list as identified by xml2rfc: Greek
-
-   Following fonts are available:
-
-   *  Noto Serif
-
-   Example: "ᾟ" (GREEK CAPITAL LETTER ETA WITH DASIA AND PERISPOMENI AND
-   PROSGEGRAMMENI, U+1F9F)
-
 
 
 
@@ -1626,7 +1626,16 @@ Rathnayake              Expires 8 September 2023               [Page 29]
 Internet-Draft               xml2rfc-unicode                  March 2023
 
 
-73.  General Punctuation
+   Scripts list as identified by xml2rfc: Greek
+
+   Following fonts are available:
+
+   *  Noto Serif
+
+   Example: "ᾕ" (GREEK SMALL LETTER ETA WITH DASIA AND OXIA AND
+   YPOGEGRAMMENI, U+1F95)
+
+3.72.  General Punctuation
 
    Unicode character range: 2000..206F
 
@@ -1639,9 +1648,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif
 
-   Example: "⁜" (DOTTED CROSS, U+205C)
+   Example: "‒" (FIGURE DASH, U+2012)
 
-74.  Superscripts and Subscripts
+3.73.  Superscripts and Subscripts
 
    Unicode character range: 2070..209F
 
@@ -1654,9 +1663,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif
 
-   Example: "⁷" (SUPERSCRIPT SEVEN, U+2077)
+   Example: "₇" (SUBSCRIPT SEVEN, U+2087)
 
-75.  Currency Symbols
+3.74.  Currency Symbols
 
    Unicode character range: 20A0..20CF
 
@@ -1664,15 +1673,6 @@ Internet-Draft               xml2rfc-unicode                  March 2023
    (https://www.unicode.org/charts/PDF/U20A0.pdf)
 
    Scripts list as identified by xml2rfc: Common
-
-   Following fonts are available:
-
-   *  Noto Serif
-
-   Example: "₱" (PESO SIGN, U+20B1)
-
-
-
 
 
 
@@ -1682,7 +1682,13 @@ Rathnayake              Expires 8 September 2023               [Page 30]
 Internet-Draft               xml2rfc-unicode                  March 2023
 
 
-76.  Combining Diacritical Marks for Symbols
+   Following fonts are available:
+
+   *  Noto Serif
+
+   Example: "₢" (CRUZEIRO SIGN, U+20A2)
+
+3.75.  Combining Diacritical Marks for Symbols
 
    Unicode character range: 20D0..20FF
 
@@ -1695,9 +1701,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Inherited
 
-   Example: "⃩" (COMBINING WIDE BRIDGE ABOVE, U+20E9)
+   Example: "⃯" (COMBINING RIGHT ARROW BELOW, U+20EF)
 
-77.  Letterlike Symbols
+3.76.  Letterlike Symbols
 
    Unicode character range: 2100..214F
 
@@ -1710,9 +1716,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif
 
-   Example: "℈" (SCRUPLE, U+2108)
+   Example: "℉" (DEGREE FAHRENHEIT, U+2109)
 
-78.  Number Forms
+3.77.  Number Forms
 
    Unicode character range: 2150..218F
 
@@ -1725,12 +1731,6 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif
 
-   Example: "Ⅹ" (ROMAN NUMERAL TEN, U+2169)
-
-
-
-
-
 
 
 Rathnayake              Expires 8 September 2023               [Page 31]
@@ -1738,7 +1738,9 @@ Rathnayake              Expires 8 September 2023               [Page 31]
 Internet-Draft               xml2rfc-unicode                  March 2023
 
 
-79.  Arrows
+   Example: "ↆ" (ROMAN NUMERAL FIFTY EARLY FORM, U+2186)
+
+3.78.  Arrows
 
    Unicode character range: 2190..21FF
 
@@ -1751,9 +1753,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif
 
-   Example: "⇦" (LEFTWARDS WHITE ARROW, U+21E6)
+   Example: "⇼" (LEFT RIGHT ARROW WITH DOUBLE VERTICAL STROKE, U+21FC)
 
-80.  Mathematical Operators
+3.79.  Mathematical Operators
 
    Unicode character range: 2200..22FF
 
@@ -1766,9 +1768,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif
 
-   Example: "⋈" (BOWTIE, U+22C8)
+   Example: "−" (MINUS SIGN, U+2212)
 
-81.  Miscellaneous Technical
+3.80.  Miscellaneous Technical
 
    Unicode character range: 2300..23FF
 
@@ -1781,9 +1783,7 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif
 
-   Example: "⎚" (CLEAR SCREEN SYMBOL, U+239A)
-
-
+   Example: "⍿" (VERTICAL LINE WITH MIDDLE DOT, U+237F)
 
 
 
@@ -1794,7 +1794,7 @@ Rathnayake              Expires 8 September 2023               [Page 32]
 Internet-Draft               xml2rfc-unicode                  March 2023
 
 
-82.  Control Pictures
+3.81.  Control Pictures
 
    Unicode character range: 2400..243F
 
@@ -1807,9 +1807,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif
 
-   Example: "␣" (OPEN BOX, U+2423)
+   Example: "␥" (SYMBOL FOR DELETE FORM TWO, U+2425)
 
-83.  Optical Character Recognition
+3.82.  Optical Character Recognition
 
    Unicode character range: 2440..245F
 
@@ -1820,7 +1820,7 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    There are no supported fonts.
 
-84.  Enclosed Alphanumerics
+3.83.  Enclosed Alphanumerics
 
    Unicode character range: 2460..24FF
 
@@ -1833,9 +1833,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif
 
-   Example: "Ⓛ" (CIRCLED LATIN CAPITAL LETTER L, U+24C1)
+   Example: "⒮" (PARENTHESIZED LATIN SMALL LETTER S, U+24AE)
 
-85.  Box Drawing
+3.84.  Box Drawing
 
    Unicode character range: 2500..257F
 
@@ -1856,9 +1856,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif
 
-   Example: "┩" (BOX DRAWINGS DOWN LIGHT AND LEFT UP HEAVY, U+2529)
+   Example: "╻" (BOX DRAWINGS HEAVY DOWN, U+257B)
 
-86.  Block Elements
+3.85.  Block Elements
 
    Unicode character range: 2580..259F
 
@@ -1871,9 +1871,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif
 
-   Example: "▆" (LOWER THREE QUARTERS BLOCK, U+2586)
+   Example: "▘" (QUADRANT UPPER LEFT, U+2598)
 
-87.  Geometric Shapes
+3.86.  Geometric Shapes
 
    Unicode character range: 25A0..25FF
 
@@ -1886,9 +1886,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif
 
-   Example: "◘" (INVERSE BULLET, U+25D8)
+   Example: "▨" (SQUARE WITH UPPER RIGHT TO LOWER LEFT FILL, U+25A8)
 
-88.  Miscellaneous Symbols
+3.87.  Miscellaneous Symbols
 
    Unicode character range: 2600..26FF
 
@@ -1908,9 +1908,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif
 
-   Example: "☢" (RADIOACTIVE SIGN, U+2622)
+   Example: "⛇" (BLACK SNOWMAN, U+26C7)
 
-89.  Dingbats
+3.88.  Dingbats
 
    Unicode character range: 2700..27BF
 
@@ -1923,9 +1923,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif
 
-   Example: "❆" (HEAVY CHEVRON SNOWFLAKE, U+2746)
+   Example: "✉" (ENVELOPE, U+2709)
 
-90.  Miscellaneous Mathematical Symbols-A
+3.89.  Miscellaneous Mathematical Symbols-A
 
    Unicode character range: 27C0..27EF
 
@@ -1938,9 +1938,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif
 
-   Example: "⟘" (LARGE UP TACK, U+27D8)
+   Example: "⟠" (LOZENGE DIVIDED BY HORIZONTAL RULE, U+27E0)
 
-91.  Supplemental Arrows-A
+3.90.  Supplemental Arrows-A
 
    Unicode character range: 27F0..27FF
 
@@ -1953,7 +1953,7 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif
 
-   Example: "⟹" (LONG RIGHTWARDS DOUBLE ARROW, U+27F9)
+   Example: "⟶" (LONG RIGHTWARDS ARROW, U+27F6)
 
 
 
@@ -1962,7 +1962,7 @@ Rathnayake              Expires 8 September 2023               [Page 35]
 Internet-Draft               xml2rfc-unicode                  March 2023
 
 
-92.  Braille Patterns
+3.91.  Braille Patterns
 
    Unicode character range: 2800..28FF
 
@@ -1975,9 +1975,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Braille
 
-   Example: "⣘" (BRAILLE PATTERN DOTS-4578, U+28D8)
+   Example: "⣷" (BRAILLE PATTERN DOTS-1235678, U+28F7)
 
-93.  Supplemental Arrows-B
+3.92.  Supplemental Arrows-B
 
    Unicode character range: 2900..297F
 
@@ -1990,9 +1990,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif
 
-   Example: "⥅" (RIGHTWARDS ARROW WITH PLUS BELOW, U+2945)
+   Example: "⥀" (ANTICLOCKWISE CLOSED CIRCLE ARROW, U+2940)
 
-94.  Miscellaneous Mathematical Symbols-B
+3.93.  Miscellaneous Mathematical Symbols-B
 
    Unicode character range: 2980..29FF
 
@@ -2005,8 +2005,8 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif
 
-   Example: "⦟" (ACUTE ANGLE, U+299F)
-
+   Example: "⧤" (EQUALS SIGN AND SLANTED PARALLEL WITH TILDE ABOVE,
+   U+29E4)
 
 
 
@@ -2018,7 +2018,7 @@ Rathnayake              Expires 8 September 2023               [Page 36]
 Internet-Draft               xml2rfc-unicode                  March 2023
 
 
-95.  Supplemental Mathematical Operators
+3.94.  Supplemental Mathematical Operators
 
    Unicode character range: 2A00..2AFF
 
@@ -2031,9 +2031,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif
 
-   Example: "⨭" (PLUS SIGN IN LEFT HALF CIRCLE, U+2A2D)
+   Example: "⪻" (DOUBLE PRECEDES, U+2ABB)
 
-96.  Miscellaneous Symbols and Arrows
+3.95.  Miscellaneous Symbols and Arrows
 
    Unicode character range: 2B00..2BFF
 
@@ -2046,10 +2046,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif
 
-   Example: "⯬" (LEFTWARDS TWO-HEADED ARROW WITH TRIANGLE ARROWHEADS,
-   U+2BEC)
+   Example: "⯒" (GROUP MARK, U+2BD2)
 
-97.  Glagolitic
+3.96.  Glagolitic
 
    Unicode character range: 2C00..2C5F
 
@@ -2062,7 +2061,8 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Glagolitic
 
-   Example: "Ⱓ" (GLAGOLITIC CAPITAL LETTER YU, U+2C23)
+   Example: "ⰱ" (GLAGOLITIC SMALL LETTER BUKY, U+2C31)
+
 
 
 
@@ -2074,7 +2074,7 @@ Rathnayake              Expires 8 September 2023               [Page 37]
 Internet-Draft               xml2rfc-unicode                  March 2023
 
 
-98.  Latin Extended-C
+3.97.  Latin Extended-C
 
    Unicode character range: 2C60..2C7F
 
@@ -2087,9 +2087,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif
 
-   Example: "Ɫ" (LATIN CAPITAL LETTER L WITH MIDDLE TILDE, U+2C62)
+   Example: "ⱳ" (LATIN SMALL LETTER W WITH HOOK, U+2C73)
 
-99.  Coptic
+3.98.  Coptic
 
    Unicode character range: 2C80..2CFF
 
@@ -2102,9 +2102,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Coptic
 
-   Example: "Ⲷ" (COPTIC CAPITAL LETTER CRYPTOGRAMMIC EIE, U+2CB6)
+   Example: "Ⳑ" (COPTIC CAPITAL LETTER L-SHAPED HA, U+2CD0)
 
-100.  Georgian Supplement
+3.99.  Georgian Supplement
 
    Unicode character range: 2D00..2D2F
 
@@ -2117,7 +2117,7 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif Georgian
 
-   Example: "ⴈ" (GEORGIAN SMALL LETTER IN, U+2D08)
+   Example: "ⴍ" (GEORGIAN SMALL LETTER ON, U+2D0D)
 
 
 
@@ -2130,7 +2130,7 @@ Rathnayake              Expires 8 September 2023               [Page 38]
 Internet-Draft               xml2rfc-unicode                  March 2023
 
 
-101.  Tifinagh
+3.100.  Tifinagh
 
    Unicode character range: 2D30..2D7F
 
@@ -2143,9 +2143,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Tifinagh
 
-   Example: "ⴳ" (TIFINAGH LETTER YAG, U+2D33)
+   Example: "ⵝ" (TIFINAGH LETTER YATH, U+2D5D)
 
-102.  Ethiopic Extended
+3.101.  Ethiopic Extended
 
    Unicode character range: 2D80..2DDF
 
@@ -2158,9 +2158,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif Ethiopic
 
-   Example: "ⶏ" (ETHIOPIC SYLLABLE THOA, U+2D8F)
+   Example: "ⶬ" (ETHIOPIC SYLLABLE CCEE, U+2DAC)
 
-103.  Cyrillic Extended-A
+3.102.  Cyrillic Extended-A
 
    Unicode character range: 2DE0..2DFF
 
@@ -2173,7 +2173,7 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif
 
-   Example: "ⷯ" (COMBINING CYRILLIC LETTER HA, U+2DEF)
+   Example: "ⷧ" (COMBINING CYRILLIC LETTER EL, U+2DE7)
 
 
 
@@ -2186,7 +2186,7 @@ Rathnayake              Expires 8 September 2023               [Page 39]
 Internet-Draft               xml2rfc-unicode                  March 2023
 
 
-104.  Supplemental Punctuation
+3.103.  Supplemental Punctuation
 
    Unicode character range: 2E00..2E7F
 
@@ -2197,22 +2197,18 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    There are no supported fonts.
 
-105.  CJK Radicals Supplement
+3.104.  CJK Radicals Supplement
 
    Unicode character range: 2E80..2EFF
 
    Unicode CJK Radicals Supplement character list
    (https://www.unicode.org/charts/PDF/U2E80.pdf)
 
-   Scripts list as identified by xml2rfc: Han
+   Scripts list as identified by xml2rfc: Unknown
 
-   Following fonts are available:
+   There are no supported fonts.
 
-   *  Noto Serif CJK SC
-
-   Example: "⻡" (CJK RADICAL HEAD, U+2EE1)
-
-106.  Kangxi Radicals
+3.105.  Kangxi Radicals
 
    Unicode character range: 2F00..2FDF
 
@@ -2225,14 +2221,18 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif CJK SC
 
-   Example: "⽙" (KANGXI RADICAL HALF TREE TRUNK, U+2F59)
+   Example: "⼐" (KANGXI RADICAL OPEN BOX, U+2F10)
 
-107.  Ideographic Description Characters
+3.106.  Ideographic Description Characters
 
    Unicode character range: 2FF0..2FFF
 
    Unicode Ideographic Description Characters character list
    (https://www.unicode.org/charts/PDF/U2FF0.pdf)
+
+   Scripts list as identified by xml2rfc: Common
+
+   Following fonts are available:
 
 
 
@@ -2242,42 +2242,29 @@ Rathnayake              Expires 8 September 2023               [Page 40]
 Internet-Draft               xml2rfc-unicode                  March 2023
 
 
-   Scripts list as identified by xml2rfc: Common
-
-   Following fonts are available:
-
    *  Noto Serif
 
-   Example: "⿳" (IDEOGRAPHIC DESCRIPTION CHARACTER ABOVE TO MIDDLE AND
-   BELOW, U+2FF3)
+   Example: "⿱" (IDEOGRAPHIC DESCRIPTION CHARACTER ABOVE TO BELOW,
+   U+2FF1)
 
-108.  CJK Symbols and Punctuation
+3.107.  CJK Symbols and Punctuation
 
    Unicode character range: 3000..303F
 
    Unicode CJK Symbols and Punctuation character list
    (https://www.unicode.org/charts/PDF/U3000.pdf)
 
-   Scripts list as identified by xml2rfc: Bopomofo, Common, Han, Hangul,
-   Hiragana, Katakana
+   Scripts list as identified by xml2rfc: Common, Han
 
    Following fonts are available:
-
-   *  Noto Sans Bopomofo
 
    *  Noto Serif
 
    *  Noto Serif CJK SC
 
-   *  Noto Serif CJK KR
+   Example: "〇" (IDEOGRAPHIC NUMBER ZERO, U+3007)
 
-   *  Noto Serif CJK JP
-
-   *  Noto Serif CJK JP
-
-   Example: "〝" (REVERSED DOUBLE PRIME QUOTATION MARK, U+301D)
-
-109.  Hiragana
+3.108.  Hiragana
 
    Unicode character range: 3040..309F
 
@@ -2290,17 +2277,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif CJK JP
 
+   Example: "あ" (HIRAGANA LETTER A, U+3042)
 
-
-
-Rathnayake              Expires 8 September 2023               [Page 41]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
-
-   Example: "た" (HIRAGANA LETTER TA, U+305F)
-
-110.  Katakana
+3.109.  Katakana
 
    Unicode character range: 30A0..30FF
 
@@ -2311,11 +2290,19 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    Following fonts are available:
 
+
+
+
+Rathnayake              Expires 8 September 2023               [Page 41]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
+
    *  Noto Serif CJK JP
 
-   Example: "ユ" (KATAKANA LETTER YU, U+30E6)
+   Example: "ク" (KATAKANA LETTER KU, U+30AF)
 
-111.  Bopomofo
+3.110.  Bopomofo
 
    Unicode character range: 3100..312F
 
@@ -2328,9 +2315,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Bopomofo
 
-   Example: "ㄗ" (BOPOMOFO LETTER Z, U+3117)
+   Example: "ㄨ" (BOPOMOFO LETTER U, U+3128)
 
-112.  Hangul Compatibility Jamo
+3.111.  Hangul Compatibility Jamo
 
    Unicode character range: 3130..318F
 
@@ -2343,18 +2330,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif CJK KR
 
-   Example: "ㆀ" (HANGUL LETTER SSANGIEUNG, U+3180)
+   Example: "ㅩ" (HANGUL LETTER RIEUL-KIYEOK-SIOS, U+3169)
 
-
-
-
-
-Rathnayake              Expires 8 September 2023               [Page 42]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
-
-113.  Kanbun
+3.112.  Kanbun
 
    Unicode character range: 3190..319F
 
@@ -2369,9 +2347,16 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif CJK SC
 
-   Example: "㆞" (IDEOGRAPHIC ANNOTATION EARTH MARK, U+319E)
 
-114.  Bopomofo Extended
+
+Rathnayake              Expires 8 September 2023               [Page 42]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
+
+   Example: "㆘" (IDEOGRAPHIC ANNOTATION BOTTOM MARK, U+3198)
+
+3.113.  Bopomofo Extended
 
    Unicode character range: 31A0..31BF
 
@@ -2384,33 +2369,20 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Bopomofo
 
-   Example: "ㆮ" (BOPOMOFO LETTER AINN, U+31AE)
+   Example: "ㆨ" (BOPOMOFO LETTER IR, U+31A8)
 
-115.  CJK Strokes
+3.114.  CJK Strokes
 
    Unicode character range: 31C0..31EF
 
    Unicode CJK Strokes character list
    (https://www.unicode.org/charts/PDF/U31C0.pdf)
 
-   Scripts list as identified by xml2rfc: Common, Han
+   Scripts list as identified by xml2rfc: Unknown
 
-   Following fonts are available:
+   There are no supported fonts.
 
-   *  Noto Serif
-
-   *  Noto Serif CJK SC
-
-   Example: "㇘" (CJK STROKE SWZ, U+31D8)
-
-
-
-Rathnayake              Expires 8 September 2023               [Page 43]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
-
-116.  Katakana Phonetic Extensions
+3.115.  Katakana Phonetic Extensions
 
    Unicode character range: 31F0..31FF
 
@@ -2423,50 +2395,50 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif CJK JP
 
-   Example: "ㇽ" (KATAKANA LETTER SMALL RU, U+31FD)
+   Example: "ㇷ" (KATAKANA LETTER SMALL HU, U+31F7)
 
-117.  Enclosed CJK Letters and Months
+3.116.  Enclosed CJK Letters and Months
 
    Unicode character range: 3200..32FF
+
+
+
+
+
+Rathnayake              Expires 8 September 2023               [Page 43]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
 
    Unicode Enclosed CJK Letters and Months character list
    (https://www.unicode.org/charts/PDF/U3200.pdf)
 
-   Scripts list as identified by xml2rfc: Common
+   Scripts list as identified by xml2rfc: Common, Han
 
    Following fonts are available:
 
    *  Noto Serif
 
-   Example: "㉿" (KOREAN STANDARD SYMBOL, U+327F)
+   *  Noto Serif CJK SC
 
-118.  CJK Compatibility
+   Example: "㈿" (PARENTHESIZED IDEOGRAPH ALLIANCE, U+323F)
+
+3.117.  CJK Compatibility
 
    Unicode character range: 3300..33FF
 
    Unicode CJK Compatibility character list
    (https://www.unicode.org/charts/PDF/U3300.pdf)
 
-   Scripts list as identified by xml2rfc: Common
+   Scripts list as identified by xml2rfc: Katakana
 
    Following fonts are available:
 
-   *  Noto Serif
+   *  Noto Serif CJK JP
 
-   Example: "㎖" (SQUARE ML, U+3396)
+   Example: "㍋" (SQUARE MEGA, U+334B)
 
-
-
-
-
-
-
-Rathnayake              Expires 8 September 2023               [Page 44]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
-
-119.  CJK Unified Ideographs Extension A
+3.118.  CJK Unified Ideographs Extension A
 
    Unicode character range: 3400..4DBF
 
@@ -2479,11 +2451,20 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif CJK SC
 
-   Example: "䓣" (CJK UNIFIED IDEOGRAPH-44E3, U+44E3)
+   Example: "䝥" (CJK UNIFIED IDEOGRAPH-4765, U+4765)
 
-120.  Yijing Hexagram Symbols
+3.119.  Yijing Hexagram Symbols
 
    Unicode character range: 4DC0..4DFF
+
+
+
+
+
+Rathnayake              Expires 8 September 2023               [Page 44]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
 
    Unicode Yijing Hexagram Symbols character list
    (https://www.unicode.org/charts/PDF/U4DC0.pdf)
@@ -2494,9 +2475,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif
 
-   Example: "䷫" (HEXAGRAM FOR COMING TO MEET, U+4DEB)
+   Example: "䷶" (HEXAGRAM FOR ABUNDANCE, U+4DF6)
 
-121.  CJK Unified Ideographs
+3.120.  CJK Unified Ideographs
 
    Unicode character range: 4E00..9FFF
 
@@ -2509,20 +2490,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif CJK SC
 
-   Example: "玝" (CJK UNIFIED IDEOGRAPH-739D, U+739D)
+   Example: "賿" (CJK UNIFIED IDEOGRAPH-8CFF, U+8CFF)
 
-
-
-
-
-
-
-Rathnayake              Expires 8 September 2023               [Page 45]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
-
-122.  Yi Syllables
+3.121.  Yi Syllables
 
    Unicode character range: A000..A48F
 
@@ -2535,14 +2505,22 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Yi
 
-   Example: "ꋴ" (YI SYLLABLE NZAT, U+A2F4)
+   Example: "ꆰ" (YI SYLLABLE HLUR, U+A1B0)
 
-123.  Yi Radicals
+3.122.  Yi Radicals
 
    Unicode character range: A490..A4CF
 
    Unicode Yi Radicals character list
    (https://www.unicode.org/charts/PDF/UA490.pdf)
+
+
+
+
+Rathnayake              Expires 8 September 2023               [Page 45]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
 
    Scripts list as identified by xml2rfc: Yi
 
@@ -2550,9 +2528,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Yi
 
-   Example: "꒽" (YI RADICAL CUOP, U+A4BD)
+   Example: "꒳" (YI RADICAL JO, U+A4B3)
 
-124.  Lisu
+3.123.  Lisu
 
    Unicode character range: A4D0..A4FF
 
@@ -2565,20 +2543,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Lisu
 
-   Example: "ꓺ" (LISU LETTER TONE MYA CYA, U+A4FA)
+   Example: "ꓷ" (LISU LETTER OE, U+A4F7)
 
-
-
-
-
-
-
-Rathnayake              Expires 8 September 2023               [Page 46]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
-
-125.  Vai
+3.124.  Vai
 
    Unicode character range: A500..A63F
 
@@ -2591,9 +2558,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Vai
 
-   Example: "ꔶ" (VAI SYLLABLE DHHI, U+A536)
+   Example: "ꘟ" (VAI SYMBOL JONG, U+A61F)
 
-126.  Cyrillic Extended-B
+3.125.  Cyrillic Extended-B
 
    Unicode character range: A640..A69F
 
@@ -2604,35 +2571,38 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    Following fonts are available:
 
+
+
+Rathnayake              Expires 8 September 2023               [Page 46]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
+
    *  Noto Serif
 
-   Example: "Ꙥ" (CYRILLIC CAPITAL LETTER SOFT EL, U+A664)
+   Example: "ꙇ" (CYRILLIC SMALL LETTER IOTA, U+A647)
 
-127.  Bamum
+3.126.  Bamum
 
    Unicode character range: A6A0..A6FF
 
    Unicode Bamum character list (https://www.unicode.org/charts/PDF/
    UA6A0.pdf)
 
-   Scripts list as identified by xml2rfc: Unknown
+   Scripts list as identified by xml2rfc: Bamum
 
-   There are no supported fonts.
+   Following fonts are available:
 
-128.  Modifier Tone Letters
+   *  Noto Sans Bamum
+
+   Example: "ꛇ" (BAMUM LETTER NTEE, U+A6C7)
+
+3.127.  Modifier Tone Letters
 
    Unicode character range: A700..A71F
 
    Unicode Modifier Tone Letters character list
    (https://www.unicode.org/charts/PDF/UA700.pdf)
-
-
-
-
-Rathnayake              Expires 8 September 2023               [Page 47]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
 
    Scripts list as identified by xml2rfc: Common
 
@@ -2640,9 +2610,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif
 
-   Example: "ꜜ" (MODIFIER LETTER RAISED DOWN ARROW, U+A71C)
+   Example: "ꜟ" (MODIFIER LETTER LOW INVERTED EXCLAMATION MARK, U+A71F)
 
-129.  Latin Extended-D
+3.128.  Latin Extended-D
 
    Unicode character range: A720..A7FF
 
@@ -2655,9 +2625,16 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif
 
-   Example: "ꝶ" (LATIN LETTER SMALL CAPITAL RUM, U+A776)
+   Example: "Ꝓ" (LATIN CAPITAL LETTER P WITH FLOURISH, U+A752)
 
-130.  Syloti Nagri
+
+
+Rathnayake              Expires 8 September 2023               [Page 47]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
+
+3.129.  Syloti Nagri
 
    Unicode character range: A800..A82F
 
@@ -2670,9 +2647,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Syloti Nagri
 
-   Example: "ꠎ" (SYLOTI NAGRI LETTER JO, U+A80E)
+   Example: "ꠧ" (SYLOTI NAGRI VOWEL SIGN OO, U+A827)
 
-131.  Common Indic Number Forms
+3.130.  Common Indic Number Forms
 
    Unicode character range: A830..A83F
 
@@ -2681,14 +2658,7 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    Scripts list as identified by xml2rfc: Common, Devanagari, Dogra,
    Gujarati, Gurmukhi, Kaithi, Kannada, Khojki, Khudawadi, Mahajani,
-   Malayalam, Modi, Takri, Tirhuta
-
-
-
-Rathnayake              Expires 8 September 2023               [Page 48]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
+   Modi, Takri, Tirhuta
 
    Following fonts are available:
 
@@ -2712,7 +2682,13 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Mahajani
 
-   *  Noto Serif Malayalam
+
+
+
+Rathnayake              Expires 8 September 2023               [Page 48]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
 
    *  Noto Sans Modi
 
@@ -2720,9 +2696,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Tirhuta
 
-   Example: "꠲" (NORTH INDIC FRACTION THREE QUARTERS, U+A832)
+   Example: "꠴" (NORTH INDIC FRACTION ONE EIGHTH, U+A834)
 
-132.  Phags-pa
+3.131.  Phags-pa
 
    Unicode character range: A840..A87F
 
@@ -2735,18 +2711,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Phags Pa
 
-   Example: "꡴" (PHAGS-PA SINGLE HEAD MARK, U+A874)
+   Example: "꡵" (PHAGS-PA DOUBLE HEAD MARK, U+A875)
 
-
-
-
-
-Rathnayake              Expires 8 September 2023               [Page 49]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
-
-133.  Saurashtra
+3.132.  Saurashtra
 
    Unicode character range: A880..A8DF
 
@@ -2759,50 +2726,55 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Saurashtra
 
-   Example: "ꢵ" (SAURASHTRA VOWEL SIGN AA, U+A8B5)
+   Example: "ꣅ" (SAURASHTRA SIGN CANDRABINDU, U+A8C5)
 
-134.  Devanagari Extended
+3.133.  Devanagari Extended
 
    Unicode character range: A8E0..A8FF
 
    Unicode Devanagari Extended character list
    (https://www.unicode.org/charts/PDF/UA8E0.pdf)
 
-   Scripts list as identified by xml2rfc: Devanagari
+   Scripts list as identified by xml2rfc: Devanagari, Tamil
 
    Following fonts are available:
 
+
+
+Rathnayake              Expires 8 September 2023               [Page 49]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
+
    *  Noto Serif Devanagari
 
-   Example: "꣯" (COMBINING DEVANAGARI LETTER RA, U+A8EF)
+   *  Noto Serif Tamil
 
-135.  Kayah Li
+   Example: "ꣴ" (DEVANAGARI SIGN DOUBLE CANDRABINDU VIRAMA, U+A8F4)
+
+3.134.  Kayah Li
 
    Unicode character range: A900..A92F
 
    Unicode Kayah Li character list (https://www.unicode.org/charts/PDF/
    UA900.pdf)
 
-   Scripts list as identified by xml2rfc: Kayah_Li
+   Scripts list as identified by xml2rfc: Common, Kayah_Li, Latin,
+   Myanmar
 
    Following fonts are available:
 
+   *  Noto Serif
+
    *  Noto Sans Kayah Li
 
-   Example: "꤅" (KAYAH LI DIGIT FIVE, U+A905)
+   *  Noto Serif
 
+   *  Noto Serif Myanmar
 
+   Example: "꤮" (KAYAH LI SIGN CWI, U+A92E)
 
-
-
-
-
-Rathnayake              Expires 8 September 2023               [Page 50]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
-
-136.  Rejang
+3.135.  Rejang
 
    Unicode character range: A930..A95F
 
@@ -2815,11 +2787,20 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Rejang
 
-   Example: "ꥊ" (REJANG VOWEL SIGN AI, U+A94A)
+   Example: "ꤾ" (REJANG LETTER LA, U+A93E)
 
-137.  Hangul Jamo Extended-A
+3.136.  Hangul Jamo Extended-A
 
    Unicode character range: A960..A97F
+
+
+
+
+
+Rathnayake              Expires 8 September 2023               [Page 50]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
 
    Unicode Hangul Jamo Extended-A character list
    (https://www.unicode.org/charts/PDF/UA960.pdf)
@@ -2830,9 +2811,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif CJK KR
 
-   Example: "ꥻ" (HANGUL CHOSEONG HIEUH-SIOS, U+A97B)
+   Example: "ꥣ" (HANGUL CHOSEONG TIKEUT-CIEUC, U+A963)
 
-138.  Javanese
+3.137.  Javanese
 
    Unicode character range: A980..A9DF
 
@@ -2845,20 +2826,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Javanese
 
-   Example: "ꦺ" (JAVANESE VOWEL SIGN TALING, U+A9BA)
+   Example: "ꦱ" (JAVANESE LETTER SA, U+A9B1)
 
-
-
-
-
-
-
-Rathnayake              Expires 8 September 2023               [Page 51]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
-
-139.  Myanmar Extended-B
+3.138.  Myanmar Extended-B
 
    Unicode character range: A9E0..A9FF
 
@@ -2871,24 +2841,28 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif Myanmar
 
-   Example: "꧲" (MYANMAR TAI LAING DIGIT TWO, U+A9F2)
+   Example: "ꧥ" (MYANMAR SIGN SHAN SAW, U+A9E5)
 
-140.  Cham
+3.139.  Cham
 
    Unicode character range: AA00..AA5F
 
    Unicode Cham character list (https://www.unicode.org/charts/PDF/
    UAA00.pdf)
 
-   Scripts list as identified by xml2rfc: Cham
 
-   Following fonts are available:
 
-   *  Noto Sans Cham
 
-   Example: "ꨁ" (CHAM LETTER I, U+AA01)
+Rathnayake              Expires 8 September 2023               [Page 51]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
 
-141.  Myanmar Extended-A
+
+   Scripts list as identified by xml2rfc: Unknown
+
+   There are no supported fonts.
+
+3.140.  Myanmar Extended-A
 
    Unicode character range: AA60..AA7F
 
@@ -2901,20 +2875,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif Myanmar
 
-   Example: "ꩵ" (MYANMAR LOGOGRAM KHAMTI QN, U+AA75)
+   Example: "ꩪ" (MYANMAR LETTER KHAMTI DHA, U+AA6A)
 
-
-
-
-
-
-
-Rathnayake              Expires 8 September 2023               [Page 52]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
-
-142.  Tai Viet
+3.141.  Tai Viet
 
    Unicode character range: AA80..AADF
 
@@ -2927,9 +2890,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif
 
-   Example: "ꪩ" (TAI VIET LETTER HIGH LO, U+AAA9)
+   Example: "ꪝ" (TAI VIET LETTER HIGH PO, U+AA9D)
 
-143.  Meetei Mayek Extensions
+3.142.  Meetei Mayek Extensions
 
    Unicode character range: AAE0..AAFF
 
@@ -2942,35 +2905,27 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Meetei Mayek
 
-   Example: "ꫭ" (MEETEI MAYEK VOWEL SIGN AAI, U+AAED)
+   Example: "ꫳ" (MEETEI MAYEK SYLLABLE REPETITION MARK, U+AAF3)
 
-144.  Ethiopic Extended-A
+
+
+Rathnayake              Expires 8 September 2023               [Page 52]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
+
+3.143.  Ethiopic Extended-A
 
    Unicode character range: AB00..AB2F
 
    Unicode Ethiopic Extended-A character list
    (https://www.unicode.org/charts/PDF/UAB00.pdf)
 
-   Scripts list as identified by xml2rfc: Ethiopic
+   Scripts list as identified by xml2rfc: Unknown
 
-   Following fonts are available:
+   There are no supported fonts.
 
-   *  Noto Serif Ethiopic
-
-   Example: "ꬢ" (ETHIOPIC SYLLABLE CCHHI, U+AB22)
-
-
-
-
-
-
-
-Rathnayake              Expires 8 September 2023               [Page 53]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
-
-145.  Latin Extended-E
+3.144.  Latin Extended-E
 
    Unicode character range: AB30..AB6F
 
@@ -2983,9 +2938,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif
 
-   Example: "ꭃ" (LATIN SMALL LETTER TURNED O OPEN-O, U+AB43)
+   Example: "ꭈ" (LATIN SMALL LETTER DOUBLE R, U+AB48)
 
-146.  Cherokee Supplement
+3.145.  Cherokee Supplement
 
    Unicode character range: AB70..ABBF
 
@@ -2998,35 +2953,28 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Cherokee
 
-   Example: "ꮻ" (CHEROKEE SMALL LETTER WI, U+ABBB)
+   Example: "ꮲ" (CHEROKEE SMALL LETTER TLV, U+ABB2)
 
-147.  Meetei Mayek
+3.146.  Meetei Mayek
 
    Unicode character range: ABC0..ABFF
 
    Unicode Meetei Mayek character list
    (https://www.unicode.org/charts/PDF/UABC0.pdf)
 
-   Scripts list as identified by xml2rfc: Meetei_Mayek
-
-   Following fonts are available:
-
-   *  Noto Sans Meetei Mayek
-
-   Example: "ꯈ" (MEETEI MAYEK LETTER KHOU, U+ABC8)
 
 
 
-
-
-
-
-Rathnayake              Expires 8 September 2023               [Page 54]
+Rathnayake              Expires 8 September 2023               [Page 53]
 
 Internet-Draft               xml2rfc-unicode                  March 2023
 
 
-148.  Hangul Syllables
+   Scripts list as identified by xml2rfc: Unknown
+
+   There are no supported fonts.
+
+3.147.  Hangul Syllables
 
    Unicode character range: AC00..D7AF
 
@@ -3039,9 +2987,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif CJK KR
 
-   Example: "혨" (HANGUL SYLLABLE HYELS, U+D628)
+   Example: "죈" (HANGUL SYLLABLE JOEN, U+C8C8)
 
-149.  Hangul Jamo Extended-B
+3.148.  Hangul Jamo Extended-B
 
    Unicode character range: D7B0..D7FF
 
@@ -3054,9 +3002,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif CJK KR
 
-   Example: "ퟬ" (HANGUL JONGSEONG SSANGSIOS-KIYEOK, U+D7EC)
+   Example: "ퟚ" (HANGUL JONGSEONG RIEUL-PIEUP-PHIEUPH, U+D7DA)
 
-150.  High Surrogates
+3.149.  High Surrogates
 
    Unicode character range: D800..DB7F
 
@@ -3067,26 +3015,29 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    There are no supported fonts.
 
-151.  High Private Use Surrogates
+
+
+
+
+
+
+Rathnayake              Expires 8 September 2023               [Page 54]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
+
+3.150.  High Private Use Surrogates
 
    Unicode character range: DB80..DBFF
 
    Unicode High Private Use Surrogates character list
    (https://www.unicode.org/charts/PDF/UDB80.pdf)
 
-
-
-
-Rathnayake              Expires 8 September 2023               [Page 55]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
-
    Scripts list as identified by xml2rfc: Unknown
 
    There are no supported fonts.
 
-152.  Low Surrogates
+3.151.  Low Surrogates
 
    Unicode character range: DC00..DFFF
 
@@ -3097,7 +3048,7 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    There are no supported fonts.
 
-153.  Private Use Area
+3.152.  Private Use Area
 
    Unicode character range: E000..F8FF
 
@@ -3108,7 +3059,7 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    There are no supported fonts.
 
-154.  CJK Compatibility Ideographs
+3.153.  CJK Compatibility Ideographs
 
    Unicode character range: F900..FAFF
 
@@ -3121,22 +3072,22 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif CJK SC
 
-   Example: "謁" (CJK COMPATIBILITY IDEOGRAPH-FA62, U+FA62)
+   Example: "樂" (CJK COMPATIBILITY IDEOGRAPH-F914, U+F914)
 
-155.  Alphabetic Presentation Forms
+
+
+
+Rathnayake              Expires 8 September 2023               [Page 55]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
+
+3.154.  Alphabetic Presentation Forms
 
    Unicode character range: FB00..FB4F
 
    Unicode Alphabetic Presentation Forms character list
    (https://www.unicode.org/charts/PDF/UFB00.pdf)
-
-
-
-
-Rathnayake              Expires 8 September 2023               [Page 56]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
 
    Scripts list as identified by xml2rfc: Hebrew
 
@@ -3144,20 +3095,24 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif Hebrew
 
-   Example: "ﬡ" (HEBREW LETTER WIDE ALEF, U+FB21)
+   Example: "ךּ" (HEBREW LETTER FINAL KAF WITH DAGESH, U+FB3A)
 
-156.  Arabic Presentation Forms-A
+3.155.  Arabic Presentation Forms-A
 
    Unicode character range: FB50..FDFF
 
    Unicode Arabic Presentation Forms-A character list
    (https://www.unicode.org/charts/PDF/UFB50.pdf)
 
-   Scripts list as identified by xml2rfc: Unknown
+   Scripts list as identified by xml2rfc: Arabic
 
-   There are no supported fonts.
+   Following fonts are available:
 
-157.  Variation Selectors
+   *  Noto Sans Arabic
+
+   Example: "ﱭ" (ARABIC LIGATURE BEH WITH NOON FINAL FORM, U+FC6D)
+
+3.156.  Variation Selectors
 
    Unicode character range: FE00..FE0F
 
@@ -3170,9 +3125,20 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Inherited
 
-   Example: "︃" (VARIATION SELECTOR-4, U+FE03)
+   Example: "︂" (VARIATION SELECTOR-3, U+FE02)
 
-158.  Vertical Forms
+
+
+
+
+
+
+Rathnayake              Expires 8 September 2023               [Page 56]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
+
+3.157.  Vertical Forms
 
    Unicode character range: FE10..FE1F
 
@@ -3185,19 +3151,10 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif
 
+   Example: "︘" (PRESENTATION FORM FOR VERTICAL RIGHT WHITE LENTICULAR
+   BRAKCET, U+FE18)
 
-
-
-
-Rathnayake              Expires 8 September 2023               [Page 57]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
-
-   Example: "︗" (PRESENTATION FORM FOR VERTICAL LEFT WHITE LENTICULAR
-   BRACKET, U+FE17)
-
-159.  Combining Half Marks
+3.158.  Combining Half Marks
 
    Unicode character range: FE20..FE2F
 
@@ -3210,9 +3167,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Inherited
 
-   Example: "︧" (COMBINING LIGATURE LEFT HALF BELOW, U+FE27)
+   Example: "︩" (COMBINING TILDE LEFT HALF BELOW, U+FE29)
 
-160.  CJK Compatibility Forms
+3.159.  CJK Compatibility Forms
 
    Unicode character range: FE30..FE4F
 
@@ -3225,9 +3182,19 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif
 
-   Example: "﹌" (DOUBLE WAVY OVERLINE, U+FE4C)
+   Example: "︽" (PRESENTATION FORM FOR VERTICAL LEFT DOUBLE ANGLE
+   BRACKET, U+FE3D)
 
-161.  Small Form Variants
+
+
+
+
+Rathnayake              Expires 8 September 2023               [Page 57]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
+
+3.160.  Small Form Variants
 
    Unicode character range: FE50..FE6F
 
@@ -3240,17 +3207,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif
 
-   Example: "﹪" (SMALL PERCENT SIGN, U+FE6A)
+   Example: "﹘" (SMALL EM DASH, U+FE58)
 
-
-
-
-Rathnayake              Expires 8 September 2023               [Page 58]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
-
-162.  Arabic Presentation Forms-B
+3.161.  Arabic Presentation Forms-B
 
    Unicode character range: FE70..FEFF
 
@@ -3263,9 +3222,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Arabic
 
-   Example: "ﻈ" (ARABIC LETTER ZAH MEDIAL FORM, U+FEC8)
+   Example: "ﺤ" (ARABIC LETTER HAH MEDIAL FORM, U+FEA4)
 
-163.  Halfwidth and Fullwidth Forms
+3.162.  Halfwidth and Fullwidth Forms
 
    Unicode character range: FF00..FFEF
 
@@ -3276,18 +3235,30 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    There are no supported fonts.
 
-164.  Specials
+3.163.  Specials
 
    Unicode character range: FFF0..FFFF
 
    Unicode Specials character list (https://www.unicode.org/charts/PDF/
    UFFF0.pdf)
 
-   Scripts list as identified by xml2rfc: Unknown
 
-   There are no supported fonts.
 
-165.  Linear B Syllabary
+
+Rathnayake              Expires 8 September 2023               [Page 58]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
+
+   Scripts list as identified by xml2rfc: Common
+
+   Following fonts are available:
+
+   *  Noto Serif
+
+   Example: "￻" (INTERLINEAR ANNOTATION TERMINATOR, U+FFFB)
+
+3.164.  Linear B Syllabary
 
    Unicode character range: 10000..1007F
 
@@ -3298,15 +3269,7 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    There are no supported fonts.
 
-
-
-
-Rathnayake              Expires 8 September 2023               [Page 59]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
-
-166.  Linear B Ideograms
+3.165.  Linear B Ideograms
 
    Unicode character range: 10080..100FF
 
@@ -3319,9 +3282,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Linear B
 
-   Example: "𐃧" (LINEAR B IDEOGRAM VESSEL B208, U+100E7)
+   Example: "𐃨" (LINEAR B IDEOGRAM VESSEL B209, U+100E8)
 
-167.  Aegean Numbers
+3.166.  Aegean Numbers
 
    Unicode character range: 10100..1013F
 
@@ -3335,15 +3298,23 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif
 
+
+
+
+Rathnayake              Expires 8 September 2023               [Page 59]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
+
    *  Noto Sans Cypriot
 
    *  Noto Sans Linear A
 
    *  Noto Sans Linear B
 
-   Example: "𐄲" (AEGEAN NUMBER EIGHTY THOUSAND, U+10132)
+   Example: "𐄢" (AEGEAN NUMBER ONE THOUSAND, U+10122)
 
-168.  Ancient Greek Numbers
+3.167.  Ancient Greek Numbers
 
    Unicode character range: 10140..1018F
 
@@ -3354,34 +3325,22 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    Following fonts are available:
 
-
-
-
-Rathnayake              Expires 8 September 2023               [Page 60]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
-
    *  Noto Serif
 
-   Example: "𐅺" (GREEK TALENT SIGN, U+1017A)
+   Example: "𐅗" (GREEK ACROPHONIC ATTIC TEN MNAS, U+10157)
 
-169.  Ancient Symbols
+3.168.  Ancient Symbols
 
    Unicode character range: 10190..101CF
 
    Unicode Ancient Symbols character list
    (https://www.unicode.org/charts/PDF/U10190.pdf)
 
-   Scripts list as identified by xml2rfc: Common
+   Scripts list as identified by xml2rfc: Unknown
 
-   Following fonts are available:
+   There are no supported fonts.
 
-   *  Noto Serif
-
-   Example: "𐆓" (ROMAN SEXTULA SIGN, U+10193)
-
-170.  Phaistos Disc
+3.169.  Phaistos Disc
 
    Unicode character range: 101D0..101FF
 
@@ -3394,9 +3353,16 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif
 
-   Example: "𐇨" (PHAISTOS DISC SIGN SHIP, U+101E8)
+   Example: "𐇧" (PHAISTOS DISC SIGN BEEHIVE, U+101E7)
 
-171.  Lycian
+
+
+Rathnayake              Expires 8 September 2023               [Page 60]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
+
+3.170.  Lycian
 
    Unicode character range: 10280..1029F
 
@@ -3411,14 +3377,7 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    Example: "𐊛" (LYCIAN LETTER H, U+1029B)
 
-
-
-Rathnayake              Expires 8 September 2023               [Page 61]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
-
-172.  Carian
+3.171.  Carian
 
    Unicode character range: 102A0..102DF
 
@@ -3429,7 +3388,7 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    There are no supported fonts.
 
-173.  Coptic Epact Numbers
+3.172.  Coptic Epact Numbers
 
    Unicode character range: 102E0..102FF
 
@@ -3446,9 +3405,20 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Coptic
 
-   Example: "𐋳" (COPTIC EPACT NUMBER ONE HUNDRED, U+102F3)
+   Example: "𐋣" (COPTIC EPACT DIGIT THREE, U+102E3)
 
-174.  Old Italic
+
+
+
+
+
+
+Rathnayake              Expires 8 September 2023               [Page 61]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
+
+3.173.  Old Italic
 
    Unicode character range: 10300..1032F
 
@@ -3459,20 +3429,12 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    There are no supported fonts.
 
-175.  Gothic
+3.174.  Gothic
 
    Unicode character range: 10330..1034F
 
    Unicode Gothic character list (https://www.unicode.org/charts/PDF/
    U10330.pdf)
-
-
-
-
-Rathnayake              Expires 8 September 2023               [Page 62]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
 
    Scripts list as identified by xml2rfc: Gothic
 
@@ -3480,9 +3442,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Gothic
 
-   Example: "𐍁" (GOTHIC LETTER NINETY, U+10341)
+   Example: "𐌽" (GOTHIC LETTER NAUTHS, U+1033D)
 
-176.  Old Permic
+3.175.  Old Permic
 
    Unicode character range: 10350..1037F
 
@@ -3495,14 +3457,22 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Old Permic
 
-   Example: "𐍧" (OLD PERMIC LETTER YRY, U+10367)
+   Example: "𐍥" (OLD PERMIC LETTER SHOOI, U+10365)
 
-177.  Ugaritic
+3.176.  Ugaritic
 
    Unicode character range: 10380..1039F
 
    Unicode Ugaritic character list (https://www.unicode.org/charts/PDF/
    U10380.pdf)
+
+
+
+
+Rathnayake              Expires 8 September 2023               [Page 62]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
 
    Scripts list as identified by xml2rfc: Ugaritic
 
@@ -3510,9 +3480,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Ugaritic
 
-   Example: "𐎏" (UGARITIC LETTER DHAL, U+1038F)
+   Example: "𐎜" (UGARITIC LETTER U, U+1039C)
 
-178.  Old Persian
+3.177.  Old Persian
 
    Unicode character range: 103A0..103DF
 
@@ -3523,18 +3493,11 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    Following fonts are available:
 
-
-
-Rathnayake              Expires 8 September 2023               [Page 63]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
-
    *  Noto Sans Old Persian
 
-   Example: "𐎩" (OLD PERSIAN SIGN JA, U+103A9)
+   Example: "𐎳" (OLD PERSIAN SIGN FA, U+103B3)
 
-179.  Deseret
+3.178.  Deseret
 
    Unicode character range: 10400..1044F
 
@@ -3547,9 +3510,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Deseret
 
-   Example: "𐐾" (DESERET SMALL LETTER JEE, U+1043E)
+   Example: "𐐡" (DESERET CAPITAL LETTER ER, U+10421)
 
-180.  Shavian
+3.179.  Shavian
 
    Unicode character range: 10450..1047F
 
@@ -3560,11 +3523,18 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    Following fonts are available:
 
+
+
+Rathnayake              Expires 8 September 2023               [Page 63]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
+
    *  Noto Sans Shavian
 
    Example: "𐑶" (SHAVIAN LETTER OIL, U+10476)
 
-181.  Osmanya
+3.180.  Osmanya
 
    Unicode character range: 10480..104AF
 
@@ -3577,16 +3547,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Osmanya
 
-   Example: "𐒝" (OSMANYA LETTER OO, U+1049D)
+   Example: "𐒤" (OSMANYA DIGIT FOUR, U+104A4)
 
-
-
-Rathnayake              Expires 8 September 2023               [Page 64]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
-
-182.  Osage
+3.181.  Osage
 
    Unicode character range: 104B0..104FF
 
@@ -3599,9 +3562,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Osage
 
-   Example: "𐓪" (OSAGE SMALL LETTER O, U+104EA)
+   Example: "𐓞" (OSAGE SMALL LETTER EHCHA, U+104DE)
 
-183.  Elbasan
+3.182.  Elbasan
 
    Unicode character range: 10500..1052F
 
@@ -3614,9 +3577,16 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Elbasan
 
-   Example: "𐔊" (ELBASAN LETTER GE, U+1050A)
+   Example: "𐔣" (ELBASAN LETTER ZE, U+10523)
 
-184.  Caucasian Albanian
+
+
+Rathnayake              Expires 8 September 2023               [Page 64]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
+
+3.183.  Caucasian Albanian
 
    Unicode character range: 10530..1056F
 
@@ -3629,20 +3599,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Caucasian Albanian
 
-   Example: "𐔵" (CAUCASIAN ALBANIAN LETTER ZARL, U+10535)
+   Example: "𐔽" (CAUCASIAN ALBANIAN LETTER SHA, U+1053D)
 
-
-
-
-
-
-
-Rathnayake              Expires 8 September 2023               [Page 65]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
-
-185.  Linear A
+3.184.  Linear A
 
    Unicode character range: 10600..1077F
 
@@ -3655,29 +3614,33 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Linear A
 
-   Example: "𐜥" (LINEAR A SIGN A645, U+10725)
+   Example: "𐙴" (LINEAR A SIGN A328, U+10674)
 
-186.  Cypriot Syllabary
+3.185.  Cypriot Syllabary
 
    Unicode character range: 10800..1083F
 
    Unicode Cypriot Syllabary character list
    (https://www.unicode.org/charts/PDF/U10800.pdf)
 
-   Scripts list as identified by xml2rfc: Cypriot
+   Scripts list as identified by xml2rfc: Unknown
 
-   Following fonts are available:
+   There are no supported fonts.
 
-   *  Noto Sans Cypriot
-
-   Example: "𐠮" (CYPRIOT SYLLABLE TE, U+1082E)
-
-187.  Imperial Aramaic
+3.186.  Imperial Aramaic
 
    Unicode character range: 10840..1085F
 
    Unicode Imperial Aramaic character list
    (https://www.unicode.org/charts/PDF/U10840.pdf)
+
+
+
+
+Rathnayake              Expires 8 September 2023               [Page 65]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
 
    Scripts list as identified by xml2rfc: Imperial_Aramaic
 
@@ -3685,20 +3648,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Imperial Aramaic
 
-   Example: "𐡛" (IMPERIAL ARAMAIC NUMBER TEN, U+1085B)
+   Example: "𐡘" (IMPERIAL ARAMAIC NUMBER ONE, U+10858)
 
-
-
-
-
-
-
-Rathnayake              Expires 8 September 2023               [Page 66]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
-
-188.  Palmyrene
+3.187.  Palmyrene
 
    Unicode character range: 10860..1087F
 
@@ -3711,9 +3663,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Palmyrene
 
-   Example: "𐡥" (PALMYRENE LETTER WAW, U+10865)
+   Example: "𐡬" (PALMYRENE LETTER MEM, U+1086C)
 
-189.  Nabataean
+3.188.  Nabataean
 
    Unicode character range: 10880..108AF
 
@@ -3726,9 +3678,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Nabataean
 
-   Example: "𐢭" (NABATAEAN NUMBER TEN, U+108AD)
+   Example: "𐢁" (NABATAEAN LETTER ALEPH, U+10881)
 
-190.  Hatran
+3.189.  Hatran
 
    Unicode character range: 108E0..108FF
 
@@ -3739,22 +3691,18 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    Following fonts are available:
 
-   *  Noto Sans Hatran
-
-   Example: "𐣵" (HATRAN LETTER TAW, U+108F5)
 
 
-
-
-
-
-
-Rathnayake              Expires 8 September 2023               [Page 67]
+Rathnayake              Expires 8 September 2023               [Page 66]
 
 Internet-Draft               xml2rfc-unicode                  March 2023
 
 
-191.  Phoenician
+   *  Noto Sans Hatran
+
+   Example: "𐣲" (HATRAN LETTER QOPH, U+108F2)
+
+3.190.  Phoenician
 
    Unicode character range: 10900..1091F
 
@@ -3767,9 +3715,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Phoenician
 
-   Example: "𐤁" (PHOENICIAN LETTER BET, U+10901)
+   Example: "𐤄" (PHOENICIAN LETTER HE, U+10904)
 
-192.  Lydian
+3.191.  Lydian
 
    Unicode character range: 10920..1093F
 
@@ -3782,9 +3730,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Lydian
 
-   Example: "𐤧" (LYDIAN LETTER Y, U+10927)
+   Example: "𐤨" (LYDIAN LETTER K, U+10928)
 
-193.  Meroitic Hieroglyphs
+3.192.  Meroitic Hieroglyphs
 
    Unicode character range: 10980..1099F
 
@@ -3797,20 +3745,16 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Meroitic Hieroglyphs
 
-   Example: "𐦄" (MEROITIC HIEROGLYPHIC LETTER YA, U+10984)
+   Example: "𐦊" (MEROITIC HIEROGLYPHIC LETTER NA, U+1098A)
 
 
 
-
-
-
-
-Rathnayake              Expires 8 September 2023               [Page 68]
+Rathnayake              Expires 8 September 2023               [Page 67]
 
 Internet-Draft               xml2rfc-unicode                  March 2023
 
 
-194.  Meroitic Cursive
+3.193.  Meroitic Cursive
 
    Unicode character range: 109A0..109FF
 
@@ -3823,9 +3767,10 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Meroitic Cursive
 
-   Example: "𐧀" (MEROITIC CURSIVE NUMBER ONE, U+109C0)
+   Example: "𐧯" (MEROITIC CURSIVE NUMBER THREE HUNDRED THOUSAND,
+   U+109EF)
 
-195.  Kharoshthi
+3.194.  Kharoshthi
 
    Unicode character range: 10A00..10A5F
 
@@ -3838,9 +3783,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Kharoshthi
 
-   Example: "𐨮" (KHAROSHTHI LETTER SSA, U+10A2E)
+   Example: "𐨨" (KHAROSHTHI LETTER MA, U+10A28)
 
-196.  Old South Arabian
+3.195.  Old South Arabian
 
    Unicode character range: 10A60..10A7F
 
@@ -3853,20 +3798,19 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Old South Arabian
 
-   Example: "𐩩" (OLD SOUTH ARABIAN LETTER TAW, U+10A69)
+   Example: "𐩤" (OLD SOUTH ARABIAN LETTER QOPH, U+10A64)
 
 
 
 
 
 
-
-Rathnayake              Expires 8 September 2023               [Page 69]
+Rathnayake              Expires 8 September 2023               [Page 68]
 
 Internet-Draft               xml2rfc-unicode                  March 2023
 
 
-197.  Old North Arabian
+3.196.  Old North Arabian
 
    Unicode character range: 10A80..10A9F
 
@@ -3879,9 +3823,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Old North Arabian
 
-   Example: "𐪒" (OLD NORTH ARABIAN LETTER AIN, U+10A92)
+   Example: "𐪗" (OLD NORTH ARABIAN LETTER TAH, U+10A97)
 
-198.  Manichaean
+3.197.  Manichaean
 
    Unicode character range: 10AC0..10AFF
 
@@ -3894,73 +3838,68 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Manichaean
 
-   Example: "𐫊" (MANICHAEAN LETTER ZHAYIN, U+10ACA)
+   Example: "𐫢" (MANICHAEAN LETTER SHIN, U+10AE2)
 
-199.  Avestan
+3.198.  Avestan
 
    Unicode character range: 10B00..10B3F
 
    Unicode Avestan character list (https://www.unicode.org/charts/PDF/
    U10B00.pdf)
 
-   Scripts list as identified by xml2rfc: Unknown
+   Scripts list as identified by xml2rfc: Avestan
 
-   There are no supported fonts.
+   Following fonts are available:
 
-200.  Inscriptional Parthian
+   *  Noto Sans Avestan
+
+   Example: "𐬚" (AVESTAN LETTER THE, U+10B1A)
+
+
+
+
+
+
+
+Rathnayake              Expires 8 September 2023               [Page 69]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
+
+3.199.  Inscriptional Parthian
 
    Unicode character range: 10B40..10B5F
 
    Unicode Inscriptional Parthian character list
    (https://www.unicode.org/charts/PDF/U10B40.pdf)
 
+   Scripts list as identified by xml2rfc: Unknown
 
+   There are no supported fonts.
 
-
-Rathnayake              Expires 8 September 2023               [Page 70]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
-
-   Scripts list as identified by xml2rfc: Inscriptional_Parthian
-
-   Following fonts are available:
-
-   *  Noto Sans Inscriptional Parthian
-
-   Example: "𐭃" (INSCRIPTIONAL PARTHIAN LETTER DALETH, U+10B43)
-
-201.  Inscriptional Pahlavi
+3.200.  Inscriptional Pahlavi
 
    Unicode character range: 10B60..10B7F
 
    Unicode Inscriptional Pahlavi character list
    (https://www.unicode.org/charts/PDF/U10B60.pdf)
 
-   Scripts list as identified by xml2rfc: Inscriptional_Pahlavi
+   Scripts list as identified by xml2rfc: Unknown
 
-   Following fonts are available:
+   There are no supported fonts.
 
-   *  Noto Sans Inscriptional Pahlavi
-
-   Example: "𐭾" (INSCRIPTIONAL PAHLAVI NUMBER ONE HUNDRED, U+10B7E)
-
-202.  Psalter Pahlavi
+3.201.  Psalter Pahlavi
 
    Unicode character range: 10B80..10BAF
 
    Unicode Psalter Pahlavi character list
    (https://www.unicode.org/charts/PDF/U10B80.pdf)
 
-   Scripts list as identified by xml2rfc: Psalter_Pahlavi
+   Scripts list as identified by xml2rfc: Unknown
 
-   Following fonts are available:
+   There are no supported fonts.
 
-   *  Noto Sans Psalter Pahlavi
-
-   Example: "𐮁" (PSALTER PAHLAVI LETTER BETH, U+10B81)
-
-203.  Old Turkic
+3.202.  Old Turkic
 
    Unicode character range: 10C00..10C4F
 
@@ -3971,44 +3910,45 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    Following fonts are available:
 
+   *  Noto Sans Old Turkic
+
+   Example: "𐰨" (OLD TURKIC LETTER ORKHON ENC, U+10C28)
 
 
-Rathnayake              Expires 8 September 2023               [Page 71]
+
+
+Rathnayake              Expires 8 September 2023               [Page 70]
 
 Internet-Draft               xml2rfc-unicode                  March 2023
 
 
-   *  Noto Sans Old Turkic
-
-   Example: "𐱂" (OLD TURKIC LETTER YENISEI ESH, U+10C42)
-
-204.  Old Hungarian
+3.203.  Old Hungarian
 
    Unicode character range: 10C80..10CFF
 
    Unicode Old Hungarian character list
    (https://www.unicode.org/charts/PDF/U10C80.pdf)
 
-   Scripts list as identified by xml2rfc: Unknown
+   Scripts list as identified by xml2rfc: Old_Hungarian
 
-   There are no supported fonts.
+   Following fonts are available:
 
-205.  Hanifi Rohingya
+   *  Noto Sans Old Hungarian
+
+   Example: "𐲈" (OLD HUNGARIAN CAPITAL LETTER AND, U+10C88)
+
+3.204.  Hanifi Rohingya
 
    Unicode character range: 10D00..10D3F
 
    Unicode Hanifi Rohingya character list
    (https://www.unicode.org/charts/PDF/U10D00.pdf)
 
-   Scripts list as identified by xml2rfc: Hanifi_Rohingya
+   Scripts list as identified by xml2rfc: Unknown
 
-   Following fonts are available:
+   There are no supported fonts.
 
-   *  Noto Sans Hanifi Rohingya
-
-   Example: "𐴛" (HANIFI ROHINGYA LETTER NYA, U+10D1B)
-
-206.  Rumi Numeral Symbols
+3.205.  Rumi Numeral Symbols
 
    Unicode character range: 10E60..10E7F
 
@@ -4021,25 +3961,22 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Arabic
 
-   Example: "𐹴" (RUMI NUMBER THREE HUNDRED, U+10E74)
+   Example: "𐹮" (RUMI NUMBER SIXTY, U+10E6E)
 
-
-
-
-
-
-
-Rathnayake              Expires 8 September 2023               [Page 72]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
-
-207.  Old Sogdian
+3.206.  Old Sogdian
 
    Unicode character range: 10F00..10F2F
 
    Unicode Old Sogdian character list
    (https://www.unicode.org/charts/PDF/U10F00.pdf)
+
+
+
+
+Rathnayake              Expires 8 September 2023               [Page 71]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
 
    Scripts list as identified by xml2rfc: Old_Sogdian
 
@@ -4047,24 +3984,20 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Old Sogdian
 
-   Example: "𐼤" (OLD SOGDIAN NUMBER THIRTY, U+10F24)
+   Example: "𐼇" (OLD SOGDIAN LETTER WAW, U+10F07)
 
-208.  Sogdian
+3.207.  Sogdian
 
    Unicode character range: 10F30..10F6F
 
    Unicode Sogdian character list (https://www.unicode.org/charts/PDF/
    U10F30.pdf)
 
-   Scripts list as identified by xml2rfc: Sogdian
+   Scripts list as identified by xml2rfc: Unknown
 
-   Following fonts are available:
+   There are no supported fonts.
 
-   *  Noto Sans Sogdian
-
-   Example: "𐽃" (SOGDIAN LETTER FETH, U+10F43)
-
-209.  Brahmi
+3.208.  Brahmi
 
    Unicode character range: 11000..1107F
 
@@ -4077,35 +4010,31 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Brahmi
 
-   Example: "𑁃" (BRAHMI VOWEL SIGN AI, U+11043)
+   Example: "𑁂" (BRAHMI VOWEL SIGN E, U+11042)
 
-
-
-
-
-
-
-Rathnayake              Expires 8 September 2023               [Page 73]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
-
-210.  Kaithi
+3.209.  Kaithi
 
    Unicode character range: 11080..110CF
 
    Unicode Kaithi character list (https://www.unicode.org/charts/PDF/
    U11080.pdf)
 
-   Scripts list as identified by xml2rfc: Kaithi
+   Scripts list as identified by xml2rfc: Unknown
 
-   Following fonts are available:
+   There are no supported fonts.
 
-   *  Noto Sans Kaithi
 
-   Example: "𑂚" (KAITHI LETTER DDDHA, U+1109A)
 
-211.  Sora Sompeng
+
+
+
+
+Rathnayake              Expires 8 September 2023               [Page 72]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
+
+3.210.  Sora Sompeng
 
    Unicode character range: 110D0..110FF
 
@@ -4118,9 +4047,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Sora Sompeng
 
-   Example: "𑃱" (SORA SOMPENG DIGIT ONE, U+110F1)
+   Example: "𑃖" (SORA SOMPENG LETTER MAH, U+110D6)
 
-212.  Chakma
+3.211.  Chakma
 
    Unicode character range: 11100..1114F
 
@@ -4133,20 +4062,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Chakma
 
-   Example: "𑄐" (CHAKMA LETTER NYAA, U+11110)
+   Example: "𑄦" (CHAKMA LETTER HAA, U+11126)
 
-
-
-
-
-
-
-Rathnayake              Expires 8 September 2023               [Page 74]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
-
-213.  Mahajani
+3.212.  Mahajani
 
    Unicode character range: 11150..1117F
 
@@ -4159,9 +4077,20 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Mahajani
 
-   Example: "𑅒" (MAHAJANI LETTER U, U+11152)
+   Example: "𑅘" (MAHAJANI LETTER GHA, U+11158)
 
-214.  Sharada
+
+
+
+
+
+
+Rathnayake              Expires 8 September 2023               [Page 73]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
+
+3.213.  Sharada
 
    Unicode character range: 11180..111DF
 
@@ -4174,9 +4103,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Sharada
 
-   Example: "𑆢" (SHARADA LETTER DA, U+111A2)
+   Example: "𑆋" (SHARADA LETTER VOCALIC L, U+1118B)
 
-215.  Sinhala Archaic Numbers
+3.214.  Sinhala Archaic Numbers
 
    Unicode character range: 111E0..111FF
 
@@ -4189,20 +4118,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif Sinhala
 
-   Example: "𑇬" (SINHALA ARCHAIC NUMBER THIRTY, U+111EC)
+   Example: "𑇫" (SINHALA ARCHAIC NUMBER TWENTY, U+111EB)
 
-
-
-
-
-
-
-Rathnayake              Expires 8 September 2023               [Page 75]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
-
-216.  Khojki
+3.215.  Khojki
 
    Unicode character range: 11200..1124F
 
@@ -4215,20 +4133,35 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Khojki
 
-   Example: "𑈸" (KHOJKI DANDA, U+11238)
+   Example: "𑈧" (KHOJKI LETTER LA, U+11227)
 
-217.  Multani
+
+
+
+
+
+
+Rathnayake              Expires 8 September 2023               [Page 74]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
+
+3.216.  Multani
 
    Unicode character range: 11280..112AF
 
    Unicode Multani character list (https://www.unicode.org/charts/PDF/
    U11280.pdf)
 
-   Scripts list as identified by xml2rfc: Unknown
+   Scripts list as identified by xml2rfc: Multani
 
-   There are no supported fonts.
+   Following fonts are available:
 
-218.  Khudawadi
+   *  Noto Sans Multani
+
+   Example: "𑊥" (MULTANI LETTER SA, U+112A5)
+
+3.217.  Khudawadi
 
    Unicode character range: 112B0..112FF
 
@@ -4241,22 +4174,14 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Khudawadi
 
-   Example: "𑋊" (KHUDAWADI LETTER RRA, U+112CA)
+   Example: "𑊺" (KHUDAWADI LETTER KA, U+112BA)
 
-219.  Grantha
+3.218.  Grantha
 
    Unicode character range: 11300..1137F
 
    Unicode Grantha character list (https://www.unicode.org/charts/PDF/
    U11300.pdf)
-
-
-
-
-Rathnayake              Expires 8 September 2023               [Page 76]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
 
    Scripts list as identified by xml2rfc: Grantha
 
@@ -4264,9 +4189,20 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Grantha
 
-   Example: "𑌾" (GRANTHA VOWEL SIGN AA, U+1133E)
+   Example: "𑍟" (GRANTHA LETTER VEDIC DOUBLE ANUSVARA, U+1135F)
 
-220.  Newa
+
+
+
+
+
+
+Rathnayake              Expires 8 September 2023               [Page 75]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
+
+3.219.  Newa
 
    Unicode character range: 11400..1147F
 
@@ -4279,9 +4215,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Newa
 
-   Example: "𑑞" (NEWA SANDHI MARK, U+1145E)
+   Example: "𑐐" (NEWA LETTER GA, U+11410)
 
-221.  Tirhuta
+3.220.  Tirhuta
 
    Unicode character range: 11480..114DF
 
@@ -4294,27 +4230,35 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Tirhuta
 
-   Example: "𑓈" (U+114c8, U+114C8)
+   Example: "𑒆" (TIRHUTA LETTER UU, U+11486)
 
-222.  Siddham
+3.221.  Siddham
 
    Unicode character range: 11580..115FF
 
    Unicode Siddham character list (https://www.unicode.org/charts/PDF/
    U11580.pdf)
 
-   Scripts list as identified by xml2rfc: Unknown
+   Scripts list as identified by xml2rfc: Siddham
 
-   There are no supported fonts.
+   Following fonts are available:
+
+   *  Noto Sans Siddham
+
+   Example: "𑖴" (SIDDHAM VOWEL SIGN VOCALIC R, U+115B4)
 
 
 
-Rathnayake              Expires 8 September 2023               [Page 77]
+
+
+
+
+Rathnayake              Expires 8 September 2023               [Page 76]
 
 Internet-Draft               xml2rfc-unicode                  March 2023
 
 
-223.  Modi
+3.222.  Modi
 
    Unicode character range: 11600..1165F
 
@@ -4327,50 +4271,31 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Modi
 
-   Example: "𑘖" (MODI LETTER JHA, U+11616)
+   Example: "𑘳" (MODI VOWEL SIGN U, U+11633)
 
-224.  Mongolian Supplement
+3.223.  Mongolian Supplement
 
    Unicode character range: 11660..1167F
 
    Unicode Mongolian Supplement character list
    (https://www.unicode.org/charts/PDF/U11660.pdf)
 
-   Scripts list as identified by xml2rfc: Mongolian
+   Scripts list as identified by xml2rfc: Unknown
 
-   Following fonts are available:
+   There are no supported fonts.
 
-   *  Noto Sans Mongolian
-
-   Example: "𑙣" (MONGOLIAN TRIPLE BIRGA WITH ORNAMENT, U+11663)
-
-225.  Takri
+3.224.  Takri
 
    Unicode character range: 11680..116CF
 
    Unicode Takri character list (https://www.unicode.org/charts/PDF/
    U11680.pdf)
 
-   Scripts list as identified by xml2rfc: Takri
+   Scripts list as identified by xml2rfc: Unknown
 
-   Following fonts are available:
+   There are no supported fonts.
 
-   *  Noto Sans Takri
-
-   Example: "𑚮" (TAKRI VOWEL SIGN I, U+116AE)
-
-
-
-
-
-
-
-Rathnayake              Expires 8 September 2023               [Page 78]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
-
-226.  Ahom
+3.225.  Ahom
 
    Unicode character range: 11700..1173F
 
@@ -4381,11 +4306,19 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    Following fonts are available:
 
+
+
+
+Rathnayake              Expires 8 September 2023               [Page 77]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
+
    *  Noto Sans Ahom
 
-   Example: "𑜿" (AHOM SYMBOL VI, U+1173F)
+   Example: "𑜹" (AHOM DIGIT NINE, U+11739)
 
-227.  Dogra
+3.226.  Dogra
 
    Unicode character range: 11800..1184F
 
@@ -4398,9 +4331,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Dogra
 
-   Example: "𑠠" (DOGRA LETTER BA, U+11820)
+   Example: "𑠄" (DOGRA LETTER U, U+11804)
 
-228.  Warang Citi
+3.227.  Warang Citi
 
    Unicode character range: 118A0..118FF
 
@@ -4413,20 +4346,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Warang Citi
 
-   Example: "𑣯" (WARANG CITI NUMBER SIXTY, U+118EF)
+   Example: "𑣒" (WARANG CITI SMALL LETTER TTE, U+118D2)
 
-
-
-
-
-
-
-Rathnayake              Expires 8 September 2023               [Page 79]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
-
-229.  Zanabazar Square
+3.228.  Zanabazar Square
 
    Unicode character range: 11A00..11A4F
 
@@ -4439,9 +4361,16 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Zanabazar Square
 
-   Example: "𑨪" (ZANABAZAR SQUARE LETTER YA, U+11A2A)
+   Example: "𑨑" (ZANABAZAR SQUARE LETTER CHA, U+11A11)
 
-230.  Soyombo
+
+
+Rathnayake              Expires 8 September 2023               [Page 78]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
+
+3.229.  Soyombo
 
    Unicode character range: 11A50..11AAF
 
@@ -4454,33 +4383,30 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Soyombo
 
-   Example: "𑩰" (SOYOMBO LETTER PA, U+11A70)
+   Example: "𑪞" (SOYOMBO HEAD MARK WITH MOON AND SUN AND TRIPLE FLAME,
+   U+11A9E)
 
-231.  Pau Cin Hau
+3.230.  Pau Cin Hau
 
    Unicode character range: 11AC0..11AFF
 
    Unicode Pau Cin Hau character list
    (https://www.unicode.org/charts/PDF/U11AC0.pdf)
 
-   Scripts list as identified by xml2rfc: Unknown
+   Scripts list as identified by xml2rfc: Pau_Cin_Hau
 
-   There are no supported fonts.
+   Following fonts are available:
 
-232.  Bhaiksuki
+   *  Noto Sans Pau Cin Hau
+
+   Example: "𑫃" (PAU CIN HAU LETTER MA, U+11AC3)
+
+3.231.  Bhaiksuki
 
    Unicode character range: 11C00..11C6F
 
    Unicode Bhaiksuki character list (https://www.unicode.org/charts/PDF/
    U11C00.pdf)
-
-
-
-
-Rathnayake              Expires 8 September 2023               [Page 80]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
 
    Scripts list as identified by xml2rfc: Bhaiksuki
 
@@ -4488,9 +4414,19 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Bhaiksuki
 
-   Example: "𑱜" (BHAIKSUKI NUMBER THREE, U+11C5C)
+   Example: "𑰐" (BHAIKSUKI LETTER GA, U+11C10)
 
-233.  Marchen
+
+
+
+
+
+Rathnayake              Expires 8 September 2023               [Page 79]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
+
+3.232.  Marchen
 
    Unicode character range: 11C70..11CBF
 
@@ -4503,9 +4439,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Marchen
 
-   Example: "𑱸" (MARCHEN LETTER JA, U+11C78)
+   Example: "𑲆" (MARCHEN LETTER ZHA, U+11C86)
 
-234.  Masaram Gondi
+3.233.  Masaram Gondi
 
    Unicode character range: 11D00..11D5F
 
@@ -4518,9 +4454,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Masaram Gondi
 
-   Example: "𑴃" (MASARAM GONDI LETTER II, U+11D03)
+   Example: "𑴏" (MASARAM GONDI LETTER GHA, U+11D0F)
 
-235.  Gunjala Gondi
+3.234.  Gunjala Gondi
 
    Unicode character range: 11D60..11DAF
 
@@ -4531,18 +4467,22 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    Following fonts are available:
 
+   *  Noto Sans Gunjala Gondi
+
+   Example: "𑵥" (GUNJALA GONDI LETTER UU, U+11D65)
 
 
-Rathnayake              Expires 8 September 2023               [Page 81]
+
+
+
+
+
+Rathnayake              Expires 8 September 2023               [Page 80]
 
 Internet-Draft               xml2rfc-unicode                  March 2023
 
 
-   *  Noto Sans Gunjala Gondi
-
-   Example: "𑵾" (GUNJALA GONDI LETTER TTHA, U+11D7E)
-
-236.  Makasar
+3.235.  Makasar
 
    Unicode character range: 11EE0..11EFF
 
@@ -4555,9 +4495,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Makasar
 
-   Example: "𑻥" (MAKASAR LETTER MA, U+11EE5)
+   Example: "𑻱" (MAKASAR LETTER A, U+11EF1)
 
-237.  Cuneiform
+3.236.  Cuneiform
 
    Unicode character range: 12000..123FF
 
@@ -4570,9 +4510,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Cuneiform
 
-   Example: "𒆜" (CUNEIFORM SIGN KASKAL, U+1219C)
+   Example: "𒅞" (CUNEIFORM SIGN KA TIMES BAR, U+1215E)
 
-238.  Cuneiform Numbers and Punctuation
+3.237.  Cuneiform Numbers and Punctuation
 
    Unicode character range: 12400..1247F
 
@@ -4585,16 +4525,20 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Cuneiform
 
-   Example: "𒐎" (CUNEIFORM NUMERIC SIGN NINE DISH, U+1240E)
+   Example: "𒐩" (CUNEIFORM NUMERIC SIGN SEVEN SHAR2, U+12429)
 
 
 
-Rathnayake              Expires 8 September 2023               [Page 82]
+
+
+
+
+Rathnayake              Expires 8 September 2023               [Page 81]
 
 Internet-Draft               xml2rfc-unicode                  March 2023
 
 
-239.  Early Dynastic Cuneiform
+3.238.  Early Dynastic Cuneiform
 
    Unicode character range: 12480..1254F
 
@@ -4607,9 +4551,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Cuneiform
 
-   Example: "𒕃" (CUNEIFORM SIGN ZU5 TIMES THREE DISH TENU, U+12543)
+   Example: "𒓶" (CUNEIFORM SIGN LAK-449 TIMES U2 PLUS BA, U+124F6)
 
-240.  Egyptian Hieroglyphs
+3.239.  Egyptian Hieroglyphs
 
    Unicode character range: 13000..1342F
 
@@ -4622,9 +4566,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Egyptian Hieroglyphs
 
-   Example: "𓈐" (EGYPTIAN HIEROGLYPH N031, U+13210)
+   Example: "𓈡" (EGYPTIAN HIEROGLYPH NL002, U+13221)
 
-241.  Anatolian Hieroglyphs
+3.240.  Anatolian Hieroglyphs
 
    Unicode character range: 14400..1467F
 
@@ -4637,7 +4581,7 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Anatolian Hieroglyphs
 
-   Example: "𔙂" (ANATOLIAN HIEROGLYPH A526, U+14642)
+   Example: "𔓸" (ANATOLIAN HIEROGLYPH A216, U+144F8)
 
 
 
@@ -4645,12 +4589,12 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
 
 
-Rathnayake              Expires 8 September 2023               [Page 83]
+Rathnayake              Expires 8 September 2023               [Page 82]
 
 Internet-Draft               xml2rfc-unicode                  March 2023
 
 
-242.  Bamum Supplement
+3.241.  Bamum Supplement
 
    Unicode character range: 16800..16A3F
 
@@ -4663,9 +4607,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Bamum
 
-   Example: "𖥱" (BAMUM LETTER PHASE-E PUAE, U+16971)
+   Example: "𖤄" (BAMUM LETTER PHASE-D KET, U+16904)
 
-243.  Mro
+3.242.  Mro
 
    Unicode character range: 16A40..16A6F
 
@@ -4678,33 +4622,40 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Mro
 
-   Example: "𖩨" (MRO DIGIT EIGHT, U+16A68)
+   Example: "𖩋" (MRO LETTER CHU, U+16A4B)
 
-244.  Bassa Vah
+3.243.  Bassa Vah
 
    Unicode character range: 16AD0..16AFF
 
    Unicode Bassa Vah character list (https://www.unicode.org/charts/PDF/
    U16AD0.pdf)
 
-   Scripts list as identified by xml2rfc: Unknown
+   Scripts list as identified by xml2rfc: Bassa_Vah
 
-   There are no supported fonts.
+   Following fonts are available:
 
-245.  Pahawh Hmong
+   *  Noto Sans Bassa Vah
+
+   Example: "𖫞" (BASSA VAH LETTER DO, U+16ADE)
+
+
+
+
+
+
+
+Rathnayake              Expires 8 September 2023               [Page 83]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
+
+3.244.  Pahawh Hmong
 
    Unicode character range: 16B00..16B8F
 
    Unicode Pahawh Hmong character list
    (https://www.unicode.org/charts/PDF/U16B00.pdf)
-
-
-
-
-Rathnayake              Expires 8 September 2023               [Page 84]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
 
    Scripts list as identified by xml2rfc: Pahawh_Hmong
 
@@ -4712,9 +4663,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Pahawh Hmong
 
-   Example: "𖬬" (PAHAWH HMONG CONSONANT NAU, U+16B2C)
+   Example: "𖭦" (PAHAWH HMONG SIGN THIRD-STAGE HLI, U+16B66)
 
-246.  Medefaidrin
+3.245.  Medefaidrin
 
    Unicode character range: 16E40..16E9F
 
@@ -4727,9 +4678,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Medefaidrin
 
-   Example: "𖹁" (MEDEFAIDRIN CAPITAL LETTER S, U+16E41)
+   Example: "𖺎" (MEDEFAIDRIN NUMBER FOURTEEN, U+16E8E)
 
-247.  Miao
+3.246.  Miao
 
    Unicode character range: 16F00..16F9F
 
@@ -4742,9 +4693,20 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Miao
 
-   Example: "𖽺" (MIAO VOWEL SIGN EI, U+16F7A)
+   Example: "𖾗" (MIAO LETTER TONE-6, U+16F97)
 
-248.  Ideographic Symbols and Punctuation
+
+
+
+
+
+
+Rathnayake              Expires 8 September 2023               [Page 84]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
+
+3.247.  Ideographic Symbols and Punctuation
 
    Unicode character range: 16FE0..16FFF
 
@@ -4755,14 +4717,7 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    There are no supported fonts.
 
-
-
-Rathnayake              Expires 8 September 2023               [Page 85]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
-
-249.  Tangut
+3.248.  Tangut
 
    Unicode character range: 17000..187FF
 
@@ -4775,9 +4730,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Tangut
 
-   Example: "𘆗" (U+18197, U+18197)
+   Example: "𗔗" (U+17517, U+17517)
 
-250.  Tangut Components
+3.249.  Tangut Components
 
    Unicode character range: 18800..18AFF
 
@@ -4790,14 +4745,22 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Tangut
 
-   Example: "𘠏" (TANGUT COMPONENT-016, U+1880F)
+   Example: "𘦶" (TANGUT COMPONENT-439, U+189B6)
 
-251.  Kana Supplement
+3.250.  Kana Supplement
 
    Unicode character range: 1B000..1B0FF
 
    Unicode Kana Supplement character list
    (https://www.unicode.org/charts/PDF/U1B000.pdf)
+
+
+
+
+Rathnayake              Expires 8 September 2023               [Page 85]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
 
    Scripts list as identified by xml2rfc: Hiragana
 
@@ -4805,20 +4768,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif CJK JP
 
-   Example: "𛂭" (HENTAIGANA LETTER HI-5, U+1B0AD)
+   Example: "𛁛" (HENTAIGANA LETTER SO-5, U+1B05B)
 
-
-
-
-
-
-
-Rathnayake              Expires 8 September 2023               [Page 86]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
-
-252.  Kana Extended-A
+3.251.  Kana Extended-A
 
    Unicode character range: 1B100..1B12F
 
@@ -4831,9 +4783,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif CJK JP
 
-   Example: "𛄄" (HENTAIGANA LETTER RO-3, U+1B104)
+   Example: "𛄁" (HENTAIGANA LETTER RE-4, U+1B101)
 
-253.  Nushu
+3.252.  Nushu
 
    Unicode character range: 1B170..1B2FF
 
@@ -4846,9 +4798,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Nushu
 
-   Example: "𛇡" (NUSHU CHARACTER-1B1E1, U+1B1E1)
+   Example: "𛋪" (NUSHU CHARACTER-1B2EA, U+1B2EA)
 
-254.  Duployan
+3.253.  Duployan
 
    Unicode character range: 1BC00..1BC9F
 
@@ -4859,22 +4811,18 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    Following fonts are available:
 
-   *  Noto Sans Duployan
-
-   Example: "𛰈" (DUPLOYAN LETTER D, U+1BC08)
 
 
-
-
-
-
-
-Rathnayake              Expires 8 September 2023               [Page 87]
+Rathnayake              Expires 8 September 2023               [Page 86]
 
 Internet-Draft               xml2rfc-unicode                  March 2023
 
 
-255.  Shorthand Format Controls
+   *  Noto Sans Duployan
+
+   Example: "𛱦" (DUPLOYAN LETTER PERNIN AM, U+1BC66)
+
+3.254.  Shorthand Format Controls
 
    Unicode character range: 1BCA0..1BCAF
 
@@ -4885,7 +4833,7 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    There are no supported fonts.
 
-256.  Byzantine Musical Symbols
+3.255.  Byzantine Musical Symbols
 
    Unicode character range: 1D000..1D0FF
 
@@ -4898,10 +4846,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif
 
-   Example: "𝂣" (BYZANTINE MUSICAL SYMBOL MARTYRIA ALLI PROTOS ICHOS,
-   U+1D0A3)
+   Example: "𝂴" (BYZANTINE MUSICAL SYMBOL GORTHMIKON N APLOUN, U+1D0B4)
 
-257.  Musical Symbols
+3.256.  Musical Symbols
 
    Unicode character range: 1D100..1D1FF
 
@@ -4914,21 +4861,25 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif
 
-   Example: "𝇓" (MUSICAL SYMBOL VIRGA, U+1D1D3)
+   Example: "𝇑" (MUSICAL SYMBOL GREGORIAN F CLEF, U+1D1D1)
 
-258.  Ancient Greek Musical Notation
+
+
+
+
+
+
+Rathnayake              Expires 8 September 2023               [Page 87]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
+
+3.257.  Ancient Greek Musical Notation
 
    Unicode character range: 1D200..1D24F
 
    Unicode Ancient Greek Musical Notation character list
    (https://www.unicode.org/charts/PDF/U1D200.pdf)
-
-
-
-Rathnayake              Expires 8 September 2023               [Page 88]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
 
    Scripts list as identified by xml2rfc: Greek
 
@@ -4936,20 +4887,24 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif
 
-   Example: "𝈱" (GREEK INSTRUMENTAL NOTATION SYMBOL-32, U+1D231)
+   Example: "𝉄" (COMBINING GREEK MUSICAL PENTASEME, U+1D244)
 
-259.  Mayan Numerals
+3.258.  Mayan Numerals
 
    Unicode character range: 1D2E0..1D2FF
 
    Unicode Mayan Numerals character list
    (https://www.unicode.org/charts/PDF/U1D2E0.pdf)
 
-   Scripts list as identified by xml2rfc: Unknown
+   Scripts list as identified by xml2rfc: Common
 
-   There are no supported fonts.
+   Following fonts are available:
 
-260.  Tai Xuan Jing Symbols
+   *  Noto Serif
+
+   Example: "𝋩" (MAYAN NUMERAL NINE, U+1D2E9)
+
+3.259.  Tai Xuan Jing Symbols
 
    Unicode character range: 1D300..1D35F
 
@@ -4962,9 +4917,20 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif
 
-   Example: "𝌾" (TETRAGRAM FOR GUARDEDNESS, U+1D33E)
+   Example: "𝌵" (TETRAGRAM FOR RITUAL, U+1D335)
 
-261.  Counting Rod Numerals
+
+
+
+
+
+
+Rathnayake              Expires 8 September 2023               [Page 88]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
+
+3.260.  Counting Rod Numerals
 
    Unicode character range: 1D360..1D37F
 
@@ -4979,16 +4945,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif CJK SC
 
+   Example: "𝍢" (COUNTING ROD UNIT DIGIT THREE, U+1D362)
 
-
-Rathnayake              Expires 8 September 2023               [Page 89]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
-
-   Example: "𝍫" (COUNTING ROD TENS DIGIT THREE, U+1D36B)
-
-262.  Mathematical Alphanumeric Symbols
+3.261.  Mathematical Alphanumeric Symbols
 
    Unicode character range: 1D400..1D7FF
 
@@ -5001,9 +4960,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif
 
-   Example: "𝝀" (MATHEMATICAL BOLD ITALIC SMALL LAMDA, U+1D740)
+   Example: "𝕍" (MATHEMATICAL DOUBLE-STRUCK CAPITAL V, U+1D54D)
 
-263.  Sutton SignWriting
+3.262.  Sutton SignWriting
 
    Unicode character range: 1D800..1DAAF
 
@@ -5016,9 +4975,18 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans SignWriting
 
-   Example: "𝣃" (SIGNWRITING HAND-ANGLE INDEX RING LITTLE, U+1D8C3)
+   Example: "𝥶" (SIGNWRITING MOVEMENT-FLOORPLANE CORNER LARGE, U+1D976)
 
-264.  Glagolitic Supplement
+
+
+
+
+Rathnayake              Expires 8 September 2023               [Page 89]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
+
+3.263.  Glagolitic Supplement
 
    Unicode character range: 1E000..1E02F
 
@@ -5031,18 +4999,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Glagolitic
 
-   Example: "𞀁" (COMBINING GLAGOLITIC LETTER BUKY, U+1E001)
+   Example: "𞀩" (COMBINING GLAGOLITIC LETTER IOTATED BIG YUS, U+1E029)
 
-
-
-
-
-Rathnayake              Expires 8 September 2023               [Page 90]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
-
-265.  Mende Kikakui
+3.264.  Mende Kikakui
 
    Unicode character range: 1E800..1E8DF
 
@@ -5055,9 +5014,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Mende Kikakui
 
-   Example: "𞢞" (MENDE KIKAKUI SYLLABLE M142 LONG MBO, U+1E89E)
+   Example: "𞠉" (MENDE KIKAKUI SYLLABLE M005 WA, U+1E809)
 
-266.  Adlam
+3.265.  Adlam
 
    Unicode character range: 1E900..1E95F
 
@@ -5070,9 +5029,20 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Adlam
 
-   Example: "𞤳" (ADLAM SMALL LETTER KAF, U+1E933)
+   Example: "𞤼" (ADLAM SMALL LETTER TU, U+1E93C)
 
-267.  Indic Siyaq Numbers
+
+
+
+
+
+
+Rathnayake              Expires 8 September 2023               [Page 90]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
+
+3.266.  Indic Siyaq Numbers
 
    Unicode character range: 1EC70..1ECBF
 
@@ -5085,20 +5055,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif
 
-   Example: "𞱷" (INDIC SIYAQ NUMBER SEVEN, U+1EC77)
+   Example: "𞱼" (INDIC SIYAQ NUMBER THIRTY, U+1EC7C)
 
-
-
-
-
-
-
-Rathnayake              Expires 8 September 2023               [Page 91]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
-
-268.  Arabic Mathematical Alphabetic Symbols
+3.267.  Arabic Mathematical Alphabetic Symbols
 
    Unicode character range: 1EE00..1EEFF
 
@@ -5111,9 +5070,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Arabic
 
-   Example: "𞹝" (ARABIC MATHEMATICAL TAILED DOTLESS NOON, U+1EE5D)
+   Example: "𞸍" (ARABIC MATHEMATICAL NOON, U+1EE0D)
 
-269.  Mahjong Tiles
+3.268.  Mahjong Tiles
 
    Unicode character range: 1F000..1F02F
 
@@ -5126,9 +5085,20 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif
 
-   Example: "🀨" (MAHJONG TILE AUTUMN, U+1F028)
+   Example: "🀈" (MAHJONG TILE TWO OF CHARACTERS, U+1F008)
 
-270.  Domino Tiles
+
+
+
+
+
+
+Rathnayake              Expires 8 September 2023               [Page 91]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
+
+3.269.  Domino Tiles
 
    Unicode character range: 1F030..1F09F
 
@@ -5141,20 +5111,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif
 
-   Example: "🁀" (DOMINO TILE HORIZONTAL-02-01, U+1F040)
+   Example: "🁼" (DOMINO TILE VERTICAL-03-04, U+1F07C)
 
-
-
-
-
-
-
-Rathnayake              Expires 8 September 2023               [Page 92]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
-
-271.  Playing Cards
+3.270.  Playing Cards
 
    Unicode character range: 1F0A0..1F0FF
 
@@ -5167,9 +5126,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif
 
-   Example: "🃳" (PLAYING CARD TRUMP-19, U+1F0F3)
+   Example: "🃟" (PLAYING CARD WHITE JOKER, U+1F0DF)
 
-272.  Enclosed Alphanumeric Supplement
+3.271.  Enclosed Alphanumeric Supplement
 
    Unicode character range: 1F100..1F1FF
 
@@ -5182,33 +5141,25 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif
 
-   Example: "🇦" (REGIONAL INDICATOR SYMBOL LETTER A, U+1F1E6)
+   Example: "🇬" (REGIONAL INDICATOR SYMBOL LETTER G, U+1F1EC)
 
-273.  Enclosed Ideographic Supplement
+
+
+
+
+
+
+Rathnayake              Expires 8 September 2023               [Page 92]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
+
+3.272.  Enclosed Ideographic Supplement
 
    Unicode character range: 1F200..1F2FF
 
    Unicode Enclosed Ideographic Supplement character list
    (https://www.unicode.org/charts/PDF/U1F200.pdf)
-
-   Scripts list as identified by xml2rfc: Unknown
-
-   There are no supported fonts.
-
-274.  Miscellaneous Symbols and Pictographs
-
-   Unicode character range: 1F300..1F5FF
-
-   Unicode Miscellaneous Symbols and Pictographs character list
-   (https://www.unicode.org/charts/PDF/U1F300.pdf)
-
-
-
-
-Rathnayake              Expires 8 September 2023               [Page 93]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
 
    Scripts list as identified by xml2rfc: Common
 
@@ -5216,9 +5167,24 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif
 
-   Example: "🌈" (RAINBOW, U+1F308)
+   Example: "🈻" (SQUARED CJK UNIFIED IDEOGRAPH-914D, U+1F23B)
 
-275.  Emoticons
+3.273.  Miscellaneous Symbols and Pictographs
+
+   Unicode character range: 1F300..1F5FF
+
+   Unicode Miscellaneous Symbols and Pictographs character list
+   (https://www.unicode.org/charts/PDF/U1F300.pdf)
+
+   Scripts list as identified by xml2rfc: Common
+
+   Following fonts are available:
+
+   *  Noto Serif
+
+   Example: "🍻" (CLINKING BEER MUGS, U+1F37B)
+
+3.274.  Emoticons
 
    Unicode character range: 1F600..1F64F
 
@@ -5231,9 +5197,20 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif
 
-   Example: "😼" (CAT FACE WITH WRY SMILE, U+1F63C)
+   Example: "😩" (WEARY FACE, U+1F629)
 
-276.  Ornamental Dingbats
+
+
+
+
+
+
+Rathnayake              Expires 8 September 2023               [Page 93]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
+
+3.275.  Ornamental Dingbats
 
    Unicode character range: 1F650..1F67F
 
@@ -5246,9 +5223,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif
 
-   Example: "🙔" (TURNED NORTH WEST POINTING LEAF, U+1F654)
+   Example: "🙝" (HEAVY SOUTH WEST POINTING VINE LEAF, U+1F65D)
 
-277.  Transport and Map Symbols
+3.276.  Transport and Map Symbols
 
    Unicode character range: 1F680..1F6FF
 
@@ -5259,18 +5236,11 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    Following fonts are available:
 
-
-
-Rathnayake              Expires 8 September 2023               [Page 94]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
-
    *  Noto Serif
 
-   Example: "🛌" (SLEEPING ACCOMMODATION, U+1F6CC)
+   Example: "🚎" (TROLLEYBUS, U+1F68E)
 
-278.  Alchemical Symbols
+3.277.  Alchemical Symbols
 
    Unicode character range: 1F700..1F77F
 
@@ -5283,9 +5253,20 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif
 
-   Example: "🜆" (ALCHEMICAL SYMBOL FOR AQUA REGIA, U+1F706)
+   Example: "🝉" (ALCHEMICAL SYMBOL FOR GUM, U+1F749)
 
-279.  Geometric Shapes Extended
+
+
+
+
+
+
+Rathnayake              Expires 8 September 2023               [Page 94]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
+
+3.278.  Geometric Shapes Extended
 
    Unicode character range: 1F780..1F7FF
 
@@ -5298,9 +5279,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif
 
-   Example: "🞃" (BLACK DOWN-POINTING ISOSCELES RIGHT TRIANGLE, U+1F783)
+   Example: "🞂" (BLACK RIGHT-POINTING ISOSCELES RIGHT TRIANGLE, U+1F782)
 
-280.  Supplemental Arrows-C
+3.279.  Supplemental Arrows-C
 
    Unicode character range: 1F800..1F8FF
 
@@ -5313,16 +5294,10 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif
 
-   Example: "🡶" (WIDE-HEADED SOUTH EAST MEDIUM BARB ARROW, U+1F876)
+   Example: "🢗" (DOWNWARDS WHITE ARROW WITHIN TRIANGLE ARROWHEAD,
+   U+1F897)
 
-
-
-Rathnayake              Expires 8 September 2023               [Page 95]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
-
-281.  Supplemental Symbols and Pictographs
+3.280.  Supplemental Symbols and Pictographs
 
    Unicode character range: 1F900..1F9FF
 
@@ -5333,18 +5308,25 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    There are no supported fonts.
 
-282.  Chess Symbols
+3.281.  Chess Symbols
 
    Unicode character range: 1FA00..1FA6F
 
    Unicode Chess Symbols character list
    (https://www.unicode.org/charts/PDF/U1FA00.pdf)
 
+
+
+Rathnayake              Expires 8 September 2023               [Page 95]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
+
    Scripts list as identified by xml2rfc: Unknown
 
    There are no supported fonts.
 
-283.  CJK Unified Ideographs Extension B
+3.282.  CJK Unified Ideographs Extension B
 
    Unicode character range: 20000..2A6DF
 
@@ -5357,9 +5339,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif CJK SC
 
-   Example: "𠙘" (CJK UNIFIED IDEOGRAPH-20658, U+20658)
+   Example: "𧖎" (CJK UNIFIED IDEOGRAPH-2758E, U+2758E)
 
-284.  CJK Unified Ideographs Extension C
+3.283.  CJK Unified Ideographs Extension C
 
    Unicode character range: 2A700..2B73F
 
@@ -5370,19 +5352,11 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    Following fonts are available:
 
-
-
-
-Rathnayake              Expires 8 September 2023               [Page 96]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
-
    *  Noto Serif CJK SC
 
-   Example: "𪜓" (CJK UNIFIED IDEOGRAPH-2A713, U+2A713)
+   Example: "𫃄" (CJK UNIFIED IDEOGRAPH-2B0C4, U+2B0C4)
 
-285.  CJK Unified Ideographs Extension D
+3.284.  CJK Unified Ideographs Extension D
 
    Unicode character range: 2B740..2B81F
 
@@ -5395,9 +5369,16 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif CJK SC
 
-   Example: "𫝋" (CJK UNIFIED IDEOGRAPH-2B74B, U+2B74B)
+   Example: "𫝎" (CJK UNIFIED IDEOGRAPH-2B74E, U+2B74E)
 
-286.  CJK Unified Ideographs Extension E
+
+
+Rathnayake              Expires 8 September 2023               [Page 96]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
+
+3.285.  CJK Unified Ideographs Extension E
 
    Unicode character range: 2B820..2CEAF
 
@@ -5410,9 +5391,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif CJK SC
 
-   Example: "𬱫" (CJK UNIFIED IDEOGRAPH-2CC6B, U+2CC6B)
+   Example: "𬠻" (CJK UNIFIED IDEOGRAPH-2C83B, U+2C83B)
 
-287.  CJK Unified Ideographs Extension F
+3.286.  CJK Unified Ideographs Extension F
 
    Unicode character range: 2CEB0..2EBEF
 
@@ -5425,16 +5406,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif CJK SC
 
-   Example: "𬿣" (CJK UNIFIED IDEOGRAPH-2CFE3, U+2CFE3)
+   Example: "𮨰" (CJK UNIFIED IDEOGRAPH-2EA30, U+2EA30)
 
-
-
-Rathnayake              Expires 8 September 2023               [Page 97]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
-
-288.  CJK Compatibility Ideographs Supplement
+3.287.  CJK Compatibility Ideographs Supplement
 
    Unicode character range: 2F800..2FA1F
 
@@ -5447,9 +5421,20 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif CJK SC
 
-   Example: "瀹" (CJK COMPATIBILITY IDEOGRAPH-2F913, U+2F913)
+   Example: "甤" (CJK COMPATIBILITY IDEOGRAPH-2F934, U+2F934)
 
-289.  Tags
+
+
+
+
+
+
+Rathnayake              Expires 8 September 2023               [Page 97]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
+
+3.288.  Tags
 
    Unicode character range: E0000..E007F
 
@@ -5462,9 +5447,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Serif
 
-   Example: "󠀽" (TAG EQUALS SIGN, U+E003D)
+   Example: "󠁝" (TAG RIGHT SQUARE BRACKET, U+E005D)
 
-290.  Variation Selectors Supplement
+3.289.  Variation Selectors Supplement
 
    Unicode character range: E0100..E01EF
 
@@ -5477,20 +5462,9 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    *  Noto Sans Inherited
 
-   Example: "󠇭" (VARIATION SELECTOR-254, U+E01ED)
+   Example: "󠆞" (VARIATION SELECTOR-175, U+E019E)
 
-
-
-
-
-
-
-Rathnayake              Expires 8 September 2023               [Page 98]
-
-Internet-Draft               xml2rfc-unicode                  March 2023
-
-
-291.  Supplementary Private Use Area-A
+3.290.  Supplementary Private Use Area-A
 
    Unicode character range: F0000..FFFFF
 
@@ -5501,16 +5475,41 @@ Internet-Draft               xml2rfc-unicode                  March 2023
 
    There are no supported fonts.
 
-292.  Supplementary Private Use Area-B
+3.291.  Supplementary Private Use Area-B
 
    Unicode character range: 100000..10FFFF
 
    Unicode Supplementary Private Use Area-B character list
    (https://www.unicode.org/charts/PDF/U100000.pdf)
 
+
+
+
+Rathnayake              Expires 8 September 2023               [Page 98]
+
+Internet-Draft               xml2rfc-unicode                  March 2023
+
+
    Scripts list as identified by xml2rfc: Unknown
 
    There are no supported fonts.
+
+4.  Informative References
+
+   [RFC7991]  Hoffman, P., "The "xml2rfc" Version 3 Vocabulary",
+              RFC 7991, DOI 10.17487/RFC7991, December 2016,
+              <https://www.rfc-editor.org/info/rfc7991>.
+
+   [RFC7997]  Flanagan, H., Ed., "The Use of Non-ASCII Characters in
+              RFCs", RFC 7997, DOI 10.17487/RFC7997, December 2016,
+              <https://www.rfc-editor.org/info/rfc7997>.
+
+   [unicode-blocks]
+              Unicode, Inc., "Blocks-14.0.0", 1 January 2021,
+              <https://www.unicode.org/Public/14.0.0/ucd/Blocks.txt>.
+
+   [xml2rfc]  IETF, "xml2rfc", 8 March 2023,
+              <https://github.com/ietf-tools/xml2rfc/>.
 
 Author's Address
 
@@ -5524,6 +5523,7 @@ Author's Address
       කෙසර නානායක්කාර රත්නායක
       IETF Administration LLC
       New Zealand
+
 
 
 
