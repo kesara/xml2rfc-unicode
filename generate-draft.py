@@ -1,11 +1,11 @@
-from random import randint
+from html import escape
 
 from lxml import etree
 from xml2rfc.uniscripts import which_scripts
 from xml2rfc.util.fonts import get_noto_serif_family_for_script
 
 
-DRAFT_HEAD = """<?xml version="1.0" encoding="utf-8"?>
+DRAFT_HEAD = '''<?xml version="1.0" encoding="utf-8"?>
 
 <rfc ipr="trust200902" docName="draft-rathnayake-xml2rfc-unicode-00" category="exp" submissionType="independent" tocInclude="true" sortRefs="true" symRefs="true">
   <front>
@@ -35,15 +35,12 @@ DRAFT_HEAD = """<?xml version="1.0" encoding="utf-8"?>
     </section>
     <section>
       <name>Methodology</name>
-      <t>The Unicode characters blocks are identified using <xref target="unicode-blocks" />.</t>
-      <t>This random printable character from each block is chosen. The xml2rfc is used as an API to identify which script blocks are assigned to that character and predicted font names. xml2rfc might predict a non-existing font. These are the instances where xml2rfc might leak non-standard fonts to generated PDF files.</t>
-    </section>
-    <section>
-      <name>Unicode code blocks</name>
-    """
+      <t>The Unicode characters blocks are identified using <xref target="blocks" />.</t>
+      <t>The xml2rfc is used as an API to identify which script blocks are assigned to that character and predicted font names for set of characters from each Unicode code block. The xml2rfc might predict a non-existing font. These are the instances where xml2rfc might leak non-standard fonts to generated PDF files.</t>
+    </section>'''
 
 
-DRAFT_TAIL = """    </section>
+DRAFT_TAIL = '''
   </middle>
   <back>
     <references>
@@ -88,354 +85,120 @@ DRAFT_TAIL = """    </section>
           <date month="March" day="8" year="2023"/>
         </front>
       </reference>
-      <reference anchor="unicode-blocks" target="https://www.unicode.org/Public/14.0.0/ucd/Blocks.txt">
+      <reference anchor="blocks" target="https://www.unicode.org/Public/15.0.0/ucd/Blocks.txt">
         <front>
-          <title>Blocks-14.0.0</title>
+          <title>Blocks-15.0.0</title>
           <author>
             <organization>Unicode, Inc.</organization>
           </author>
-          <date month="January" day="1" year="2021"/>
+          <date month="January" day="28" year="2022"/>
+        </front>
+      </reference>
+      <reference anchor="charts" target="https://www.unicode.org/charts/">
+        <front>
+          <title>Unicode 15.0 Character Code Charts</title>
+          <author>
+            <organization>Unicode, Inc.</organization>
+          </author>
+          <date month="March" day="8" year="2023"/>
         </front>
       </reference>
     </references>
   </back>
-</rfc>"""
+</rfc>'''
 
-BLOCKS = {
-    'Basic Latin': (0x0000, 0x007F),
-    'Latin-1 Supplement': (0x0080, 0x00FF),
-    'Latin Extended-A': (0x0100, 0x017F),
-    'Latin Extended-B': (0x0180, 0x024F),
-    'IPA Extensions': (0x0250, 0x02AF),
-    'Spacing Modifier Letters': (0x02B0, 0x02FF),
-    'Combining Diacritical Marks': (0x0300, 0x036F),
-    'Greek and Coptic': (0x0370, 0x03FF),
-    'Cyrillic': (0x0400, 0x04FF),
-    'Cyrillic Supplement': (0x0500, 0x052F),
-    'Armenian': (0x0530, 0x058F),
-    'Hebrew': (0x0590, 0x05FF),
-    'Arabic': (0x0600, 0x06FF),
-    'Syriac': (0x0700, 0x074F),
-    'Arabic Supplement': (0x0750, 0x077F),
-    'Thaana': (0x0780, 0x07BF),
-    'NKo': (0x07C0, 0x07FF),
-    'Samaritan': (0x0800, 0x083F),
-    'Mandaic': (0x0840, 0x085F),
-    'Syriac Supplement': (0x0860, 0x086F),
-    'Arabic Extended-A': (0x08A0, 0x08FF),
-    'Devanagari': (0x0900, 0x097F),
-    'Bengali': (0x0980, 0x09FF),
-    'Gurmukhi': (0x0A00, 0x0A7F),
-    'Gujarati': (0x0A80, 0x0AFF),
-    'Oriya': (0x0B00, 0x0B7F),
-    'Tamil': (0x0B80, 0x0BFF),
-    'Telugu': (0x0C00, 0x0C7F),
-    'Kannada': (0x0C80, 0x0CFF),
-    'Malayalam': (0x0D00, 0x0D7F),
-    'Sinhala': (0x0D80, 0x0DFF),
-    'Thai': (0x0E00, 0x0E7F),
-    'Lao': (0x0E80, 0x0EFF),
-    'Tibetan': (0x0F00, 0x0FFF),
-    'Myanmar': (0x1000, 0x109F),
-    'Georgian': (0x10A0, 0x10FF),
-    'Hangul Jamo': (0x1100, 0x11FF),
-    'Ethiopic': (0x1200, 0x137F),
-    'Ethiopic Supplement': (0x1380, 0x139F),
-    'Cherokee': (0x13A0, 0x13FF),
-    'Unified Canadian Aboriginal Syllabics': (0x1400, 0x167F),
-    'Ogham': (0x1680, 0x169F),
-    'Runic': (0x16A0, 0x16FF),
-    'Tagalog': (0x1700, 0x171F),
-    'Hanunoo': (0x1720, 0x173F),
-    'Buhid': (0x1740, 0x175F),
-    'Tagbanwa': (0x1760, 0x177F),
-    'Khmer': (0x1780, 0x17FF),
-    'Mongolian': (0x1800, 0x18AF),
-    'Unified Canadian Aboriginal Syllabics Extended': (0x18B0, 0x18FF),
-    'Limbu': (0x1900, 0x194F),
-    'Tai Le': (0x1950, 0x197F),
-    'New Tai Lue': (0x1980, 0x19DF),
-    'Khmer Symbols': (0x19E0, 0x19FF),
-    'Buginese': (0x1A00, 0x1A1F),
-    'Tai Tham': (0x1A20, 0x1AAF),
-    'Combining Diacritical Marks Extended': (0x1AB0, 0x1AFF),
-    'Balinese': (0x1B00, 0x1B7F),
-    'Sundanese': (0x1B80, 0x1BBF),
-    'Batak': (0x1BC0, 0x1BFF),
-    'Lepcha': (0x1C00, 0x1C4F),
-    'Ol Chiki': (0x1C50, 0x1C7F),
-    'Cyrillic Extended-C': (0x1C80, 0x1C8F),
-    'Georgian Extended': (0x1C90, 0x1CBF),
-    'Sundanese Supplement': (0x1CC0, 0x1CCF),
-    'Vedic Extensions': (0x1CD0, 0x1CFF),
-    'Phonetic Extensions': (0x1D00, 0x1D7F),
-    'Phonetic Extensions Supplement': (0x1D80, 0x1DBF),
-    'Combining Diacritical Marks Supplement': (0x1DC0, 0x1DFF),
-    'Latin Extended Additional': (0x1E00, 0x1EFF),
-    'Greek Extended': (0x1F00, 0x1FFF),
-    'General Punctuation': (0x2000, 0x206F),
-    'Superscripts and Subscripts': (0x2070, 0x209F),
-    'Currency Symbols': (0x20A0, 0x20CF),
-    'Combining Diacritical Marks for Symbols': (0x20D0, 0x20FF),
-    'Letterlike Symbols': (0x2100, 0x214F),
-    'Number Forms': (0x2150, 0x218F),
-    'Arrows': (0x2190, 0x21FF),
-    'Mathematical Operators': (0x2200, 0x22FF),
-    'Miscellaneous Technical': (0x2300, 0x23FF),
-    'Control Pictures': (0x2400, 0x243F),
-    'Optical Character Recognition': (0x2440, 0x245F),
-    'Enclosed Alphanumerics': (0x2460, 0x24FF),
-    'Box Drawing': (0x2500, 0x257F),
-    'Block Elements': (0x2580, 0x259F),
-    'Geometric Shapes': (0x25A0, 0x25FF),
-    'Miscellaneous Symbols': (0x2600, 0x26FF),
-    'Dingbats': (0x2700, 0x27BF),
-    'Miscellaneous Mathematical Symbols-A': (0x27C0, 0x27EF),
-    'Supplemental Arrows-A': (0x27F0, 0x27FF),
-    'Braille Patterns': (0x2800, 0x28FF),
-    'Supplemental Arrows-B': (0x2900, 0x297F),
-    'Miscellaneous Mathematical Symbols-B': (0x2980, 0x29FF),
-    'Supplemental Mathematical Operators': (0x2A00, 0x2AFF),
-    'Miscellaneous Symbols and Arrows': (0x2B00, 0x2BFF),
-    'Glagolitic': (0x2C00, 0x2C5F),
-    'Latin Extended-C': (0x2C60, 0x2C7F),
-    'Coptic': (0x2C80, 0x2CFF),
-    'Georgian Supplement': (0x2D00, 0x2D2F),
-    'Tifinagh': (0x2D30, 0x2D7F),
-    'Ethiopic Extended': (0x2D80, 0x2DDF),
-    'Cyrillic Extended-A': (0x2DE0, 0x2DFF),
-    'Supplemental Punctuation': (0x2E00, 0x2E7F),
-    'CJK Radicals Supplement': (0x2E80, 0x2EFF),
-    'Kangxi Radicals': (0x2F00, 0x2FDF),
-    'Ideographic Description Characters': (0x2FF0, 0x2FFF),
-    'CJK Symbols and Punctuation': (0x3000, 0x303F),
-    'Hiragana': (0x3040, 0x309F),
-    'Katakana': (0x30A0, 0x30FF),
-    'Bopomofo': (0x3100, 0x312F),
-    'Hangul Compatibility Jamo': (0x3130, 0x318F),
-    'Kanbun': (0x3190, 0x319F),
-    'Bopomofo Extended': (0x31A0, 0x31BF),
-    'CJK Strokes': (0x31C0, 0x31EF),
-    'Katakana Phonetic Extensions': (0x31F0, 0x31FF),
-    'Enclosed CJK Letters and Months': (0x3200, 0x32FF),
-    'CJK Compatibility': (0x3300, 0x33FF),
-    'CJK Unified Ideographs Extension A': (0x3400, 0x4DBF),
-    'Yijing Hexagram Symbols': (0x4DC0, 0x4DFF),
-    'CJK Unified Ideographs': (0x4E00, 0x9FFF),
-    'Yi Syllables': (0xA000, 0xA48F),
-    'Yi Radicals': (0xA490, 0xA4CF),
-    'Lisu': (0xA4D0, 0xA4FF),
-    'Vai': (0xA500, 0xA63F),
-    'Cyrillic Extended-B': (0xA640, 0xA69F),
-    'Bamum': (0xA6A0, 0xA6FF),
-    'Modifier Tone Letters': (0xA700, 0xA71F),
-    'Latin Extended-D': (0xA720, 0xA7FF),
-    'Syloti Nagri': (0xA800, 0xA82F),
-    'Common Indic Number Forms': (0xA830, 0xA83F),
-    'Phags-pa': (0xA840, 0xA87F),
-    'Saurashtra': (0xA880, 0xA8DF),
-    'Devanagari Extended': (0xA8E0, 0xA8FF),
-    'Kayah Li': (0xA900, 0xA92F),
-    'Rejang': (0xA930, 0xA95F),
-    'Hangul Jamo Extended-A': (0xA960, 0xA97F),
-    'Javanese': (0xA980, 0xA9DF),
-    'Myanmar Extended-B': (0xA9E0, 0xA9FF),
-    'Cham': (0xAA00, 0xAA5F),
-    'Myanmar Extended-A': (0xAA60, 0xAA7F),
-    'Tai Viet': (0xAA80, 0xAADF),
-    'Meetei Mayek Extensions': (0xAAE0, 0xAAFF),
-    'Ethiopic Extended-A': (0xAB00, 0xAB2F),
-    'Latin Extended-E': (0xAB30, 0xAB6F),
-    'Cherokee Supplement': (0xAB70, 0xABBF),
-    'Meetei Mayek': (0xABC0, 0xABFF),
-    'Hangul Syllables': (0xAC00, 0xD7AF),
-    'Hangul Jamo Extended-B': (0xD7B0, 0xD7FF),
-    'High Surrogates': (0xD800, 0xDB7F),
-    'High Private Use Surrogates': (0xDB80, 0xDBFF),
-    'Low Surrogates': (0xDC00, 0xDFFF),
-    'Private Use Area': (0xE000, 0xF8FF),
-    'CJK Compatibility Ideographs': (0xF900, 0xFAFF),
-    'Alphabetic Presentation Forms': (0xFB00, 0xFB4F),
-    'Arabic Presentation Forms-A': (0xFB50, 0xFDFF),
-    'Variation Selectors': (0xFE00, 0xFE0F),
-    'Vertical Forms': (0xFE10, 0xFE1F),
-    'Combining Half Marks': (0xFE20, 0xFE2F),
-    'CJK Compatibility Forms': (0xFE30, 0xFE4F),
-    'Small Form Variants': (0xFE50, 0xFE6F),
-    'Arabic Presentation Forms-B': (0xFE70, 0xFEFF),
-    'Halfwidth and Fullwidth Forms': (0xFF00, 0xFFEF),
-    'Specials': (0xFFF0, 0xFFFF),
-    'Linear B Syllabary': (0x10000, 0x1007F),
-    'Linear B Ideograms': (0x10080, 0x100FF),
-    'Aegean Numbers': (0x10100, 0x1013F),
-    'Ancient Greek Numbers': (0x10140, 0x1018F),
-    'Ancient Symbols': (0x10190, 0x101CF),
-    'Phaistos Disc': (0x101D0, 0x101FF),
-    'Lycian': (0x10280, 0x1029F),
-    'Carian': (0x102A0, 0x102DF),
-    'Coptic Epact Numbers': (0x102E0, 0x102FF),
-    'Old Italic': (0x10300, 0x1032F),
-    'Gothic': (0x10330, 0x1034F),
-    'Old Permic': (0x10350, 0x1037F),
-    'Ugaritic': (0x10380, 0x1039F),
-    'Old Persian': (0x103A0, 0x103DF),
-    'Deseret': (0x10400, 0x1044F),
-    'Shavian': (0x10450, 0x1047F),
-    'Osmanya': (0x10480, 0x104AF),
-    'Osage': (0x104B0, 0x104FF),
-    'Elbasan': (0x10500, 0x1052F),
-    'Caucasian Albanian': (0x10530, 0x1056F),
-    'Linear A': (0x10600, 0x1077F),
-    'Cypriot Syllabary': (0x10800, 0x1083F),
-    'Imperial Aramaic': (0x10840, 0x1085F),
-    'Palmyrene': (0x10860, 0x1087F),
-    'Nabataean': (0x10880, 0x108AF),
-    'Hatran': (0x108E0, 0x108FF),
-    'Phoenician': (0x10900, 0x1091F),
-    'Lydian': (0x10920, 0x1093F),
-    'Meroitic Hieroglyphs': (0x10980, 0x1099F),
-    'Meroitic Cursive': (0x109A0, 0x109FF),
-    'Kharoshthi': (0x10A00, 0x10A5F),
-    'Old South Arabian': (0x10A60, 0x10A7F),
-    'Old North Arabian': (0x10A80, 0x10A9F),
-    'Manichaean': (0x10AC0, 0x10AFF),
-    'Avestan': (0x10B00, 0x10B3F),
-    'Inscriptional Parthian': (0x10B40, 0x10B5F),
-    'Inscriptional Pahlavi': (0x10B60, 0x10B7F),
-    'Psalter Pahlavi': (0x10B80, 0x10BAF),
-    'Old Turkic': (0x10C00, 0x10C4F),
-    'Old Hungarian': (0x10C80, 0x10CFF),
-    'Hanifi Rohingya': (0x10D00, 0x10D3F),
-    'Rumi Numeral Symbols': (0x10E60, 0x10E7F),
-    'Old Sogdian': (0x10F00, 0x10F2F),
-    'Sogdian': (0x10F30, 0x10F6F),
-    'Brahmi': (0x11000, 0x1107F),
-    'Kaithi': (0x11080, 0x110CF),
-    'Sora Sompeng': (0x110D0, 0x110FF),
-    'Chakma': (0x11100, 0x1114F),
-    'Mahajani': (0x11150, 0x1117F),
-    'Sharada': (0x11180, 0x111DF),
-    'Sinhala Archaic Numbers': (0x111E0, 0x111FF),
-    'Khojki': (0x11200, 0x1124F),
-    'Multani': (0x11280, 0x112AF),
-    'Khudawadi': (0x112B0, 0x112FF),
-    'Grantha': (0x11300, 0x1137F),
-    'Newa': (0x11400, 0x1147F),
-    'Tirhuta': (0x11480, 0x114DF),
-    'Siddham': (0x11580, 0x115FF),
-    'Modi': (0x11600, 0x1165F),
-    'Mongolian Supplement': (0x11660, 0x1167F),
-    'Takri': (0x11680, 0x116CF),
-    'Ahom': (0x11700, 0x1173F),
-    'Dogra': (0x11800, 0x1184F),
-    'Warang Citi': (0x118A0, 0x118FF),
-    'Zanabazar Square': (0x11A00, 0x11A4F),
-    'Soyombo': (0x11A50, 0x11AAF),
-    'Pau Cin Hau': (0x11AC0, 0x11AFF),
-    'Bhaiksuki': (0x11C00, 0x11C6F),
-    'Marchen': (0x11C70, 0x11CBF),
-    'Masaram Gondi': (0x11D00, 0x11D5F),
-    'Gunjala Gondi': (0x11D60, 0x11DAF),
-    'Makasar': (0x11EE0, 0x11EFF),
-    'Cuneiform': (0x12000, 0x123FF),
-    'Cuneiform Numbers and Punctuation': (0x12400, 0x1247F),
-    'Early Dynastic Cuneiform': (0x12480, 0x1254F),
-    'Egyptian Hieroglyphs': (0x13000, 0x1342F),
-    'Anatolian Hieroglyphs': (0x14400, 0x1467F),
-    'Bamum Supplement': (0x16800, 0x16A3F),
-    'Mro': (0x16A40, 0x16A6F),
-    'Bassa Vah': (0x16AD0, 0x16AFF),
-    'Pahawh Hmong': (0x16B00, 0x16B8F),
-    'Medefaidrin': (0x16E40, 0x16E9F),
-    'Miao': (0x16F00, 0x16F9F),
-    'Ideographic Symbols and Punctuation': (0x16FE0, 0x16FFF),
-    'Tangut': (0x17000, 0x187FF),
-    'Tangut Components': (0x18800, 0x18AFF),
-    'Kana Supplement': (0x1B000, 0x1B0FF),
-    'Kana Extended-A': (0x1B100, 0x1B12F),
-    'Nushu': (0x1B170, 0x1B2FF),
-    'Duployan': (0x1BC00, 0x1BC9F),
-    'Shorthand Format Controls': (0x1BCA0, 0x1BCAF),
-    'Byzantine Musical Symbols': (0x1D000, 0x1D0FF),
-    'Musical Symbols': (0x1D100, 0x1D1FF),
-    'Ancient Greek Musical Notation': (0x1D200, 0x1D24F),
-    'Mayan Numerals': (0x1D2E0, 0x1D2FF),
-    'Tai Xuan Jing Symbols': (0x1D300, 0x1D35F),
-    'Counting Rod Numerals': (0x1D360, 0x1D37F),
-    'Mathematical Alphanumeric Symbols': (0x1D400, 0x1D7FF),
-    'Sutton SignWriting': (0x1D800, 0x1DAAF),
-    'Glagolitic Supplement': (0x1E000, 0x1E02F),
-    'Mende Kikakui': (0x1E800, 0x1E8DF),
-    'Adlam': (0x1E900, 0x1E95F),
-    'Indic Siyaq Numbers': (0x1EC70, 0x1ECBF),
-    'Arabic Mathematical Alphabetic Symbols': (0x1EE00, 0x1EEFF),
-    'Mahjong Tiles': (0x1F000, 0x1F02F),
-    'Domino Tiles': (0x1F030, 0x1F09F),
-    'Playing Cards': (0x1F0A0, 0x1F0FF),
-    'Enclosed Alphanumeric Supplement': (0x1F100, 0x1F1FF),
-    'Enclosed Ideographic Supplement': (0x1F200, 0x1F2FF),
-    'Miscellaneous Symbols and Pictographs': (0x1F300, 0x1F5FF),
-    'Emoticons': (0x1F600, 0x1F64F),
-    'Ornamental Dingbats': (0x1F650, 0x1F67F),
-    'Transport and Map Symbols': (0x1F680, 0x1F6FF),
-    'Alchemical Symbols': (0x1F700, 0x1F77F),
-    'Geometric Shapes Extended': (0x1F780, 0x1F7FF),
-    'Supplemental Arrows-C': (0x1F800, 0x1F8FF),
-    'Supplemental Symbols and Pictographs': (0x1F900, 0x1F9FF),
-    'Chess Symbols': (0x1FA00, 0x1FA6F),
-    'CJK Unified Ideographs Extension B': (0x20000, 0x2A6DF),
-    'CJK Unified Ideographs Extension C': (0x2A700, 0x2B73F),
-    'CJK Unified Ideographs Extension D': (0x2B740, 0x2B81F),
-    'CJK Unified Ideographs Extension E': (0x2B820, 0x2CEAF),
-    'CJK Unified Ideographs Extension F': (0x2CEB0, 0x2EBEF),
-    'CJK Compatibility Ideographs Supplement': (0x2F800, 0x2FA1F),
-    'Tags': (0xE0000, 0xE007F),
-    'Variation Selectors Supplement': (0xE0100, 0xE01EF),
-    'Supplementary Private Use Area-A': (0xF0000, 0xFFFFF),
-    'Supplementary Private Use Area-B': (0x100000, 0x10FFFF),
-}
+SCRIPTS_GROUPS = {'European Scripts': [{'Armenian': []}, {'Carian': []}, {'Caucasian Albanian': []}, {'Cypriot Syllabary': []}, {'Cypro-Minoan': []}, {'Cyrillic': []}, {'Cyrillic Supplement': []}, {'Cyrillic Extended-A': []}, {'Cyrillic Extended-B': []}, {'Cyrillic Extended-C': []}, {'Cyrillic Extended-D': []}, {'Elbasan': []}, {'Georgian': []}, {'Georgian Extended': []}, {'Georgian Supplement': []}, {'Glagolitic': []}, {'Glagolitic Supplement': []}, {'Gothic': []}, {'Greek and Coptic': []}, {'Greek Extended': []}, {'Ancient Greek Numbers': []}, {'Basic Latin': []}, {'Latin-1 Supplement': []}, {'Latin Extended-A': []}, {'Latin Extended-B': []}, {'Latin Extended-C': []}, {'Latin Extended-D': []}, {'Latin Extended-E': []}, {'Latin Extended-F': []}, {'Latin Extended-G': []}, {'Latin Extended Additional': []}, {'IPA Extensions': []}, {'Phonetic Extensions': []}, {'Phonetic Extensions Supplement': []}, {'Linear A': []}, {'Linear B': []}, {'Linear B Syllabary': []}, {'Linear B Ideograms': []}, {'Aegean Numbers': []}, {'Lycian': []}, {'Lydian': []}, {'Ogham': []}, {'Old Hungarian': []}, {'Old Italic': []}, {'Old Permic': []}, {'Phaistos Disc': []}, {'Runic': []}, {'Shavian': []}, {'Vithkuqi': []}], 'Modifier Letters': [{'Modifier Tone Letters': []}, {'Spacing Modifier Letters': []}, {'Superscripts and Subscripts': []}], 'Combining Marks': [{'Combining Diacritical Marks': []}, {'Combining Diacritical Marks Extended': []}, {'Combining Diacritical Marks Supplement': []}, {'Combining Diacritical Marks for Symbols': []}, {'Combining Half Marks': []}], 'Miscellaneous': [{'Alphabetic Presentation Forms': []}, {'Halfwidth and Fullwidth Forms': []}], 'African Scripts': [{'Adlam': []}, {'Bamum': []}, {'Bamum Supplement': []}, {'Bassa Vah': []}, {'Coptic': []}, {'Coptic Epact Numbers': []}, {'Egyptian Hieroglyphs': []}, {'Egyptian Hieroglyph Format Controls': []}, {'Ethiopic': []}, {'Ethiopic Supplement': []}, {'Ethiopic Extended': []}, {'Ethiopic Extended-A': []}, {'Ethiopic Extended-B': []}, {'Medefaidrin': []}, {'Mende Kikakui': []}, {'Meroitic': []}, {'Meroitic Cursive': []}, {'Meroitic Hieroglyphs': []}, {'NKo': []}, {'Osmanya': []}, {'Tifinagh': []}, {'Vai': []}], 'Middle Eastern Scripts': [{'Anatolian Hieroglyphs': []}, {'Arabic': []}, {'Arabic Supplement': []}, {'Arabic Extended-A': []}, {'Arabic Extended-B': []}, {'Arabic Extended-C': []}, {'Arabic Presentation Forms-A': []}, {'Arabic Presentation Forms-B': []}, {'Imperial Aramaic': []}, {'Avestan': []}, {'Chorasmian': []}, {'Cuneiform': []}, {'Cuneiform Numbers and Punctuation': []}, {'Early Dynastic Cuneiform': []}, {'Old Persian': []}, {'Ugaritic': []}, {'Elymaic': []}, {'Hatran': []}, {'Hebrew': ['Hebrew Presentation Forms']}, {'Mandaic': []}, {'Nabataean': []}, {'Old North Arabian': []}, {'Old South Arabian': []}, {'Inscriptional Pahlavi': []}, {'Psalter Pahlavi': []}, {'Palmyrene': []}, {'Inscriptional Parthian': []}, {'Phoenician': []}, {'Samaritan': []}, {'Syriac': ['Syriac Supplement']}, {'Yezidi': []}], 'Central Asian Scripts': [{'Manichaean': []}, {'Marchen': []}, {'Mongolian': []}, {'Mongolian Supplement': []}, {'Old Sogdian': []}, {'Old Turkic': []}, {'Old Uyghur': []}, {'Phags-pa': []}, {'Sogdian': []}, {'Soyombo': []}, {'Tibetan': []}, {'Zanabazar Square': []}], 'South Asian Scripts': [{'Ahom': []}, {'Bengali': []}, {'Bhaiksuki': []}, {'Brahmi': []}, {'Chakma': []}, {'Devanagari': []}, {'Devanagari Extended': []}, {'Devanagari Extended-A': []}, {'Dives Akuru': []}, {'Dogra': []}, {'Grantha': []}, {'Gujarati': []}, {'Gunjala Gondi': []}, {'Gurmukhi': []}, {'Kaithi': []}, {'Kannada': []}, {'Kharoshthi': []}, {'Khojki': []}, {'Khudawadi': []}, {'Lepcha': []}, {'Limbu': []}, {'Mahajani': []}, {'Malayalam': []}, {'Masaram Gondi': []}, {'Meetei Mayek': []}, {'Meetei Mayek Extensions': []}, {'Modi': []}, {'Mro': []}, {'Multani': []}, {'Nag Mundari': []}, {'Nandinagari': []}, {'Newa': []}, {'Ol Chiki': []}, {'Oriya': []}, {'Saurashtra': []}, {'Sharada': []}, {'Siddham': []}, {'Sinhala': []}, {'Sinhala Archaic Numbers': []}, {'Sora Sompeng': []}, {'Syloti Nagri': []}, {'Takri': []}, {'Tamil': []}, {'Tamil Supplement': []}, {'Telugu': []}, {'Thaana': []}, {'Tirhuta': []}, {'Toto': []}, {'Vedic Extensions': []}, {'Wancho': []}, {'Warang Citi': []}], 'Southeast Asian Scripts': [{'Cham': []}, {'Hanifi Rohingya': []}, {'Kayah Li': []}, {'Khmer': []}, {'Khmer Symbols': []}, {'Lao': []}, {'Myanmar': []}, {'Myanmar Extended-A': []}, {'Myanmar Extended-B': []}, {'New Tai Lue': []}, {'Nyiakeng Puachue Hmong': []}, {'Pahawh Hmong': []}, {'Pau Cin Hau': []}, {'Tai Le': []}, {'Tai Tham': []}, {'Tai Viet': []}, {'Tangsa': []}, {'Thai': []}], 'Indonesian & Philippine Scripts': [{'Balinese': []}, {'Batak': []}, {'Buginese': []}, {'Buhid': []}, {'Hanunoo': []}, {'Javanese': []}, {'Kawi': []}, {'Makasar': []}, {'Rejang': []}, {'Sundanese': []}, {'Sundanese Supplement': []}, {'Tagalog': []}, {'Tagbanwa': []}], 'East Asian Scripts': [{'Bopomofo': []}, {'Bopomofo Extended': []}, {'CJK Unified Ideographs': []}, {'CJK Unified Ideographs Extension A': []}, {'CJK Unified Ideographs Extension B': []}, {'CJK Unified Ideographs Extension C': []}, {'CJK Unified Ideographs Extension D': []}, {'CJK Unified Ideographs Extension E': []}, {'CJK Unified Ideographs Extension F': []}, {'CJK Unified Ideographs Extension G': []}, {'CJK Unified Ideographs Extension H': []}, {'CJK Compatibility Ideographs': []}, {'CJK Compatibility Ideographs Supplement': []}, {'Kangxi Radicals': []}, {'CJK Radicals Supplement': []}, {'CJK Strokes': []}, {'Ideographic Description Characters': []}, {'Hangul Jamo': []}, {'Hangul Jamo Extended-A': []}, {'Hangul Jamo Extended-B': []}, {'Hangul Compatibility Jamo': []}, {'Hangul Syllables': []}, {'Hiragana': []}, {'Kana Extended-A': []}, {'Kana Extended-B': []}, {'Kana Supplement': []}, {'Small Kana Extension': []}, {'Kanbun': []}, {'Katakana': []}, {'Katakana Phonetic Extensions': []}, {'Khitan Small Script': []}, {'Lisu': []}, {'Lisu Supplement': []}, {'Miao': []}, {'Nushu': []}, {'Tangut': []}, {'Tangut Components': []}, {'Tangut Supplement': []}, {'Yi': []}, {'Yi Syllables': []}, {'Yi Radicals': []}]}
+
+SYMBOLS_GROUPS = {'Notational Systems': [{'Braille Patterns': []}, {'Musical Symbols': []}, {'Ancient Greek Musical Notation': []}, {'Byzantine Musical Symbols': []}, {'Znamenny Musical Notation': []}, {'Duployan': []}, {'Shorthand Format Controls': []}, {'Sutton SignWriting': []}], 'Punctuation': [{'General Punctuation': []}, {'Supplemental Punctuation': []}, {'CJK Symbols and Punctuation': []}, {'Ideographic Symbols and Punctuation': []}, {'CJK Compatibility Forms': []}, {'Halfwidth and Fullwidth Forms': []}, {'Small Form Variants': []}, {'Vertical Forms': []}], 'Alphanumeric Symbols': [{'Letterlike Symbols': []}, {'Mathematical Alphanumeric Symbols': []}, {'Arabic Mathematical Alphabetic Symbols': []}, {'Enclosed Alphanumerics': []}, {'Enclosed Alphanumeric Supplement': []}, {'Enclosed CJK Letters and Months': []}, {'Enclosed Ideographic Supplement': []}, {'CJK Compatibility': []}], 'Technical Symbols': [{'Control Pictures': []}, {'Miscellaneous Technical': []}, {'Optical Character Recognition': []}], 'Numbers & Digits': [{'Common Indic Number Forms': []}, {'Coptic Epact Numbers': []}, {'Counting Rod Numerals': []}, {'Cuneiform Numbers and Punctuation': []}, {'Indic Siyaq Numbers': []}, {'Kaktovik Numerals': []}, {'Mayan Numerals': []}, {'Number Forms': []}, {'Ottoman Siyaq Numbers': []}, {'Rumi Numeral Symbols': []}, {'Sinhala Archaic Numbers': []}, {'Superscripts and Subscripts': []}], 'Mathematical Symbols': [{'Arrows': []}, {'Supplemental Arrows-A': []}, {'Supplemental Arrows-B': []}, {'Supplemental Arrows-C': []}, {'Miscellaneous Symbols and Arrows': []}, {'Mathematical Alphanumeric Symbols': []}, {'Arabic Mathematical Alphabetic Symbols': []}, {'Letterlike Symbols': []}, {'Mathematical Operators': []}, {'Supplemental Mathematical Operators': []}, {'Miscellaneous Mathematical Symbols-A': []}, {'Miscellaneous Mathematical Symbols-B': []}, {'Geometric Shapes': []}, {'Box Drawing': []}, {'Block Elements': []}, {'Geometric Shapes Extended': []}], 'Emoji & Pictographs': [{'Dingbats': []}, {'Ornamental Dingbats': []}, {'Emoticons': []}, {'Miscellaneous Symbols': []}, {'Miscellaneous Symbols and Pictographs': []}, {'Supplemental Symbols and Pictographs': []}, {'Symbols and Pictographs Extended-A': []}, {'Transport and Map Symbols': []}], 'Other Symbols': [{'Alchemical Symbols': []}, {'Ancient Symbols': []}, {'Currency Symbols': []}, {'Game Symbols': []}, {'Chess Symbols': []}, {'Domino Tiles': []}, {'Mahjong Tiles': []}, {'Playing Cards': []}, {'Miscellaneous Symbols and Arrows': []}, {'Symbols for Legacy Computing': []}, {'Yijing Symbols': []}, {'Yijing Hexagram Symbols': []}, {'Tai Xuan Jing Symbols': []}], 'Specials': [{'Specials': []}, {'Tags': []}, {'Variation Selectors': []}, {'Variation Selectors Supplement': []}], 'Private Use': [{'Private Use Area': []}, {'Supplementary Private Use Area-A': []}, {'Supplementary Private Use Area-B': []}], 'Surrogates': [{'High Surrogates': []}, {'Low Surrogates': []}]}
+
+BLOCKS = {'Basic Latin': (0, 127), 'Latin-1 Supplement': (128, 255), 'Latin Extended-A': (256, 383), 'Latin Extended-B': (384, 591), 'IPA Extensions': (592, 687), 'Spacing Modifier Letters': (688, 767), 'Combining Diacritical Marks': (768, 879), 'Greek and Coptic': (880, 1023), 'Cyrillic': (1024, 1279), 'Cyrillic Supplement': (1280, 1327), 'Armenian': (1328, 1423), 'Hebrew': (1424, 1535), 'Arabic': (1536, 1791), 'Syriac': (1792, 1871), 'Arabic Supplement': (1872, 1919), 'Thaana': (1920, 1983), 'NKo': (1984, 2047), 'Samaritan': (2048, 2111), 'Mandaic': (2112, 2143), 'Syriac Supplement': (2144, 2159), 'Arabic Extended-B': (2160, 2207), 'Arabic Extended-A': (2208, 2303), 'Devanagari': (2304, 2431), 'Bengali': (2432, 2559), 'Gurmukhi': (2560, 2687), 'Gujarati': (2688, 2815), 'Oriya': (2816, 2943), 'Tamil': (2944, 3071), 'Telugu': (3072, 3199), 'Kannada': (3200, 3327), 'Malayalam': (3328, 3455), 'Sinhala': (3456, 3583), 'Thai': (3584, 3711), 'Lao': (3712, 3839), 'Tibetan': (3840, 4095), 'Myanmar': (4096, 4255), 'Georgian': (4256, 4351), 'Hangul Jamo': (4352, 4607), 'Ethiopic': (4608, 4991), 'Ethiopic Supplement': (4992, 5023), 'Cherokee': (5024, 5119), 'Unified Canadian Aboriginal Syllabics': (5120, 5759), 'Ogham': (5760, 5791), 'Runic': (5792, 5887), 'Tagalog': (5888, 5919), 'Hanunoo': (5920, 5951), 'Buhid': (5952, 5983), 'Tagbanwa': (5984, 6015), 'Khmer': (6016, 6143), 'Mongolian': (6144, 6319), 'Unified Canadian Aboriginal Syllabics Extended': (6320, 6399), 'Limbu': (6400, 6479), 'Tai Le': (6480, 6527), 'New Tai Lue': (6528, 6623), 'Khmer Symbols': (6624, 6655), 'Buginese': (6656, 6687), 'Tai Tham': (6688, 6831), 'Combining Diacritical Marks Extended': (6832, 6911), 'Balinese': (6912, 7039), 'Sundanese': (7040, 7103), 'Batak': (7104, 7167), 'Lepcha': (7168, 7247), 'Ol Chiki': (7248, 7295), 'Cyrillic Extended-C': (7296, 7311), 'Georgian Extended': (7312, 7359), 'Sundanese Supplement': (7360, 7375), 'Vedic Extensions': (7376, 7423), 'Phonetic Extensions': (7424, 7551), 'Phonetic Extensions Supplement': (7552, 7615), 'Combining Diacritical Marks Supplement': (7616, 7679), 'Latin Extended Additional': (7680, 7935), 'Greek Extended': (7936, 8191), 'General Punctuation': (8192, 8303), 'Superscripts and Subscripts': (8304, 8351), 'Currency Symbols': (8352, 8399), 'Combining Diacritical Marks for Symbols': (8400, 8447), 'Letterlike Symbols': (8448, 8527), 'Number Forms': (8528, 8591), 'Arrows': (8592, 8703), 'Mathematical Operators': (8704, 8959), 'Miscellaneous Technical': (8960, 9215), 'Control Pictures': (9216, 9279), 'Optical Character Recognition': (9280, 9311), 'Enclosed Alphanumerics': (9312, 9471), 'Box Drawing': (9472, 9599), 'Block Elements': (9600, 9631), 'Geometric Shapes': (9632, 9727), 'Miscellaneous Symbols': (9728, 9983), 'Dingbats': (9984, 10175), 'Miscellaneous Mathematical Symbols-A': (10176, 10223), 'Supplemental Arrows-A': (10224, 10239), 'Braille Patterns': (10240, 10495), 'Supplemental Arrows-B': (10496, 10623), 'Miscellaneous Mathematical Symbols-B': (10624, 10751), 'Supplemental Mathematical Operators': (10752, 11007), 'Miscellaneous Symbols and Arrows': (11008, 11263), 'Glagolitic': (11264, 11359), 'Latin Extended-C': (11360, 11391), 'Coptic': (11392, 11519), 'Georgian Supplement': (11520, 11567), 'Tifinagh': (11568, 11647), 'Ethiopic Extended': (11648, 11743), 'Cyrillic Extended-A': (11744, 11775), 'Supplemental Punctuation': (11776, 11903), 'CJK Radicals Supplement': (11904, 12031), 'Kangxi Radicals': (12032, 12255), 'Ideographic Description Characters': (12272, 12287), 'CJK Symbols and Punctuation': (12288, 12351), 'Hiragana': (12352, 12447), 'Katakana': (12448, 12543), 'Bopomofo': (12544, 12591), 'Hangul Compatibility Jamo': (12592, 12687), 'Kanbun': (12688, 12703), 'Bopomofo Extended': (12704, 12735), 'CJK Strokes': (12736, 12783), 'Katakana Phonetic Extensions': (12784, 12799), 'Enclosed CJK Letters and Months': (12800, 13055), 'CJK Compatibility': (13056, 13311), 'CJK Unified Ideographs Extension A': (13312, 19903), 'Yijing Hexagram Symbols': (19904, 19967), 'CJK Unified Ideographs': (19968, 40959), 'Yi Syllables': (40960, 42127), 'Yi Radicals': (42128, 42191), 'Lisu': (42192, 42239), 'Vai': (42240, 42559), 'Cyrillic Extended-B': (42560, 42655), 'Bamum': (42656, 42751), 'Modifier Tone Letters': (42752, 42783), 'Latin Extended-D': (42784, 43007), 'Syloti Nagri': (43008, 43055), 'Common Indic Number Forms': (43056, 43071), 'Phags-pa': (43072, 43135), 'Saurashtra': (43136, 43231), 'Devanagari Extended': (43232, 43263), 'Kayah Li': (43264, 43311), 'Rejang': (43312, 43359), 'Hangul Jamo Extended-A': (43360, 43391), 'Javanese': (43392, 43487), 'Myanmar Extended-B': (43488, 43519), 'Cham': (43520, 43615), 'Myanmar Extended-A': (43616, 43647), 'Tai Viet': (43648, 43743), 'Meetei Mayek Extensions': (43744, 43775), 'Ethiopic Extended-A': (43776, 43823), 'Latin Extended-E': (43824, 43887), 'Cherokee Supplement': (43888, 43967), 'Meetei Mayek': (43968, 44031), 'Hangul Syllables': (44032, 55215), 'Hangul Jamo Extended-B': (55216, 55295), 'High Surrogates': (55296, 56191), 'High Private Use Surrogates': (56192, 56319), 'Low Surrogates': (56320, 57343), 'Private Use Area': (57344, 63743), 'CJK Compatibility Ideographs': (63744, 64255), 'Alphabetic Presentation Forms': (64256, 64335), 'Arabic Presentation Forms-A': (64336, 65023), 'Variation Selectors': (65024, 65039), 'Vertical Forms': (65040, 65055), 'Combining Half Marks': (65056, 65071), 'CJK Compatibility Forms': (65072, 65103), 'Small Form Variants': (65104, 65135), 'Arabic Presentation Forms-B': (65136, 65279), 'Halfwidth and Fullwidth Forms': (65280, 65519), 'Specials': (65520, 65535), 'Linear B Syllabary': (65536, 65663), 'Linear B Ideograms': (65664, 65791), 'Aegean Numbers': (65792, 65855), 'Ancient Greek Numbers': (65856, 65935), 'Ancient Symbols': (65936, 65999), 'Phaistos Disc': (66000, 66047), 'Lycian': (66176, 66207), 'Carian': (66208, 66271), 'Coptic Epact Numbers': (66272, 66303), 'Old Italic': (66304, 66351), 'Gothic': (66352, 66383), 'Old Permic': (66384, 66431), 'Ugaritic': (66432, 66463), 'Old Persian': (66464, 66527), 'Deseret': (66560, 66639), 'Shavian': (66640, 66687), 'Osmanya': (66688, 66735), 'Osage': (66736, 66815), 'Elbasan': (66816, 66863), 'Caucasian Albanian': (66864, 66927), 'Vithkuqi': (66928, 67007), 'Linear A': (67072, 67455), 'Latin Extended-F': (67456, 67519), 'Cypriot Syllabary': (67584, 67647), 'Imperial Aramaic': (67648, 67679), 'Palmyrene': (67680, 67711), 'Nabataean': (67712, 67759), 'Hatran': (67808, 67839), 'Phoenician': (67840, 67871), 'Lydian': (67872, 67903), 'Meroitic Hieroglyphs': (67968, 67999), 'Meroitic Cursive': (68000, 68095), 'Kharoshthi': (68096, 68191), 'Old South Arabian': (68192, 68223), 'Old North Arabian': (68224, 68255), 'Manichaean': (68288, 68351), 'Avestan': (68352, 68415), 'Inscriptional Parthian': (68416, 68447), 'Inscriptional Pahlavi': (68448, 68479), 'Psalter Pahlavi': (68480, 68527), 'Old Turkic': (68608, 68687), 'Old Hungarian': (68736, 68863), 'Hanifi Rohingya': (68864, 68927), 'Rumi Numeral Symbols': (69216, 69247), 'Yezidi': (69248, 69311), 'Arabic Extended-C': (69312, 69375), 'Old Sogdian': (69376, 69423), 'Sogdian': (69424, 69487), 'Old Uyghur': (69488, 69551), 'Chorasmian': (69552, 69599), 'Elymaic': (69600, 69631), 'Brahmi': (69632, 69759), 'Kaithi': (69760, 69839), 'Sora Sompeng': (69840, 69887), 'Chakma': (69888, 69967), 'Mahajani': (69968, 70015), 'Sharada': (70016, 70111), 'Sinhala Archaic Numbers': (70112, 70143), 'Khojki': (70144, 70223), 'Multani': (70272, 70319), 'Khudawadi': (70320, 70399), 'Grantha': (70400, 70527), 'Newa': (70656, 70783), 'Tirhuta': (70784, 70879), 'Siddham': (71040, 71167), 'Modi': (71168, 71263), 'Mongolian Supplement': (71264, 71295), 'Takri': (71296, 71375), 'Ahom': (71424, 71503), 'Dogra': (71680, 71759), 'Warang Citi': (71840, 71935), 'Dives Akuru': (71936, 72031), 'Nandinagari': (72096, 72191), 'Zanabazar Square': (72192, 72271), 'Soyombo': (72272, 72367), 'Unified Canadian Aboriginal Syllabics Extended-A': (72368, 72383), 'Pau Cin Hau': (72384, 72447), 'Devanagari Extended-A': (72448, 72543), 'Bhaiksuki': (72704, 72815), 'Marchen': (72816, 72895), 'Masaram Gondi': (72960, 73055), 'Gunjala Gondi': (73056, 73135), 'Makasar': (73440, 73471), 'Kawi': (73472, 73567), 'Lisu Supplement': (73648, 73663), 'Tamil Supplement': (73664, 73727), 'Cuneiform': (73728, 74751), 'Cuneiform Numbers and Punctuation': (74752, 74879), 'Early Dynastic Cuneiform': (74880, 75087), 'Cypro-Minoan': (77712, 77823), 'Egyptian Hieroglyphs': (77824, 78895), 'Egyptian Hieroglyph Format Controls': (78896, 78943), 'Anatolian Hieroglyphs': (82944, 83583), 'Bamum Supplement': (92160, 92735), 'Mro': (92736, 92783), 'Tangsa': (92784, 92879), 'Bassa Vah': (92880, 92927), 'Pahawh Hmong': (92928, 93071), 'Medefaidrin': (93760, 93855), 'Miao': (93952, 94111), 'Ideographic Symbols and Punctuation': (94176, 94207), 'Tangut': (94208, 100351), 'Tangut Components': (100352, 101119), 'Khitan Small Script': (101120, 101631), 'Tangut Supplement': (101632, 101759), 'Kana Extended-B': (110576, 110591), 'Kana Supplement': (110592, 110847), 'Kana Extended-A': (110848, 110895), 'Small Kana Extension': (110896, 110959), 'Nushu': (110960, 111359), 'Duployan': (113664, 113823), 'Shorthand Format Controls': (113824, 113839), 'Znamenny Musical Notation': (118528, 118735), 'Byzantine Musical Symbols': (118784, 119039), 'Musical Symbols': (119040, 119295), 'Ancient Greek Musical Notation': (119296, 119375), 'Kaktovik Numerals': (119488, 119519), 'Mayan Numerals': (119520, 119551), 'Tai Xuan Jing Symbols': (119552, 119647), 'Counting Rod Numerals': (119648, 119679), 'Mathematical Alphanumeric Symbols': (119808, 120831), 'Sutton SignWriting': (120832, 121519), 'Latin Extended-G': (122624, 122879), 'Glagolitic Supplement': (122880, 122927), 'Cyrillic Extended-D': (122928, 123023), 'Nyiakeng Puachue Hmong': (123136, 123215), 'Toto': (123536, 123583), 'Wancho': (123584, 123647), 'Nag Mundari': (124112, 124159), 'Ethiopic Extended-B': (124896, 124927), 'Mende Kikakui': (124928, 125151), 'Adlam': (125184, 125279), 'Indic Siyaq Numbers': (126064, 126143), 'Ottoman Siyaq Numbers': (126208, 126287), 'Arabic Mathematical Alphabetic Symbols': (126464, 126719), 'Mahjong Tiles': (126976, 127023), 'Domino Tiles': (127024, 127135), 'Playing Cards': (127136, 127231), 'Enclosed Alphanumeric Supplement': (127232, 127487), 'Enclosed Ideographic Supplement': (127488, 127743), 'Miscellaneous Symbols and Pictographs': (127744, 128511), 'Emoticons': (128512, 128591), 'Ornamental Dingbats': (128592, 128639), 'Transport and Map Symbols': (128640, 128767), 'Alchemical Symbols': (128768, 128895), 'Geometric Shapes Extended': (128896, 129023), 'Supplemental Arrows-C': (129024, 129279), 'Supplemental Symbols and Pictographs': (129280, 129535), 'Chess Symbols': (129536, 129647), 'Symbols and Pictographs Extended-A': (129648, 129791), 'Symbols for Legacy Computing': (129792, 130047), 'CJK Unified Ideographs Extension B': (131072, 173791), 'CJK Unified Ideographs Extension C': (173824, 177983), 'CJK Unified Ideographs Extension D': (177984, 178207), 'CJK Unified Ideographs Extension E': (178208, 183983), 'CJK Unified Ideographs Extension F': (183984, 191471), 'CJK Compatibility Ideographs Supplement': (194560, 195103), 'CJK Unified Ideographs Extension G': (196608, 201551), 'CJK Unified Ideographs Extension H': (201552, 205743), 'Tags': (917504, 917631), 'Variation Selectors Supplement': (917760, 917999), 'Supplementary Private Use Area-A': (983040, 1048575), 'Supplementary Private Use Area-B': (1048576, 1114111)}
 
 
-def get_random_char_int(start, stop, tries_remaining=5):
+def print_block(block_name, close=True):
     try:
-        random_int = randint(char_range[0]+1, char_range[1])
-        xml = f"<u>&#x{hex(random_int)[2:].upper().zfill(4)};</u>"
-        etree.fromstring(xml)
-        return random_int
-    except etree.XMLSyntaxError:
-        if tries_remaining == 0:
-            return random_int
-        else:
-            return get_random_char_int(start, stop, tries_remaining=tries_remaining-1)
+        char_range = BLOCKS[block_name]
+    except KeyError:
+        print(f'<section><name>{block_name}</name>')
+        if close:
+            print('</section>')
+        return
 
+    print('<section>')
+    print(f'<name>{block_name}</name>')
+    print(f'<t>Unicode character range: U+{hex(char_range[0])[2:].upper().zfill(4)}..U+{hex(char_range[1])[2:].upper().zfill(4)}</t>')
+    print(f'<t><eref target="https://www.unicode.org/charts/PDF/U{hex(char_range[0])[2:].upper().zfill(4)}.pdf">Unicode {block_name} character list</eref></t>')
+    print(f'''
+<table>
+  <name>{block_name} Characters</name>
+  <thead>
+    <tr>
+      <th>Character</th>
+      <th>xml2rfc scripts</th>
+      <th>xml2rfc fonts</th>
+    </tr>
+  </thead>
+<tbody>''')
+    for char_int in range(char_range[0], char_range[1])[:35]:
+        print('<tr>')
+        try:
+            xml = f'<u>&#x{hex(char_int)[2:].upper().zfill(4)};</u>'
+            etree.fromstring(xml)
+            char = chr(char_int)
+            scripts = which_scripts(char)
+            scripts_list = ', '.join(scripts)
+            fonts = ','.join(set([get_noto_serif_family_for_script(script) for script in scripts if script != 'Unknown']))
+            print(f'<td>{xml}</td>')
+            print(f'<td>{scripts_list}</td>')
+            print(f'<td>{fonts}</td>')
+        except etree.XMLSyntaxError:
+            print(f'<td>{hex(char_int)[2:].upper().zfill(4)} is not supported</td>')
+            print(f'<td></td>')
+            print(f'<td></td>')
+        print('</tr>')
+    print('</tbody>')
+    print('</table>')
+    if close:
+        print('</section>')
 
 
 print(DRAFT_HEAD)
 
+# Scripts section
+print('''
+<section>
+  <name>Scripts</name>
+  <t>This section covers Unicode scripts as defined in <xref target="charts" />.</t>''')
+for script_group, scripts in SCRIPTS_GROUPS.items():
+    print(f'<section><name>{escape(script_group)}</name>')
+    for script_dict in scripts:
+        for script, partial_scripts in script_dict.items():
+            if len(partial_scripts) == 0:
+                print_block(script)
+            else:
+                print_block(script, close=False)
+                for partial_script in partial_scripts:
+                    print_block(partial_script)
+                print('</section>')
+    print('</section>')
+print('</section>')
 
-for block_name, char_range in BLOCKS.items():
-    print("      <section>")
-    print(f"        <name>{block_name}</name>")
-    random_int = get_random_char_int(char_range[0], char_range[1])
-    random_char = chr(random_int)
-    scripts = which_scripts(random_char)
-    scripts_list = ", ".join(scripts)
-    print(f"        <t>Unicode character range: {hex(char_range[0])[2:].upper().zfill(4)}..{hex(char_range[1])[2:].upper().zfill(4)}</t>")
-    print(f'        <t><eref target="https://www.unicode.org/charts/PDF/U{hex(char_range[0])[2:].upper().zfill(4)}.pdf">Unicode {block_name} character list</eref></t>')
-    print(f"        <t>Scripts list as identified by xml2rfc: {scripts_list}</t>")
-
-    valid_fonts = [i for i in scripts if i != 'Unknown']
-    if len(valid_fonts) > 0:
-        print("        <t>Following fonts are available:</t>")
-        print("        <ul>")
-        for script in valid_fonts:
-            font_family = get_noto_serif_family_for_script(script)
-            print(f"          <li>{font_family}</li>")
-        print("        </ul>")
-        print(f"        <t>Example: <u>&#x{hex(random_int)[2:].upper().zfill(4)};</u></t>")
-    else:
-        print("        <t>There are no supported fonts.</t>")
-    print("      </section>")
-
+# Symbols and Punctuation section
+print('''
+<section>
+  <name>Symbols and Punctuation</name>
+  <t>This section covers Unicode symbols and punctuation as defined in <xref target="charts" />.</t>''')
+for script_group, scripts in SYMBOLS_GROUPS.items():
+    print(f'<section><name>{escape(script_group)}</name>')
+    for script_dict in scripts:
+        for script, partial_scripts in script_dict.items():
+            if len(partial_scripts) == 0:
+                print_block(script)
+            else:
+                print_block(script, close=False)
+                for partial_script in partial_scripts:
+                    print_block(partial_script)
+                print('</section>')
+    print('</section>')
+print('</section>')
 
 print(DRAFT_TAIL)
