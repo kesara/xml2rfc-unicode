@@ -12,7 +12,7 @@
         <email>kesara@fq.nz</email>
       </address>
     </author>
-    <date year="2023" month="March" day="07"/>
+    <date year="2023" month="August" day="29"/>
     <abstract>
       <t>This draft is an experiment to explore what happens when various Unicode characters are on an Internet-Draft and how xml2rfc handles that.</t>
     </abstract>
