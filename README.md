@@ -1,9 +1,9 @@
 # Experiment with Unicode characters in xml2rfc
 
-* XML: [draft-rathnayake-xml2rfc-unicode-00.xml](draft-rathnayake-xml2rfc-unicode-00.xml)
-* PDF: [draft-rathnayake-xml2rfc-unicode-00.pdf](draft-rathnayake-xml2rfc-unicode-00.pdf)
-* Text: [draft-rathnayake-xml2rfc-unicode-00.txt](draft-rathnayake-xml2rfc-unicode-00.txt)
-* HTML: [draft-rathnayake-xml2rfc-unicode-00.html](draft-rathnayake-xml2rfc-unicode-00.html)
+* XML: [draft-rathnayake-xml2rfc-unicode-01.xml](draft-rathnayake-xml2rfc-unicode-01.xml)
+* PDF: [draft-rathnayake-xml2rfc-unicode-01.pdf](draft-rathnayake-xml2rfc-unicode-01.pdf)
+* Text: [draft-rathnayake-xml2rfc-unicode-01.txt](draft-rathnayake-xml2rfc-unicode-01.txt)
+* HTML: [draft-rathnayake-xml2rfc-unicode-01.html](draft-rathnayake-xml2rfc-unicode-01.html)
 
 ## Generate draft
 
